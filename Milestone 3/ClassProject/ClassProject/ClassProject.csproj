@@ -180,15 +180,8 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
     <Content Include="Content\9432d5dabcdfc401a45ce47113b79dad.jpg" />
-=======
-    <Content Include="App_Data\ClassDB.mdf" />
-    <Content Include="App_Data\ClassDB_log.ldf">
-      <DependentUpon>ClassDB.mdf</DependentUpon>
-    </Content>:
-    <Content Include="App_Data\Up.sql" />
->>>>>>> dev
+
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
