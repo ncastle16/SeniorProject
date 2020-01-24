@@ -16,8 +16,26 @@
     white-space: normal;
 }
 
+.header{
+    
+    font-style: oblique;
+}
+
+.login {
+    border-radius: 5px;
+    background-color: #dddcdc;
+    padding: 10px;
+    background-image: url(9432d5dabcdfc401a45ce47113b79dad.jpg) ;
+    background-repeat:repeat;
+    background-size: 100%;
+}
+
 /* Set width on the form input elements since they're 100% wide by default */
-input,
+input[type=submit]{
+    background-color: #0d932f;
+    color:white;
+}
+
 select,
 textarea {
     max-width: 280px;
