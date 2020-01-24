@@ -243,6 +243,7 @@ th {
   }
   .navbar {
     display: none;
+   
   }
   .btn > .caret,
   .dropup > .btn > .caret {
@@ -4348,12 +4349,41 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   }
 }
 .navbar-brand {
-  float: left;
-  height: 50px;
-  padding: 15px 15px;
-  font-size: 18px;
-  line-height: 20px;
+    float: left;
+    height: 50px;
+    padding: 15px 15px;
+    font-size: 18px;
+    line-height: 20px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: white;
+    
 }
+#totalnav {
+    background: url(https://ohiocryo.com/wp-content/uploads/2015/08/Underwater-photograph-of-014.jpg) border-box;
+    background-size: 50%;
+}
+.navbar-nav li {
+    background-color: #27408b;
+    border: 2px solid #5e5e5e;
+    color: white !important;
+}
+.nav-bar-button{
+    background-color:darkorange;
+    color:white !important;
+}
+.nav-login {
+   
+}
+.navbar a {
+color: white !important; 
+}
+.mynav {
+    color: white !important; 
+}
+a:hover{
+    background-color: dodgerblue !important; 
+}
+
 .navbar-brand:hover,
 .navbar-brand:focus {
   text-decoration: none;
@@ -4546,14 +4576,16 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   margin-bottom: 14px;
 }
 .navbar-text {
-  margin-top: 15px;
-  margin-bottom: 15px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    color: white;
 }
 @media (min-width: 768px) {
   .navbar-text {
     float: left;
     margin-right: 15px;
     margin-left: 15px;
+   
   }
 }
 @media (min-width: 768px) {
@@ -4581,10 +4613,10 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   background-color: transparent;
 }
 .navbar-default .navbar-text {
-  color: #777;
+  color: white;
 }
 .navbar-default .navbar-nav > li > a {
-  color: #777;
+  color: white;
 }
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus {
