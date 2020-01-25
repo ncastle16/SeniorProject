@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿CREATE TABLE [dbo].[Athletes]
 (
 	[AID] INT IDENTITY (1,1) NOT NULL,
@@ -78,3 +79,6 @@ CREATE TABLE [dbo].[Times]
 	CONSTRAINT [Fk_dbo.Times_dbo.Events_EID] FOREIGN KEY ([EventID]) REFERENCES [dbo].[Events] ([EID]) ON DELETE CASCADE
 );
 
+=======
+﻿
+>>>>>>> 2dabd9ddf33315a30b28db44d2ee9198b9a12981
