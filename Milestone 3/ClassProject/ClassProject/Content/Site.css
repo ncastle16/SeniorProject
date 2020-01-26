@@ -40,3 +40,19 @@ select,
 textarea {
     max-width: 280px;
 }
+
+#totalnav {
+    background: url(https://ohiocryo.com/wp-content/uploads/2015/08/Underwater-photograph-of-014.jpg) border-box;
+    background-size: 50%;
+}
+
+.navbar-nav li {
+    background-color: #27408b;
+    border: 2px solid #5e5e5e;
+    color: white !important;
+}
+
+.nav-bar-button {
+    background-color: darkorange;
+    color: white !important;
+}
