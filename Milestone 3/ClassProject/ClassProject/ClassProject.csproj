@@ -263,6 +263,8 @@
     <Content Include="Views\Athletes\Details.cshtml" />
     <Content Include="Views\Athletes\Edit.cshtml" />
     <Content Include="Views\Athletes\Index.cshtml" />
+    <Content Include="Views\Athletes\PrivacyPolicy.cshtml" />
+    <Content Include="Views\Athletes\FAQ.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
