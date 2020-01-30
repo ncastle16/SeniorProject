@@ -57,10 +57,22 @@
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - our project</p>
-        </footer>
     </div>
+
+    <footer>
+        <div class="container-fluid">
+            <div class="row">
+                <ul style="float:right" class="button">
+                    <li class="button">
+                        <a href="/Athletes/FAQ" style="color:black">FAQ</a> | <a href="/Athletes/PrivacyPolicy" style="color:black">Privacy Policy</a>
+                    </li>
+                </ul>
+                <p>&copy; @DateTime.Now.Year - Our Project</p>
+
+            </div>
+        </div>
+    </footer>
+
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
