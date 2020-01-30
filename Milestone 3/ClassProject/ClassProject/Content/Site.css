@@ -56,3 +56,20 @@ textarea {
     background-color: darkorange;
     color: white !important;
 }
+
+footer {
+    bottom:0;
+    width: 100%;
+    height:60px;
+    background-color:dodgerblue;
+}
+
+.center{
+    text-align: center;
+    border:2px solid black;
+    background-color:antiquewhite;
+}
+
+.link {
+    color:black;
+}
