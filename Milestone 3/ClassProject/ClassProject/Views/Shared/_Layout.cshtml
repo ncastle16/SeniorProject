@@ -64,7 +64,8 @@
             <div class="row">
                 <ul style="float:right" class="button">
                     <li class="button">
-                        <a href="/Athletes/FAQ" style="color:black">FAQ</a> | <a href="/Athletes/PrivacyPolicy" style="color:black">Privacy Policy</a>
+                        @Html.ActionLink("FAQ", "FAQ", "Athletes", new { area = "" }, new { @style = "color:black" }) | 
+                        @Html.ActionLink("Privacy Policy", "PrivacyPolicy", "Athletes", new { area = "" }, new { @style = "color:black" })
                     </li>
                 </ul>
                 <p>&copy; @DateTime.Now.Year - Our Project</p>
