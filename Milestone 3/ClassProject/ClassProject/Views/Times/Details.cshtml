@@ -1,0 +1,100 @@
+﻿
+@model IEnumerable<ClassProject.Models.Time>
+
+
+@{
+    ViewBag.Title = "Details";
+}
+
+
+    <body class="home-bg" id="timediv">
+        
+
+
+        
+        <hr />
+        <div class="row">
+            <div class="col-md-3" id="detailstab">
+                <table class="table" id="mytable">
+                    <tr>
+                        <th>Race Types</th>
+                        <th>Distances</th>
+                    </tr>
+                    <tr>
+                        <td>Freestyle</td>
+                        <td>50m, 100m, 200m, 400m, 800m, 1500m</td>
+                    </tr>
+                    <tr>
+                        <td>Backstroke</td>
+                        <td>100m, 200m</td>
+                    </tr>
+                    <tr>
+                        <td>Breaststroke</td>
+                        <td>100m, 200m</td>
+                    </tr>
+                    <tr>
+                        <td>Butterfly</td>
+                        <td>100m, 200m</td>
+                    </tr>
+                    <tr>
+                        <td>Medley</td>
+                        <td>200m, 400m</td>
+                    </tr>
+                    <tr>
+                        <td>Freestyle Relay</td>
+                        <td>4 X 100m</td>
+                    </tr>
+                    <tr>
+                        <td>Open Water</td>
+                        <td>10KM</td>
+                    </tr>
+
+                </table>
+                <table class="table" id="mytable">
+                    <tr>
+                        <th>World Records</th>
+                        <th>Times</th>
+                    </tr>
+                    <tr>
+                        <td>50m Freestyle</td>
+                        <td>20.91</td>
+                    </tr>
+                    <tr>
+                        <td>100m Freestyle</td>
+                        <td>46.91</td>
+                    </tr>
+                    <tr>
+                        <td>200m Freestyle</td>
+                        <td>1:42.00</td>
+                    </tr>
+
+
+                </table>
+
+            </div>
+            <div class="col-md-6">
+                <h2 class="indexh2">@ViewBag.tam Race Details</h2>
+                
+                <table class="table" id="mytable">
+                    <tr>
+                        <th>Race</th>
+                        <th>Times</th>
+                    </tr>
+                    @foreach (var item in Model)
+                    {
+                <tr>
+                    <td> @Html.DisplayFor(modelItem => item.Event.EventType.EventName) </td>
+                    <td> @Html.DisplayFor(modelItem => item.Time1) </td>
+                    
+
+                </tr>
+
+                    }
+                </table>
+            </div>
+
+        </div>
+       
+       
+
+    </body>
