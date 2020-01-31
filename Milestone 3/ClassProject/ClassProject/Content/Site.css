@@ -1,7 +1,20 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+﻿html, body {
+    height: 100%;
+    background-color: lightblue;
 }
+
+.wrapper {
+    min-height: 100%;
+    margin-bottom: -60px;
+    padding-bottom: 60px;
+}
+
+body {
+    padding-top: 50px;
+    
+}
+
+
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
@@ -72,7 +85,39 @@ a.detailsbutton{
     color: white !important;
 }
 
+.navbar-title {
+    background-color: darkblue;
+    border: 2px solid black;
+    color: white;
+    line-height: 50px;
+    padding: 0px 20px 0px 20px;
+    margin: 0px 5px 0px 0px;
+}
+
+.button {
+    margin: 0px 5px 0px 5px;
+}
+
 .nav-bar-button {
     background-color: darkorange;
     color: white !important;
+    float: right;
+}
+
+footer {
+
+    width: 100%;
+    height: 60px;
+    background-color: dodgerblue;
+}
+
+
+.center{
+    text-align: center;
+    border:2px solid black;
+    background-color:antiquewhite;
+}
+
+.link {
+    color:black;
 }

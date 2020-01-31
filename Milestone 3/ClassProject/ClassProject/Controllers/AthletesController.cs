@@ -115,6 +115,15 @@ namespace ClassProject.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult PrivacyPolicy()
+        {
+            return View();
+        }
+        public ActionResult FAQ()
+        {
+            return View();
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
