@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using ClassProject.Models;
+using reCAPTCHA.MVC;
 
 namespace ClassProject.Controllers
 {
@@ -147,7 +148,8 @@ namespace ClassProject.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        [CaptchaValidator]
+        public async Task<ActionResult> Register(RegisterViewModel model, bool catchaValid)
         {
             if (ModelState.IsValid)
             {
@@ -169,6 +171,10 @@ namespace ClassProject.Controllers
             }
 
             // If we got this far, something failed, redisplay form
+            if (ModelState.IsValid)
+            {
+
+            }
             return View(model);
         }
 
