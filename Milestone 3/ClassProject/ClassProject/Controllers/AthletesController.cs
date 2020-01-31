@@ -20,6 +20,21 @@ namespace ClassProject.Controllers
             return View(db.Athletes.ToList());
         }
 
+        public ActionResult Search()
+        {
+            return View(db.Athletes.ToList());
+        }
+
+        [HttpPost]
+        public ActionResult Search(string Search)
+        {
+            //var athletes = db.Athletes.Include(s => s.Name).Include(s => s.DOB).Include(s => s.AthleteTeams); 
+            var athletes = db.Athletes.Where(s => s.Name.Contains(Search));
+
+            return View(athletes.ToList());
+        }
+
+
         // GET: Athletes/Details/5
         public ActionResult Details(int? id)
         {
@@ -32,6 +47,10 @@ namespace ClassProject.Controllers
             {
                 return HttpNotFound();
             }
+
+            var times = db.Times.Where(s => s.AthleteID.Equals(athlete.AID));
+
+            ViewBag.times = times.ToList();
             return View(athlete);
         }
 
