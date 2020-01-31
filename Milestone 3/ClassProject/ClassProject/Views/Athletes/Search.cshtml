@@ -1,0 +1,32 @@
+﻿@model IEnumerable<ClassProject.Models.Athlete>
+
+@{
+    ViewBag.Title = "Search";
+}
+
+<h2>Search</h2>
+<body class="home-bg">
+    @using (Html.BeginForm("Search", "Athletes", FormMethod.Post))
+    {
+        @Html.TextBox("Search")
+        <input type="submit" value="Search" />
+        <br />
+        <br />
+        <table cellpadding="2" cellspacing="5">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.ActionLink(item.Name, "Details", new { id = item.AID })
+                    </td>
+                </tr>
+
+            }
+        </table>
+    }
+</body>

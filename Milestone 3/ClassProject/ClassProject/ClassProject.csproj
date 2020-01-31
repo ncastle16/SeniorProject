@@ -268,16 +268,14 @@
     <Content Include="Views\Athletes\Details.cshtml" />
     <Content Include="Views\Athletes\Edit.cshtml" />
     <Content Include="Views\Athletes\Index.cshtml" />
-
     <Content Include="Views\Times\Create.cshtml" />
     <Content Include="Views\Times\Delete.cshtml" />
     <Content Include="Views\Times\Details.cshtml" />
     <Content Include="Views\Times\Edit.cshtml" />
     <Content Include="Views\Times\Index.cshtml" />
-
     <Content Include="Views\Athletes\PrivacyPolicy.cshtml" />
     <Content Include="Views\Athletes\FAQ.cshtml" />
-
+    <Content Include="Views\Athletes\Search.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -18,7 +18,8 @@ INSERT INTO [dbo].[Teams] (Name, CoachID) VALUES
 	('Sweets Kendama', '1')
 
 INSERT INTO [dbo].[Times] (AthleteID, EventID, Time) VALUES
-	('1', '1', '0:0:1')
+	('1', '1', '0:0:1'),
+	('2', '1', '0:1:1')
 
 INSERT INTO [dbo].[AthleteTeams] (AthleteID, TeamID) VALUES 
 	('1', '1')
