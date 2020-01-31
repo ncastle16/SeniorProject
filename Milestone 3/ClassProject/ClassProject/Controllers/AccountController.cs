@@ -149,13 +149,19 @@ namespace ClassProject.Controllers
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         [CaptchaValidator]
-        public async Task<ActionResult> Register(RegisterViewModel model, bool catchaValid)
+        public async Task<ActionResult> Register(RegisterViewModel model, bool captchaValid)
         {
             if (ModelState.IsValid)
             {
+
+                if (!captchaValid)
+                {
+                    ModelState.AddModelError("_FORM", "You did not type the verification word correctly. Please try again.");
+                }
+
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
+                if (result.Succeeded && captchaValid)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
@@ -168,12 +174,6 @@ namespace ClassProject.Controllers
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
-            }
-
-            // If we got this far, something failed, redisplay form
-            if (ModelState.IsValid)
-            {
-
             }
             return View(model);
         }
