@@ -3,6 +3,9 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+Web_Deploy.config
+AppSettingsSecrets.config
+
 /HW1/*
 /HW2/*
 
@@ -10,9 +13,9 @@
 *.rsuser
 *.suo
 *.user
+*.orig
 *.userosscache
 *.sln.docstates
-*.orig
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
