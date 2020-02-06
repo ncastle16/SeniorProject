@@ -21,7 +21,7 @@ namespace ClassProject.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("ClassContext_Azure", throwIfV1Schema: false)
         {
         }
 
