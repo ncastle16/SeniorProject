@@ -182,6 +182,11 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\dhcDB.mdf" />
+    <Content Include="App_Data\dhcDB_log.ldf">
+      <DependentUpon>dhcDB.mdf</DependentUpon>
+    </Content>
+    <Content Include="App_Data\Up.sql" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -242,7 +247,7 @@
     <Content Include="Views\Routes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <Folder Include="DAL\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
