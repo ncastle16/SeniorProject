@@ -182,10 +182,6 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\dhcDB.mdf" />
-    <Content Include="App_Data\dhcDB_log.ldf">
-      <DependentUpon>dhcDB.mdf</DependentUpon>
-    </Content>
     <Content Include="App_Data\Up.sql" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
