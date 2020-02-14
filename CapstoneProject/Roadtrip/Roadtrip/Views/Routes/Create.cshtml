@@ -2,6 +2,7 @@
     ViewBag.Title = "Home Page";
 }
 
+
 <div class="jumbotron" style="text-align:center">
     <h1>Create a route!</h1>
 </div>
@@ -37,3 +38,33 @@
 {
     <script src="~/Scripts/main.js"></script>
 }
+
+    <div class="jumbotron" style="text-align:center">
+        <h1>Create a route!</h1>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+
+                <form class="form-inline">
+                    <div class="form-group">
+                        @Html.Label("Within")
+                        @Html.TextBox("numbers", 10, new
+                   {
+                       @class = "form-control",
+                       @placeholder = "15",
+                       @type = "number",
+                       @min = 1,
+                       @max = 50,
+                       @style = "width: 60px;"
+                   })
+                        @Html.Label("Miles")
+                        <button id="findLocationButton" class="btn btn-default">Find Locations</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+
