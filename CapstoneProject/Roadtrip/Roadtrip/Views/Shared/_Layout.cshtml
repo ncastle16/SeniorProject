@@ -22,7 +22,44 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                 </ul>
-                <!--@Html.Partial("_LoginPartial")uncomment to enable login features-->
+                @if (Request.IsAuthenticated)
+                {
+                    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <li class="btn-group nav">
+                            
+                            <button type="button" class="btn navbar-btn">Hello, @User.Identity.Name!</button>
+                            <button type="button" class="btn navbar-btn dropdown-toggle" data-toggle="dropdown">
+                                <span class="caret"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li class="disabled"><a href="#">My Account</a></li>
+                                <li class="disabled"><a href="#">View Profile</a></li>
+                                <li class="disabled"><a href="#">Edit Profile</a></li>
+                                <li class="disabled"><a href="#">Change Password</a></li>
+                                <li class="disabled"><a href="#">Setting</a></li>
+                                <li><a href="javascript:document.getElementById('logoutForm').submit()">Logout</a></li>
+                            </ul>
+                        </li>
+                    }
+                }
+                else
+                {
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="@Url.Action("Register", "Account")">
+                                Register
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Login", "Account")">
+                                Login
+                            </a>
+                        </li>
+                    </ul>
+                }
             </div>
         </div>
     </div>
