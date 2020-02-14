@@ -5,3 +5,35 @@
 <div class="jumbotron" style="text-align:center">
     <h1>Create a route!</h1>
 </div>
+
+
+@using (Html.BeginForm())
+{
+    @Html.Label("Place to Search For")
+    <br />
+    <input type="text" id="name" />
+    <br />
+    @Html.Label("City")
+    <br />
+    <input type="text" id="city" />
+    <br />
+    @Html.Label("State (Format= WA, OR)")
+    <br />
+    <input type="text" id="state" />
+    <br />
+    <button type="button" id="myButton" onclick="getInfo()">Search</button>
+}
+
+
+
+
+<div id="outputTable">
+    <table id="output"></table>
+
+</div>
+
+
+@section scripts
+{
+    <script src="~/Scripts/main.js"></script>
+}

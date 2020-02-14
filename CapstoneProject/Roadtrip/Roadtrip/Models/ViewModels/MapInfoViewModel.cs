@@ -7,8 +7,12 @@ namespace Roadtrip.Models.ViewModels
 {
     public class MapInfoViewModel
     {
-       public String Place { get; set; }
-       public String City { get; set; }
-       public String State { get; set; }
+        public string Place { get; set; }
+        public string City { get; set; }
+        public string State { get; set; }
+
+        public string URL { get; set; }
+        
+
     }
 }

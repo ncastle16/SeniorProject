@@ -7,18 +7,12 @@
 
 @using (Html.BeginForm())
 {
-    <input type="text" name="name" />
-    <button id="myButton" onclick="getInfo(name)">AJAX</button>
+    <input type="text" id="name" />
+    <button type="button" id="myButton" onclick="getInfo()">AJAX</button>
 }
-@ViewBag.name
 
-<div id="displayMap">
-    <iframe width="600"
-            height="450"
-            frameborder="0" style="border:0"
-            src="https://www.google.com/maps/embed/v1/place?key=AIzaSyArb3QIXJppRRSFTRgi8KZ51vrAm8yEExM&q=null" allowfullscreen>
-    </iframe>
-</div>
+
+
 
 <div id="outputTable">
     <table id="output"></table>
