@@ -27,24 +27,38 @@ namespace Roadtrip.Controllers
             return View(); 
         }*/
 
-        public ActionResult DisplayInfo()
+        public ActionResult DisplayInfo(string myInfo)
         {
-            string request = Request.QueryString["Info"];
-
-            MapInfoViewModel myInfo = new MapInfoViewModel()
-            {
-                Place = request
-            };
-             
+            string request = Request.QueryString["myInfo"];
             
+            /*Parsing and restructuring the place element*/
+            string[] words = myInfo.Split(' ');
+            string test = words[0];
+            for (int i = 1; i <= words.Length - 1; i++)
+            {
+                test = test + "+" + words[i];
+            }
+            /*Parsing and restructuring the City*/
+
+            string myURL = "https://www.google.com/maps/embed/v1/place?key=AIzaSyCEqgGvU1YUzAU4ddBoYrjTwIYx2VTaAEU&q=" + test + "," + "Seattle+WA";
+
+            MapInfoViewModel info = new MapInfoViewModel()
+            {
+                Place = myInfo,
+                URL = myURL
+
+            };
 
             return new ContentResult
             {
-                Content = JsonConvert.SerializeObject(myInfo),
+
+                Content = JsonConvert.SerializeObject(info),
                 ContentType = "application/json",
                 ContentEncoding = System.Text.Encoding.UTF8
             };
         }
+
+        
     }
 
     
