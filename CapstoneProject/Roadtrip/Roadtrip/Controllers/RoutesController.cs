@@ -48,7 +48,7 @@ namespace Roadtrip.Controllers
                 names.Add(((string)test["businesses"][i]["name"]).ToString());
                 lati.Add((decimal)test["businesses"][i]["coordinates"]["latitude"]);
                 longi.Add((decimal)test["businesses"][i]["coordinates"]["longitude"]);
-                BusinessID.Add((double)["businesses"][i]["id"]);
+                BusinessID.Add((double)test["businesses"][i]["id"]);
             }
          
 
