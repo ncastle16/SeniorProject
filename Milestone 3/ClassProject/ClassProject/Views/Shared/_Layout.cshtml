@@ -1,81 +1,65 @@
 ﻿<!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>@ViewBag.Title - My ASP.NET Application</title>
+        @Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")
 
-</head>
-<body id="mybody">
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Swimming", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+    </head>
+    <body id="mybody">
+        <div class="wrapper">
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+
+                    </div>
+                    <div class="navbar-collapse collapse" id="totalnav">
+                        <ul class="nav navbar-nav" id="mynav">
+                            <li class="navbar-title" id="nbt">Swimming Race Tracker</li>
+                            <li class="button">@Html.ActionLink("Home", "Index", "Home")</li>
+                            <li class="button">@Html.ActionLink("FAQ", "FAQ", "Athletes")</li>
+                            <li class="button">@Html.ActionLink("Privacy Policy", "PrivacyPolicy", "Athletes")</li>
+                            <li class="button">@Html.ActionLink("Login", "Login", "Account")</li>
+                            <li class="button">@Html.ActionLink("Make an Account", "Register", "Account", new { area = "" }, new { @class = "nav-bar-button" })</li>
+                            <li class="button">@Html.ActionLink("Stats", "Index", "Times")</li>
+                            <li class="button">@Html.ActionLink("Athlete Search", "Search", "Athletes")</li>
+                        </ul>
+
+                    </div>
+                </div>
             </div>
-            <div class="navbar-collapse collapse" id="totalnav">
-                <ul class="nav navbar-nav" id="mynav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-            
-                    <li class="button">
-                        <a href="/Account/Login" id="login"
-                           class="nav-login">Login</a>
-                    </li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li class="button">
-                        <a href="/Account/Register" id="reg"
-                           class="nav-bar-button">Make an Account</a>
-                    </li>
-                </ul>
-                
+            <div class="container body-content">
+                @RenderBody()
+                <hr />
             </div>
         </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-    </div>
 
-    <footer>
-        <div class="container-fluid">
-            <div class="row">
-                <ul style="float:right" class="button">
-                    <li class="button">
-                        <a href="/Athletes/FAQ" style="color:black">FAQ</a> | <a href="/Athletes/PrivacyPolicy" style="color:black">Privacy Policy</a>
-                    </li>
-                </ul>
-                <p>&copy; @DateTime.Now.Year - Our Project</p>
+        <footer>
+            <div class="container-fluid">
+                <div class="row">
+                    <ul style="float:right" class="button">
+                        <li class="button">
+                            @Html.ActionLink("FAQ", "FAQ", "Athletes", new { area = "" }, new { @style = "color:black" }) |
+                            @Html.ActionLink("Privacy Policy", "PrivacyPolicy", "Athletes", new { area = "" }, new { @style = "color:black" })
+                        </li>
+                    </ul>
+                    <p>&copy; @DateTime.Now.Year - Our Project</p>
 
+                </div>
             </div>
-        </div>
-    </footer>
+        </footer>
 
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
-</body>
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+    </body>
+
 </html>
