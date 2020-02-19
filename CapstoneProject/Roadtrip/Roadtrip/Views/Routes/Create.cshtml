@@ -1,32 +1,39 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
+    <body>
+        <div class="jumbotron" style="text-align:center">
+            <h1>Create a route!</h1>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
 
-    <div class="jumbotron" style="text-align:center">
-        <h1>Create a route!</h1>
-    </div>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6">
+                    <form class="form-inline">
+                        <div class="form-group">
+                            @Html.Label("Within")
+                            @Html.TextBox("numbers", 10, new
+                       {
+                           @class = "form-control",
+                           @placeholder = "15",
+                           @type = "number",
+                           @min = 1,
+                           @max = 50,
+                           @style = "width: 60px;"
+                       })
+                            @Html.Label("Miles")
+                            <button id="findLocationButton" class="btn btn-default">Find Locations</button>
+                        </div>
 
-                <form class="form-inline">
-                    <div class="form-group">
-                        @Html.Label("Within")
-                        @Html.TextBox("numbers", 10, new
-                   {
-                       @class = "form-control",
-                       @placeholder = "15",
-                       @type = "number",
-                       @min = 1,
-                       @max = 50,
-                       @style = "width: 60px;"
-                   })
-                        @Html.Label("Miles")
-                        <button id="findLocationButton" class="btn btn-default">Find Locations</button>
-                    </div>
-
-                </form>
+                    </form>
+                </div>
+                <div id="mapid"></div>
             </div>
         </div>
-    </div>
+        @Scripts.Render("~/Scripts/mapScripts.js")
+        @Styles.Render("https://unpkg.com/leaflet@1.6.0/dist/leaflet.css")
+        @Scripts.Render("https://unpkg.com/leaflet@1.6.0/dist/leaflet.js")
+    </body>
+
+
 
