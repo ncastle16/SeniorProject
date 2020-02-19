@@ -37,12 +37,18 @@ namespace Roadtrip.Controllers
             List<string> names = new List<string>();
             List<double> index = new List<double>();
             List<double> ratings = new List<double>();
+            List<decimal> longi = new List<decimal>();
+            List<decimal> lati = new List<decimal>();
+            List<string> BusinessID = new List<string>();
 
             for (int i = 0; i < 4; i++) { 
 
                 index.Add(i);
                 ratings.Add((double)test["businesses"][i]["rating"]);
                 names.Add(((string)test["businesses"][i]["name"]).ToString());
+                lati.Add((decimal)test["businesses"][i]["coordinates"]["latitude"]);
+                longi.Add((decimal)test["businesses"][i]["coordinates"]["longitude"]);
+                BusinessID.Add((double)test["businesses"][i]["id"]);
             }
          
 
@@ -51,7 +57,10 @@ namespace Roadtrip.Controllers
             {
                 name = names,
                 rating = ratings,
-                indexs = index
+                indexs = index,
+                latitude = lati,
+                longitude = longi,
+                businessID = BusinessID
             };
 
             return Json(FinalList, JsonRequestBehavior.AllowGet);
