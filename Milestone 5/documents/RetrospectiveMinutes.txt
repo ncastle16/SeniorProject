@@ -1,0 +1,17 @@
+What went well?
+LN: I think our communication is pretty good, our meeting time more than eight hours a week, this makes it easy for us to communicate and solve problems.
+BC: I think we are working well together, and our chemistry as a team is growing. No one has a problem with making suggestions and asking questions. We talk on discord alot, and we all are on the same page for the most part.
+NC: We have been working well together and have been able to effectively communicate throughout this sprint.
+MC: I agree with your guys’ sentiments. We’ve worked well as a team and communicated well for the short time we’ve been together as a team. We’ve all met significantly more than required, and it has benefited us substantially. We’ve all been prompt and willing to gather at a moment's notice to make sure we’re on schedule. 
+
+What could have gone better?
+LN: I think we are good, and the other team members are all great. Just for me, I think I should give more opinions to discuss with them. Sometimes I am too quiet.
+BC: Early in the term, we didn’t communicate that well, but we have gotten so much better, and talk about work every day, whether it be in person or on discord. 
+NC: I think we could have been on the same page about things that we never discussed or thought about until after we encountered them such as styling and coding conventions.
+MC: We have a minor habit to derail and go off-topic during our meeting hours. Focusing more when we meet would likely be beneficial. 
+
+Any suggestions for changes?
+LN: So far so good, I can't think of anything to change.
+BC:  I would like to choose things to do at the Monday meeting, so we have all week to work on them. This will most likely change when we start coding, and have more work to do anyways
+NC: Coding conventions. We have made some since then but I would like to continue updating and getting more specific to our project.
+MC: Every week we should dedicate a timebox (15-30 minutes) planning out the rest of our meetings. As Brad suggested, the Monday meeting would be a good starting point. The first Monday of the sprint we can lay out a plan, the second Monday maybe spend 10-15 minutes on ‘grooming’ the remaining weeks’ plan.

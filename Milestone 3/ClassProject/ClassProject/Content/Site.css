@@ -1,7 +1,20 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+﻿html, body {
+    height: 100%;
+    background-color: lightblue;
 }
+
+.wrapper {
+    min-height: 100%;
+    margin-bottom: -60px;
+    padding-bottom: 60px;
+}
+
+body {
+    padding-top: 50px;
+    
+}
+
+
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
@@ -40,29 +53,64 @@ select,
 textarea {
     max-width: 280px;
 }
+.indexh2 {
+    color: white; 
+}
 
 #totalnav {
     background: url(https://ohiocryo.com/wp-content/uploads/2015/08/Underwater-photograph-of-014.jpg) border-box;
     background-size: 50%;
 }
-
+#mytable, th, td {
+   border: 1px outset;
+    color: black;
+    background-color: burlywood;
+    border-radius: 5px; 
+    padding: 20px; 
+}
+#detailstab{
+    
+}
+.home-bg {
+    background: url(https://wallpapercave.com/wp/wp2046110.jpg) scroll,fixed;
+    background-color: dodgerblue;
+    color: black;
+}
+a.detailsbutton{
+    border: 1px solid black; 
+}
 .navbar-nav li {
     background-color: #27408b;
     border: 2px solid #5e5e5e;
     color: white !important;
 }
 
+.navbar-title {
+    background-color: darkblue;
+    border: 2px solid black;
+    color: white;
+    line-height: 50px;
+    padding: 0px 20px 0px 20px;
+    margin: 0px 5px 0px 0px;
+}
+
+.button {
+    margin: 0px 5px 0px 5px;
+}
+
 .nav-bar-button {
     background-color: darkorange;
     color: white !important;
+    float: right;
 }
 
 footer {
-    bottom:0;
+
     width: 100%;
-    height:60px;
-    background-color:dodgerblue;
+    height: 60px;
+    background-color: dodgerblue;
 }
+
 
 .center{
     text-align: center;
