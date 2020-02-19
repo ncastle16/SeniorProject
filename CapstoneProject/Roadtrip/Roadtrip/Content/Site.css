@@ -1,4 +1,10 @@
-﻿body {
+﻿#mapid {
+    height: 500px;
+    width: 500px;
+}
+
+
+body {
     padding-top: 50px;
     padding-bottom: 20px;
 }
