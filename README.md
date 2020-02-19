@@ -41,7 +41,7 @@ As for the actual development process, we want to create a fully consumable prod
 
 *   **C#-** Standard Microsoft coding [conventions]([https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/inside-a-program/coding-conventions](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/inside-a-program/coding-conventions))
 *   **Styling-** CSS in an external file only
-*   **Database** **Creation- **Primary keys will start with the first letter of table name followed by “ID”. For example, ```Student``` table primary key will become ```SID```. Foreign keys will be the singular name of the table they refer to. For example, ```StudentID``` is a foreign key pointing back to the ```Students``` table.
+*   **Database Creation-** Primary keys will start with the first letter of table name followed by “ID”. For example, ```Student``` table primary key will become ```SID```. Foreign keys will be the singular name of the table they refer to. For example, ```StudentID``` is a foreign key pointing back to the ```Students``` table.
 
 **Tools**
 
