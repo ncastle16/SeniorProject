@@ -37,8 +37,8 @@ namespace Roadtrip.Controllers
             List<string> names = new List<string>();
             List<double> index = new List<double>();
             List<double> ratings = new List<double>();
-            List<double> longi = new List<double>();
-            List<double> lati = new List<double>();
+            List<decimal> longi = new List<decimal>();
+            List<decimal> lati = new List<decimal>();
             List<string> BusinessID = new List<string>();
 
             for (int i = 0; i < 4; i++) { 
@@ -46,8 +46,8 @@ namespace Roadtrip.Controllers
                 index.Add(i);
                 ratings.Add((double)test["businesses"][i]["rating"]);
                 names.Add(((string)test["businesses"][i]["name"]).ToString());
-                lati.Add((double)test["businesses"][i]["coordinates"]["latitude"]);
-                longi.Add((double)test["businesses"][i]["coordinates"]["longitude"]);
+                lati.Add((decimal)test["businesses"][i]["coordinates"]["latitude"]);
+                longi.Add((decimal)test["businesses"][i]["coordinates"]["longitude"]);
                 BusinessID.Add((double)["businesses"][i]["id"]);
             }
          
