@@ -2,7 +2,7 @@ README
 
 This is the repository for team Dijital Hijinks, a group of seniors working on a capstone project at Western Oregon University.
 
-**What is in this Repository? **
+**What is in this Repository?**
 
 
 
@@ -21,7 +21,7 @@ This is the repository for team Dijital Hijinks, a group of seniors working on a
 
 **Dijkstra's Road Trip**
 
-This project was initially envisioned when one of our team members wanted to take a road trip through Oregon and stop at some different breweries. They found that there was no application that allowed them to plan a trip through breweries, thus, Djikstraís Road Trip was born. We are developing a tool that will help brewery enthusiasts plan trips so they can experience breweries of all sorts.
+This project was initially envisioned when one of our team members wanted to take a road trip through Oregon and stop at some different breweries. They found that there was no application that allowed them to plan a trip through breweries, thus, Djikstra‚Äôs Road Trip was born. We are developing a tool that will help brewery enthusiasts plan trips so they can experience breweries of all sorts.
 
 **Vision Statement**
 
@@ -29,7 +29,7 @@ For People who want a way to generate the shortest path between pubs, the web ap
 
 **Construction Process**
 
- Our approach on software development is analogous to that of natureís tree- we begin with an initial vision and structure, focusing on core features, then building from this core, we grow our features as branches, our stories as twigs. As our core grows, our product grows. We donít forget that the little things matter though- our leaves and flowers define our beauty as a whole.
+ Our approach on software development is analogous to that of nature‚Äôs tree- we begin with an initial vision and structure, focusing on core features, then building from this core, we grow our features as branches, our stories as twigs. As our core grows, our product grows. We don‚Äôt forget that the little things matter though- our leaves and flowers define our beauty as a whole.
 
 We follow the Disciplined Agile Delivery process, just to make everything as simple as possible. We put the people in our group first, meaning that we want everyone in the group to feel comfortable to contribute on any part of the project. If anyone has any concerns about a part of the project, we want them to feel free to voice them at any time. 
 
@@ -40,8 +40,8 @@ As for the actual development process, we want to create a fully consumable prod
 
 
 *   **C#-** Standard Microsoft coding [conventions]([https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/inside-a-program/coding-conventions](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/inside-a-program/coding-conventions))
-*   **Styling- **CSS in an external file only
-*   **Database** **Creation- **Primary keys will start with the first letter of table name followed by ìIDî. For example, ```Student``` table primary key will become ```SID```. Foreign keys will be the singular name of the table they refer to. For example, ```StudentID``` is a foreign key pointing back to the ```Students``` table.
+*   **Styling-** CSS in an external file only
+*   **Database** **Creation- **Primary keys will start with the first letter of table name followed by ‚ÄúID‚Äù. For example, ```Student``` table primary key will become ```SID```. Foreign keys will be the singular name of the table they refer to. For example, ```StudentID``` is a foreign key pointing back to the ```Students``` table.
 
 **Tools**
 
@@ -50,7 +50,7 @@ As for the actual development process, we want to create a fully consumable prod
 *   **Microsoft Visual Studio Community 2019**
 *   Version 16.3.6
 *   Microsoft .NET Framework
-*   **Visual Studio Packages **
+*   **Visual Studio Packages**
 *   MVC ASP.NET
 *   Antlr 
 *   Bootstrap 
@@ -69,6 +69,6 @@ As for the actual development process, we want to create a fully consumable prod
 *   Modernizr 
 *   Newtonsoft.Json
 *   WebGrease 
-*   **Azure Web Services **
+*   **Azure Web Services**
 *   **Github**
 
