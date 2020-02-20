@@ -18,13 +18,15 @@ function errorOnAjax(data) {
 function test(data) {
     console.log('yay');
     console.log(data);
-    for (var i = 0; i < 4; i++) {
+    for (var i = 0; i < 20; i++) {
         $('#establishments').append(`
-<div style="display:table; width:50%">
+<div style="display:table; width:100%">
         <div style="display: table-row">
-            <div style="width: 600px; display: table-cell; background-color:antiquewhite; border:1px solid black">
+            <div style="width: 400px; display: table-cell; background-color:antiquewhite; border:1px solid black">
                 <ul>${data.name[i]}</ul> 
             </div>
+        </div>
+</div>
 `)
     }
 }
