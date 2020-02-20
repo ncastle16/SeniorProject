@@ -9,6 +9,78 @@
             <div class="row">
                 <div class="col-lg-6">
 
+
+    <head>
+        <link rel="stylesheet" href="~/Content/Site.css" />
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+              integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin="" />
+        <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+                integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
+
+
+    </head>
+
+
+<div class="jumbotron" style="text-align:center">
+    <h1>Create a route!</h1>
+</div>
+
+
+@using (Html.BeginForm())
+{
+    @Html.Label("Place to Search For")
+    <br />
+    <input type="text" id="name" />
+    <br />
+    @Html.Label("City")
+    <br />
+    <input type="text" id="city" />
+    <br />
+    @Html.Label("State (Format= WA, OR)")
+    <br />
+    <input type="text" id="state" />
+    <br />
+    <button type="button" id="myButton" onclick="getInfo()">Search</button>
+}
+
+
+
+
+<div id="outputTable">
+    <table id="output"></table>
+
+</div>
+<div id="mapid" style="width: 600px; height: 400px;"></div>
+
+
+@section scripts
+{
+    <script src="~/Scripts/main.js"></script>
+}
+
+    <div class="jumbotron" style="text-align:center">
+        <h1>Create a route!</h1>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+
+                <form class="form-inline">
+                    <div class="form-group">
+                        @Html.Label("Within")
+                        @Html.TextBox("numbers", 10, new
+                   {
+                       @class = "form-control",
+                       @placeholder = "15",
+                       @type = "number",
+                       @min = 1,
+                       @max = 50,
+                       @style = "width: 60px;"
+                   })
+                        @Html.Label("Miles")
+                        <button id="findLocationButton" class="btn btn-default">Find Locations</button>
+                    </div>
+
                     <form class="form-inline">
                         <div class="form-group">
                             @Html.Label("Within")
@@ -25,6 +97,7 @@
                             <button id="findLocationButton" class="btn btn-default">Find Locations</button>
                         </div>
 
+
                     </form>
                 </div>
                 <div id="mapid"></div>
@@ -34,6 +107,7 @@
         @Styles.Render("https://unpkg.com/leaflet@1.6.0/dist/leaflet.css")
         @Scripts.Render("https://unpkg.com/leaflet@1.6.0/dist/leaflet.js")
     </body>
+
 
 
 
