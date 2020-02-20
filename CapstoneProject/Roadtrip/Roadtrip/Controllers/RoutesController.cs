@@ -29,29 +29,39 @@ namespace Roadtrip.Controllers
         // example url for monmouth long and lat with a aradius. Searches for type: bar
         public JsonResult GetEstablishment()
         {
-            string key = "StupidFuckingPlaceHolder";
-            string uri = "https://api.yelp.com/v3/businesses/search?location=97361&limit=4";
+            string key = System.Web.Configuration.WebConfigurationManager.AppSettings["YelpKey"];
+            string uri = "https://api.yelp.com/v3/businesses/search?location=97361&limit=20";
             string data = SendRequest(uri, key);
 
             JObject test = JObject.Parse(data);
             List<string> names = new List<string>();
             List<double> index = new List<double>();
             List<double> ratings = new List<double>();
+            List<decimal> longi = new List<decimal>();
+            List<decimal> lati = new List<decimal>();
+            List<string> BusinessID = new List<string>();
 
-            for (int i = 0; i < 4; i++) { 
+            for (int i = 0; i < 20; i++)
+            {
 
                 index.Add(i);
                 ratings.Add((double)test["businesses"][i]["rating"]);
                 names.Add(((string)test["businesses"][i]["name"]).ToString());
+                lati.Add((decimal)test["businesses"][i]["coordinates"]["latitude"]);
+                longi.Add((decimal)test["businesses"][i]["coordinates"]["longitude"]);
+                BusinessID.Add((string)test["businesses"][i]["id"]);
             }
-         
+
 
 
             var FinalList = new
             {
                 name = names,
                 rating = ratings,
-                indexs = index
+                indexs = index,
+                latitude = lati,
+                longitude = longi,
+                businessID = BusinessID
             };
 
             return Json(FinalList, JsonRequestBehavior.AllowGet);
