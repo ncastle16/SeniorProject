@@ -3,18 +3,17 @@
 });
 
 function plotMap() {
-    var mymap = L.map('mapid').setView([47.622370, -122.347020], 13);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(mymap);
-    var greenIcon = L.icon({
-        iconUrl: 'https://cdn4.iconfinder.com/data/icons/iconsimple-places/512/pin_1-512.png',
-        iconSize: [40, 40], // size of the icon
-        shadowSize: [20, 20], // size of the shadow
-        iconAnchor: [20, 40], // point of the icon which will correspond to marker's location
-        shadowAnchor: [20, 40],  // the same for the shadow
-        popupAnchor: [0, -40] // point from which the popup should open relative to the iconAnchor
-    });
+    var map = L.map('routemap').setView([57.74, 11.94], 13);
 
-    L.marker([47.622370, -122.347020], { icon: greenIcon }).addTo(mymap).bindPopup("Seattle");
+    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}{r}.png', {
+        attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+    L.Routing.control({
+        waypoints: [
+            L.latLng(57.74, 11.94),
+            L.latLng(57.6792, 11.949)
+        ],
+        router: L.Routing.mapbox('pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw')
+    }).addTo(map);
+
 }
