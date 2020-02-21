@@ -23,10 +23,6 @@ namespace Roadtrip.Controllers
             return View();
         }
 
-        //Work for google api to get establishment names into a list view
-
-        // delete before pushing noah damn it
-        // example url for monmouth long and lat with a aradius. Searches for type: bar
         public JsonResult GetEstablishment()
         {
             string key = System.Web.Configuration.WebConfigurationManager.AppSettings["YelpKey"];
@@ -52,8 +48,6 @@ namespace Roadtrip.Controllers
                 BusinessID.Add((string)test["businesses"][i]["id"]);
             }
 
-
-
             var FinalList = new
             {
                 name = names,
@@ -61,7 +55,35 @@ namespace Roadtrip.Controllers
                 indexs = index,
                 latitude = lati,
                 longitude = longi,
-                businessID = BusinessID
+                id = BusinessID
+            };
+
+            return Json(FinalList, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetDetails()
+        {
+            string ID = Request.QueryString["id"];
+            string key = System.Web.Configuration.WebConfigurationManager.AppSettings["YelpKey"];
+            string uri = "https://api.yelp.com/v3/businesses/" + ID;
+            string data = SendRequest(uri, key);
+
+            JObject test = JObject.Parse(data);
+            List<string> name = new List<string>();
+            List<double> rating = new List<double>();
+            List<string> img = new List<string>();
+
+
+
+            name.Add((string)test["name"]);
+            rating.Add((double)test["rating"]);
+            img.Add((string)test["img_url"]);
+
+            var FinalList = new
+            {
+                names = name,
+                ratings = rating,
+                image = img
             };
 
             return Json(FinalList, JsonRequestBehavior.AllowGet);
