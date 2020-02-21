@@ -1,5 +1,4 @@
 ﻿$(document).ready(function () {
-    var source = '/api/establishments';
 
     $.ajax({
         type: 'GET',
@@ -24,9 +23,29 @@ function test(data) {
         <div style="display: table-row">
             <div style="width: 400px; display: table-cell; background-color:antiquewhite; border:1px solid black">
                 <ul>${data.name[i]}</ul> 
+                <input id="${data.id[i]}" type="button" value="Get Details" onclick="details(this.id)">
             </div>
         </div>
 </div>
-`)
-    }
+`);
+ }
+}
+
+function details(id) {
+    var source = '/Routes/GetDetails?id=' + id;
+
+    $.ajax({
+        type: 'GET',
+        dataType: 'json',
+        url: source,
+        success: showDetails,
+        error: errorOnAjax
+    });
+}
+
+function showDetails(data) {
+    console.log(data);
+
+    $('#details').empty();
+    $('#details').append(`<div style="margin-top:50px;margin-bottom:50px;"><img src="' + image + '" style="width:200px;height:150px;"><br> <b>' + name + '</b><br>This business has a rating of ' + rating`);
 }
