@@ -6,7 +6,7 @@ $.ajax({
 
     headers: {
 
-        'Authorization': 'Bearer <APIkey>',
+        'Authorization': 'Bearer 3glYwaLZjmtLvAcgvmia-ocJ1tdhu6PAFCo0jCYrmsgHXZXX0tduCis8dKk3GMGO7Oc9jYYRLTPRSaWopVeUJMI8pjCj2nNcjDhh1mcYsMA3xjkndOqPba6k3_dOXnYx',
 
     },
 
