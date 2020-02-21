@@ -126,8 +126,19 @@ namespace Roadtrip.Controllers
             request.Accept = "application/json";
 
             string jsonString = null;
-
-        public ActionResult DisplayInfo(string myInfo, string city)
+            // TODO: You should handle exceptions here
+            using (WebResponse response = request.GetResponse())
+            {
+                Stream stream = response.GetResponseStream();
+                StreamReader reader = new StreamReader(stream);
+                jsonString = reader.ReadToEnd();
+                reader.Close();
+                stream.Close();
+            }
+            return jsonString;
+        }
+    
+    public ActionResult DisplayInfo(string myInfo, string city)
         {
             string request = Request.QueryString["myInfo"];
             string myCity = Request.QueryString["city"];
@@ -143,9 +154,9 @@ namespace Roadtrip.Controllers
             }
             /*Parsing and restructuring the City*/
             
-            string urlPlace = "https://api.opencagedata.com/geocode/v1/json?q="+ test + "+" + myCity +"&key=" + myKey;
+            string urlPlace = "https://api.opencagedata.com/geocode/v1/json?q="+ test + "+" + myCity + "+" + myState + "&key=" + myKey;
             //string urlCity = "https://api.opencagedata.com/geocode/v1/json?q=" + myCity + "&key=3e00b526f7af428a93598818cf2e926d";
-           string json = SendRequest(urlPlace, myKey );
+           string json = SendRequestToken(urlPlace, myKey );
             //string jsonCity = SendRequest(urlCity, key); 
             JObject mapInfo = JObject.Parse(json);
            // JObject cityInfo = JObject.Parse(jsonCity);
@@ -182,7 +193,7 @@ namespace Roadtrip.Controllers
         }
 
 
-        private string SendRequest(string uri, string credentials)
+        private string SendRequestToken(string uri, string credentials)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
             request.Headers.Add("Authorization", "token " + credentials);
