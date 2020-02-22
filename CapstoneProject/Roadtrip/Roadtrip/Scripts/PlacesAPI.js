@@ -15,6 +15,9 @@ function errorOnAjax(data) {
 }
 
 function test(data) {
+
+    showMap(data);
+
     console.log('yay');
     console.log(data);
     for (var i = 0; i < 20; i++) {
@@ -48,4 +51,31 @@ function showDetails(data) {
 
     $('#details').empty();
     $('#details').append(`<div style="margin-top:50px;margin-bottom:50px;"><img src="' + image + '" style="width:200px;height:150px;"><br> <b>' + name + '</b><br>This business has a rating of ' + rating`);
+}
+
+function showMap(data) {
+    document.getElementById('searchmap').innerHTML = "<div id='smap' style='width: 100%; height: 100%;'></div>";
+    var mymap = L.map('smap').setView([data.latitude[0], data.longitude[0]], 13);
+
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+        maxZoom: 18,
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+            '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+            'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        id: 'mapbox/streets-v11',
+        tileSize: 512,
+        zoomOffset: -1
+    }).addTo(mymap);
+
+    var array = [];
+
+    for (var i = 0; i < 20; i++) {
+        array.push(L.marker([data.latitude[i], data.longitude[i]]).bindPopup("<b>" + data.name[i] + "</b>").addTo(mymap));
+    }
+
+    var group = new L.featureGroup(array);
+    mymap.fitBounds(group.getBounds());
+
+
 }

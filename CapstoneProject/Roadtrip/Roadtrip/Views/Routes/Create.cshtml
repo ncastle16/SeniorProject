@@ -3,76 +3,48 @@
 }
 
 
-    <body>
-        <div class="jumbotron" style="text-align:center">
-            <h1>Create a route!</h1>
-        </div>
+<body>
+    <div class="jumbotron" style="text-align:center">
+        <h1>Create a route!</h1>
+    </div>
 
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6">
-
+    <div class="container">
+        <div class="row">
+            <form class="form-inline">
+                <div class="form-group">
                     @using (Html.BeginForm())
                     {
-                        @Html.Label("Place to Search For")
-                        <br />
+                        @Html.Label("Show me ")
                         <input type="text" id="name" />
-                        <br />
-                        @Html.Label("City")
-                        <br />
+                        @Html.Label(" within ")
+                        @Html.TextBox("numbers", 10, new
+                        {
+                            @class = "form-control",
+                            @placeholder = "15",
+                            @type = "number",
+                            @min = 1,
+                            @max = 50,
+                            @style = "width: 60px;"
+                        })
+                        @Html.Label(" miles of ")
                         <input type="text" id="city" />
-                        <br />
-                        @Html.Label("State (Format= WA, OR)")
-                        <br />
                         <input type="text" id="state" />
-                        <br />
+                        @Html.Label(".")
                         <button type="button" id="myButton" onclick="getInfo()">Search</button>
                     }
-
-
-                    <div id="outputTable">
-                        <table id="output"></table>
-
-                    </div>
-                    <div id="searchmap"></div>
-
-                    
                 </div>
-
-                <div class="col-lg-6">
-                    <form class="form-inline">
-                        <div class="form-group">
-                            @Html.Label("Within")
-                            @Html.TextBox("numbers", 10, new
-                       {
-                           @class = "form-control",
-                           @placeholder = "15",
-                           @type = "number",
-                           @min = 1,
-                           @max = 50,
-                           @style = "width: 60px;"
-                       })
-                            @Html.Label("Miles")
-                            <button id="findLocationButton" class="btn btn-default">Find Locations</button>
-
-                        </div>
-                    </form>
-                    <div id="routemap"></div>
-                </div>
+            </form>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div id="searchmap"></div>
             </div>
-
-        @Styles.Render("https://unpkg.com/leaflet@1.6.0/dist/leaflet.css")
-        @Scripts.Render("https://unpkg.com/leaflet@1.6.0/dist/leaflet.js")
-        @Styles.Render("~/Content/leaflet-routing-machine.css")
-        @Scripts.Render("~/Scripts/leaflet-routing-machine.js")
-        @Scripts.Render("~/Scripts/mapScripts.js")
-        @Scripts.Render("~/Scripts/main.js")
-    </body>
-
-    <div class="row">
-        <div class="col-lg-4" id="establishments" style="width:400px;height:600px;overflow:scroll;"></div>
-        <div class="col-lg-4" id="details" style="width:400px;height:600px;overflow:scroll;"></div>
+            <div class="col-lg-6">
+                <div id="routemap"></div>
+            </div>
+        </div>
     </div>
+<<<<<<< HEAD
 
 
 
@@ -81,5 +53,20 @@
 {
     <script src="~/Scripts/PlacesAPI.js"></script>
 }
+
+
+    @Styles.Render("https://unpkg.com/leaflet@1.6.0/dist/leaflet.css")
+    @Scripts.Render("https://unpkg.com/leaflet@1.6.0/dist/leaflet.js")
+    @Styles.Render("~/Content/leaflet-routing-machine.css")
+    @Scripts.Render("~/Scripts/leaflet-routing-machine.js")
+    @Scripts.Render("~/Scripts/mapScripts.js")
+    @Scripts.Render("~/Scripts/main.js")
+    @Scripts.Render("~/Scripts/PlacesAPI.js")
+</body>
+
+<div class="row">
+    <div class="col-lg-4" id="establishments" style="width:400px;height:600px;overflow:scroll;"></div>
+    <div class="col-lg-4" id="details" style="width:400px;height:600px;overflow:scroll;"></div>
+</div>
 
 
