@@ -27,6 +27,7 @@ namespace Roadtrip
 
             routes.MapRoute(
 
+
                 name: "GetDetails",
 
                 url: "Routes/GetDetails/{id}",
@@ -38,6 +39,14 @@ namespace Roadtrip
            
 
             routes.MapRoute(
+
+                name: "GetDetails",
+                url: "Routes/GetDetails/{id}",
+                defaults: new { controller = "Routes", action = "GetDetails", id = UrlParameter.Optional }
+                );
+
+            routes.MapRoute(
+
                 name: "Routes",
                 url: "{controller}/{action}/{id}", 
                 defaults: new { controller = "Routes", action = "Create", id = UrlParameter.Optional }

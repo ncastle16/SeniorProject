@@ -27,7 +27,10 @@ function test(data) {
             <div style="width: 400px; display: table-cell; background-color:antiquewhite; border:1px solid black">
                 <ul>${data.name[i]}</ul> 
                 <input id="${data.id[i]}" type="button" value="Get Details" onclick="details(this.id)">
+
                 <input id="${data.id[i]}" type="button" value="Add Location" onclick="addName(this.id)">
+
+
 
             </div>
         </div>
@@ -47,6 +50,7 @@ function details(id) {
         error: errorOnAjax
     });
 }
+
 
 function details(id) {
     var source = '/Routes/GetDetails?id=' + id;
@@ -86,6 +90,15 @@ function showName(data) {
     
 
 
+
+
+
+function showDetails(data) {
+    console.log(data);
+
+    $('#details').empty();
+    $('#details').append(`<div style="margin-top:50px;margin-bottom:50px;"><img src="' + image + '" style="width:200px;height:150px;"><br> <b>' + name + '</b><br>This business has a rating of ' + rating`);
+}
 
 
 function showMap(data) {
