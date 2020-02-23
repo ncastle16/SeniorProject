@@ -1,13 +1,24 @@
-﻿$(document).ready(function () {
+﻿
+function establishments() {
+    var name1 = document.getElementById('name');
+    var radius1 = document.getElementById('numbers');
+    var city1 = document.getElementById('city');
+    var state1 = document.getElementById('state');
+    var name = name1.value;
+    var numbers = radius1.value * 1609; 
+    var city = city1.value;
+    var state = state1.value;
+    console.log(numbers);
+    var source = '/Routes/GetEstablishment?name=' + name + '&numbers=' + numbers + '&city=' + city + '&state=' + state;
 
     $.ajax({
         type: 'GET',
         datatype: 'json',
-        url: '/Routes/GetEstablishment',
+        url: source,
         success: test,
         error: errorOnAjax
     });
-});
+}
 
 function errorOnAjax(data) {
     console.log('Error on AJAX return');
@@ -16,11 +27,11 @@ function errorOnAjax(data) {
 
 function test(data) {
 
-    showMap(data);
-
-    console.log('yay');
     console.log(data);
-    for (var i = 0; i < 20; i++) {
+    showMap(data);
+    
+    $('#establishments').empty();
+    for (var i = 0; i < data.total; i++) {
         $('#establishments').append(`
 <div style="display:table; width:100%">
         <div style="display: table-row">
@@ -48,9 +59,8 @@ function details(id) {
 
 function showDetails(data) {
     console.log(data);
-
     $('#details').empty();
-    $('#details').append(`<div style="margin-top:50px;margin-bottom:50px;"><img src="' + image + '" style="width:200px;height:150px;"><br> <b>' + name + '</b><br>This business has a rating of ' + rating`);
+    $('#details').append(`<div style="margin-top:50px;margin-bottom:50px;background-color:antiquewhite;"><img src="${data.image[0]}" style="width:200px;height:150px;"><br> <b>${data.names[0]}</b><br>This business has a rating of ${data.ratings[0]}<br> Located at: ${data.addresss[0]}  ${data.citys[0]}, ${data.states[0]} ${data.zipcodes[0]}<br>The phone number for this business is: ${data.phones[0]}</div>`);
 }
 
 function showMap(data) {
@@ -70,7 +80,7 @@ function showMap(data) {
 
     var array = [];
 
-    for (var i = 0; i < 20; i++) {
+    for (var i = 0; i < data.total; i++) {
         array.push(L.marker([data.latitude[i], data.longitude[i]]).bindPopup("<b>" + data.name[i] + "</b>").addTo(mymap));
     }
 
