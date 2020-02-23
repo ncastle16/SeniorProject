@@ -54,8 +54,13 @@ namespace Roadtrip.Controllers
 
         public JsonResult GetEstablishment()
         {
-            string key = System.Web.Configuration.WebConfigurationManager.AppSettings["YelpKey"];
-            string uri = "https://api.yelp.com/v3/businesses/search?location=97361&limit=20";
+            string city = Request.QueryString["city"];
+            string state = Request.QueryString["state"];
+            string term = Request.QueryString["name"];
+            string radius = Request.QueryString["numbers"];
+            //string key = System.Web.Configuration.WebConfigurationManager.AppSettings["YelpKey"];
+            string key = "3glYwaLZjmtLvAcgvmia-ocJ1tdhu6PAFCo0jCYrmsgHXZXX0tduCis8dKk3GMGO7Oc9jYYRLTPRSaWopVeUJMI8pjCj2nNcjDhh1mcYsMA3xjkndOqPba6k3_dOXnYx";
+            string uri = "https://api.yelp.com/v3/businesses/search?location=" + city + "," + state + "&radius="+ radius + "&term=" + term;
             string data = SendRequest(uri, key);
 
             JObject test = JObject.Parse(data);
@@ -65,16 +70,21 @@ namespace Roadtrip.Controllers
             List<decimal> longi = new List<decimal>();
             List<decimal> lati = new List<decimal>();
             List<string> BusinessID = new List<string>();
+            int count = (int)test["total"];
 
-            for (int i = 0; i < 20; i++)
+            if(count > 20)
             {
+                count = 20;
+            }
 
+            for (int i = 0; i < count; i++)
+            {
                 index.Add(i);
                 ratings.Add((double)test["businesses"][i]["rating"]);
                 names.Add(((string)test["businesses"][i]["name"]).ToString());
                 lati.Add((decimal)test["businesses"][i]["coordinates"]["latitude"]);
                 longi.Add((decimal)test["businesses"][i]["coordinates"]["longitude"]);
-                BusinessID.Add((string)test["businesses"][i]["id"]);
+                BusinessID.Add((string)test["businesses"][i]["id"]);    
             }
 
             var FinalList = new
@@ -84,7 +94,8 @@ namespace Roadtrip.Controllers
                 indexs = index,
                 latitude = lati,
                 longitude = longi,
-                id = BusinessID
+                id = BusinessID,
+                total = count
             };
 
             return Json(FinalList, JsonRequestBehavior.AllowGet);
@@ -98,22 +109,44 @@ namespace Roadtrip.Controllers
             string data = SendRequest(uri, key);
 
             JObject test = JObject.Parse(data);
+
             List<string> name = new List<string>();
             List<double> rating = new List<double>();
             List<string> img = new List<string>();
-
+            List<string> phone = new List<string>();
+            List<string> address = new List<string>();
+            List<string> city = new List<string>();
+            List<string> state = new List<string>();
+            List<string> zipcode = new List<string>();
 
 
             name.Add((string)test["name"]);
             rating.Add((double)test["rating"]);
-            img.Add((string)test["img_url"]);
+            img.Add((string)test["image_url"]);
+            phone.Add((string)test["phone"]);
+            address.Add((string)test["location"]["address1"]);
+            city.Add((string)test["location"]["city"]);
+            state.Add((string)test["location"]["state"]);
+            zipcode.Add((string)test["location"]["zip_code"]);
+
+
+
 
             var FinalList = new
+
             {
+
                 names = name,
                 ratings = rating,
-                image = img
+                image = img,
+                phones = phone,
+                addresss = address,
+                citys = city,
+                states = state,
+                zipcodes = zipcode
+
             };
+
 
             return Json(FinalList, JsonRequestBehavior.AllowGet);
         }
