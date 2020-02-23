@@ -58,8 +58,7 @@ namespace Roadtrip.Controllers
             string state = Request.QueryString["state"];
             string term = Request.QueryString["name"];
             string radius = Request.QueryString["numbers"];
-            //string key = System.Web.Configuration.WebConfigurationManager.AppSettings["YelpKey"];
-            string key = "3glYwaLZjmtLvAcgvmia-ocJ1tdhu6PAFCo0jCYrmsgHXZXX0tduCis8dKk3GMGO7Oc9jYYRLTPRSaWopVeUJMI8pjCj2nNcjDhh1mcYsMA3xjkndOqPba6k3_dOXnYx";
+            string key = System.Web.Configuration.WebConfigurationManager.AppSettings["YelpKey"];
             string uri = "https://api.yelp.com/v3/businesses/search?location=" + city + "," + state + "&radius="+ radius + "&term=" + term;
             string data = SendRequest(uri, key);
 
