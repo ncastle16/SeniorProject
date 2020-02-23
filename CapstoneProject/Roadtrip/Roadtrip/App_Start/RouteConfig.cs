@@ -35,12 +35,7 @@ namespace Roadtrip
 
                 );
 
-            routes.MapRoute(
-                name: "GetLname",
-                url: "Routes/GetLname/{name}",
-                defaults: new { controller = "Routes", action = "GetLname"}
-                );
-
+           
 
             routes.MapRoute(
                 name: "Routes",

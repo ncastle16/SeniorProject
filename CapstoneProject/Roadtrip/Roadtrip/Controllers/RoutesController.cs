@@ -114,16 +114,7 @@ namespace Roadtrip.Controllers
 
 
 
-        public JsonResult GetLname()
-        {
-            string Lname = Request.QueryString["name"];
-            var FinalList = new
-            {
-                Lnames = Lname
-            };
-            return Json(FinalList, JsonRequestBehavior.AllowGet);
-
-        }
+        
 
 
 
