@@ -1,8 +1,8 @@
-﻿$(document).ready(function() {
-    plotMap();
-});
+﻿//$(document).ready(function() {
+//    plotMap();
+//});
 
-function plotMap() {
+function plottmpMap() {
     var map = L.map('routemap').setView([44.872435, -123.176427], 13);
 
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}{r}.png', {

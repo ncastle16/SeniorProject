@@ -1,23 +1,35 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
-
-
+<script type="text/javascript">
+    searchedLocations = {
+        name: [],
+        rating: [],
+        indexs: [],
+        latitude: [],
+        longitude: [],
+        id: []
+    };
+    selectedLocations = {
+        name: [],
+        rating: [],
+        indexs: [],
+        latitude: [],
+        longitude: [],
+        id: []
+    };
+</script>
 <body>
-    <div class="jumbotron" style="text-align:center">
-        <h1>Create a route!</h1>
-    </div>
-
     <div class="container">
-        <div class="row">
+        <div class="row" style="text-align:center">
             <form class="form-inline">
                 <div class="form-group">
                     @using (Html.BeginForm())
                     {
                         @Html.Label("Show me ")
-                        <input type="text" id="name" />
+                        <input type="text" id="name" value="food" />
                         @Html.Label(" within ")
-                        @Html.TextBox("numbers", 10, new
+                        @Html.TextBox("numbers", 5, new
                         {
                             @class = "form-control",
                             @placeholder = "15",
@@ -27,23 +39,29 @@
                             @style = "width: 60px;"
                         })
                         @Html.Label(" miles of ")
-                        <input type="text" id="city" />
-                        <input type="text" id="state" />
+                        <input type="text" id="city" value="monmouth" />
+                        <input type="text" id="state" value="oregon" />
                         @Html.Label(".")
-                        <button type="button" id="myButton" onclick="getInfo()">Search</button>
+                        <button type="button" id="myButton" onclick="establishments()">Search</button>
                     }
                 </div>
             </form>
         </div>
         <div class="row">
             <div class="col-lg-6">
-                <div id="searchmap"></div>
+                <div id="searchmap" style="height:300px;"></div>
             </div>
             <div class="col-lg-6">
-                <div id="routemap"></div>
+                <div id="routemap" style="height:300px;"></div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-lg-4" id="establishments" style="height:300px;overflow:scroll;">Locations:</div>
+            <div class="col-lg-4" id="details" style="height:300px;overflow:scroll;">Details:</div>
+            <div class="col-lg-4" id="addLocation" style="height:300px;overflow:scroll;">Route:</div>
+        </div>
     </div>
+
     @Styles.Render("https://unpkg.com/leaflet@1.6.0/dist/leaflet.css")
     @Scripts.Render("https://unpkg.com/leaflet@1.6.0/dist/leaflet.js")
     @Styles.Render("~/Content/leaflet-routing-machine.css")
@@ -52,9 +70,3 @@
     @Scripts.Render("~/Scripts/main.js")
     @Scripts.Render("~/Scripts/PlacesAPI.js")
 </body>
-
-<div class="row">
-    <div class="col-lg-4" id="establishments" style="width:400px;height:600px;overflow:scroll;"></div>
-    <div class="col-lg-4" id="details" style="width:400px;height:600px;overflow:scroll;"></div>
-</div>
-
