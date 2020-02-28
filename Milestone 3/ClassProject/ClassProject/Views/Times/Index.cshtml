@@ -1,0 +1,48 @@
+﻿@model IEnumerable<ClassProject.Models.Time>
+
+@{
+    ViewBag.Title = "Index";
+}
+    <body class="home-bg" id="timediv">
+        <h2 class="indexh2">List of Athletes Times</h2>
+
+        <p>
+            @Html.ActionLink("Create New", "Create", null,  new { @class = "btn btn-primary"})
+        </p>
+
+        <table class="table" id="mytable">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Athlete.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Event.EventType)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Time1)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Athlete.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Event.EventType.EventName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Time1)
+                    </td>
+                    <td>
+                       
+                        @Html.ActionLink("Details", "Details", new {id = item.TID}, new { @class = "btn btn-primary"}) 
+                       
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </body>

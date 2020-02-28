@@ -1,0 +1,79 @@
+CREATE TABLE [dbo].[Athletes]
+(
+	[AID] INT IDENTITY (1,1) NOT NULL,
+	[Name] NVARCHAR (MAX) NOT NULL,
+	[DOB] DATE NOT NULL,
+	CONSTRAINT [Pk_dbo.Athletes] PRIMARY KEY CLUSTERED ([AID] ASC)
+);
+
+CREATE TABLE [dbo].[EventTypes]
+(
+	[ETID] INT IDENTITY (1,1) NOT NULL,
+	[EventName] NVARCHAR (MAX) NOT NULL,
+	CONSTRAINT [Pk_dbo.EventTypes] PRIMARY KEY CLUSTERED ([ETID] ASC)
+);
+
+CREATE TABLE [dbo].[Locations]
+(
+	[LID] INT IDENTITY (1,1) NOT NULL,
+	[LocationName] NVARCHAR (MAX) NOT NULL,
+	CONSTRAINT [Pk_dbo.Locations] PRIMARY KEY CLUSTERED ([LID] ASC)
+);
+
+CREATE TABLE [dbo].[Events]
+(
+	[EID] INT IDENTITY (1,1) NOT NULL,
+	[LocationID] INT NOT NULL,
+	[EventTypeID] INT NOT NULL,
+	[EventDate] DATETIME NOT NULL,
+	CONSTRAINT [Pk_dbo.Events] PRIMARY KEY CLUSTERED ([EID] ASC),
+	CONSTRAINT [FK_dbo.Events_dbo.Locations.LID] FOREIGN KEY ([LocationID]) REFERENCES [dbo].[Locations] ([LID]) ON DELETE CASCADE,
+	CONSTRAINT [Fk_dbo.Events_dbo.EventTypes.ETID] FOREIGN KEY ([EventTypeID]) REFERENCES [dbo].[EventTypes] ([ETID]) ON DELETE CASCADE
+);
+
+CREATE TABLE [dbo].[Coaches]
+(
+	[CID] INT IDENTITY (1,1) NOT NULL,
+	[Name] NVARCHAR (MAX) NOT NULL,
+	CONSTRAINT [Pk_dbo.Coaches] PRIMARY KEY CLUSTERED ([CID] ASC)
+);
+
+CREATE TABLE [dbo].[Teams]
+(
+	[TID] INT IDENTITY (1,1) NOT NULL,
+	[Name] NVARCHAR (MAX) NOT NULL,
+	[CoachID] INT NOT NULL,
+	CONSTRAINT [Pk_dbo.Teams] PRIMARY KEY CLUSTERED ([TID] ASC),
+	CONSTRAINT [Fk_dbo.Teams_dbo.Coaches.CID] FOREIGN KEY ([CoachID]) REFERENCES [dbo].[Coaches] ([CID]) ON DELETE CASCADE
+);
+
+CREATE TABLE [dbo].[AthleteTeams]
+(
+	[ATID] INT IDENTITY (1,1) NOT NULL,
+	[AthleteID] INT NOT NULL,
+	[TeamID] INT NOT NULL,
+	CONSTRAINT [Pk_dbo.AthleteTeams] PRIMARY KEY CLUSTERED ([ATID] ASC),
+	CONSTRAINT [Fk_dbo.AthleteTeams_dbo.Athletes.AID] FOREIGN KEY ([AthleteID]) REFERENCES [dbo].[Athletes] ([AID]) ON DELETE CASCADE,
+	CONSTRAINT [Fk_dbo.AtheleteTeams_dbo.Teams.TID] FOREIGN KEY ([TeamID]) REFERENCES [dbo].[Teams] ([TID]) ON DELETE CASCADE
+);
+
+CREATE TABLE [dbo].[EventTeams]
+(
+	[ETeamsID] INT IDENTITY (1,1) NOT NULL,
+	[TeamID] INT NOT NULL,
+	[EventID] INT NOT NULL,
+	CONSTRAINT [Pk_dbo.EventType] PRIMARY KEY CLUSTERED ([ETeamsID] ASC),
+	CONSTRAINT [Fk_dbo.EventTeams_dbo.Teams_TID] FOREIGN KEY ([TeamID]) REFERENCES [dbo].[Teams] ([TID]) ON DELETE CASCADE,
+	CONSTRAINT [Fk_dbo.EventType_dbo.Events_EID] FOREIGN KEY ([EventID]) REFERENCES [dbo].[Events] ([EID]) ON DELETE CASCADE
+);
+
+CREATE TABLE [dbo].[Times]
+(
+	[TID] INT IDENTITY (1,1) NOT NULL,
+	[AthleteID] INT NOT NULL,
+	[EventID] INT NOT NULL,
+	[Time] Time NOT NULL,
+	CONSTRAINT [Pk_dbo.Times] PRIMARY KEY CLUSTERED ([TID] ASC),
+	CONSTRAINT [Fk_dbo.Times_dbo.Athletes_AID] FOREIGN KEY ([AthleteID]) REFERENCES [dbo].[Athletes] ([AID]) ON DELETE CASCADE,
+	CONSTRAINT [Fk_dbo.Times_dbo.Events_EID] FOREIGN KEY ([EventID]) REFERENCES [dbo].[Events] ([EID]) ON DELETE CASCADE
+);
