@@ -89,6 +89,7 @@ function addName(id) {
 }
 
 
+<<<<<<< HEAD
 function showName(data) {
     console.log(data);
     $('#addLocation').append(`<li id="${data.names[0]}" class="list-group-item list-group-item-dark">${data.names[0]} 
@@ -97,9 +98,21 @@ function showName(data) {
 
 function removeElement(elementId) {
     // Removes an element from the document
+=======
+
+function showName(data) {
+    console.log(data);
+    $('#addLocation').append(`<li class="list-group-item list-group-item-dark" id="${data.names[0]}"">${data.names[0]}<input id="${data.names[0]}" type="button" value="Delete" onclick="removeElement(this.id)"</li>`);
+}
+
+function removeElement(elementId) {
+
+>>>>>>> dev
     var element = document.getElementById(elementId);
     element.parentNode.removeChild(element);
 }
+
+
 
 function showMap(data) {
     document.getElementById('searchmap').innerHTML = "<div id='smap' style='width: 100%; height: 100%;'></div>";
@@ -152,10 +165,13 @@ function plotMap(data) {
     }
 
     var group = new L.featureGroup(array);
-    //mymap.fitBounds(group.getBounds());
+    
 
-    L.Routing.control({
+    var control = L.Routing.control({
         waypoints: routewps,
+        units: 'imperial',
         router: L.Routing.mapbox('pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw')
     }).addTo(mymap);
+    control.hide();
+    mymap.fitBounds(group.getBounds());
 }
