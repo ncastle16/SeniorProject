@@ -89,16 +89,14 @@ function addName(id) {
 }
 
 
-<<<<<<< HEAD
+
 function showName(data) {
     console.log(data);
     $('#addLocation').append(`<li id="${data.names[0]}" class="list-group-item list-group-item-dark">${data.names[0]} 
         <input id="${data.names[0]}" type="button" value="Delete" onclick="removeElement(this.id)"></li>`);
 }
 
-function removeElement(elementId) {
-    // Removes an element from the document
-=======
+
 
 function showName(data) {
     console.log(data);
@@ -106,9 +104,7 @@ function showName(data) {
 }
 
 function removeElement(elementId) {
-
->>>>>>> dev
-    var element = document.getElementById(elementId);
+var element = document.getElementById(elementId);
     element.parentNode.removeChild(element);
 }
 
