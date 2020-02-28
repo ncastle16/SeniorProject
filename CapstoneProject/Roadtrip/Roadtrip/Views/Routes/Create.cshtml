@@ -1,55 +1,6 @@
 ﻿@{
-<<<<<<< HEAD
-
-=======
->>>>>>> dev
     ViewBag.Title = "Home Page";
 }
-<<<<<<< HEAD
-
-<script type="text/javascript">
-
-    searchedLocations = {
-
-        name: [],
-
-        rating: [],
-
-        indexs: [],
-
-        latitude: [],
-
-        longitude: [],
-
-        id: []
-
-    };
-
-    selectedLocations = {
-
-        name: [],
-
-        rating: [],
-
-        indexs: [],
-
-        latitude: [],
-
-        longitude: [],
-
-        id: []
-
-    };
-
-</script>
-
-<body>
-
-    <div class="container">
-
-        <div class="row" style="text-align:center">
-
-=======
 <script type="text/javascript">
     searchedLocations = {
         name: [],
@@ -71,25 +22,14 @@
 <body>
     <div class="container">
         <div class="row" style="text-align:center">
->>>>>>> dev
             <form class="form-inline">
                 <div class="form-group">
                     @using (Html.BeginForm())
                     {
                         @Html.Label("Show me ")
-<<<<<<< HEAD
-
-                        <input type="text" id="name" value="food" />
-
-                        @Html.Label(" within ")
-
-                        @Html.TextBox("numbers", 5, new
-
-=======
                         <input type="text" id="name" value="food" />
                         @Html.Label(" within ")
                         @Html.TextBox("numbers", 5, new
->>>>>>> dev
                         {
                             @class = "form-control",
                             @placeholder = "15",
@@ -99,60 +39,19 @@
                             @style = "width: 60px;"
                         })
                         @Html.Label(" miles of ")
-<<<<<<< HEAD
-
-                        <input type="text" id="city" value="monmouth" />
-
-                        <input type="text" id="state" value="oregon" />
-
-                        @Html.Label(".")
-
-                        <button type="button" id="myButton" onclick="establishments()">Search</button>
-
-=======
                         <input type="text" id="city" value="monmouth" />
                         <input type="text" id="state" value="oregon" />
                         @Html.Label(".")
                         <button type="button" id="myButton" onclick="establishments()">Search</button>
->>>>>>> dev
                     }
                 </div>
             </form>
         </div>
         <div class="row">
             <div class="col-lg-6">
-<<<<<<< HEAD
-
                 <div id="searchmap" style="height:300px;"></div>
-
-=======
-                <div id="searchmap" style="height:300px;"></div>
->>>>>>> dev
             </div>
             <div class="col-lg-6">
-<<<<<<< HEAD
-
-                <div id="routemap" style="height:300px;"></div>
-
-            </div>
-
-        </div>
-
-        <div class="row">
-
-            <div class="col-lg-4" id="establishments" style="height:300px;overflow:scroll;">Locations:</div>
-
-            <div class="col-lg-4" id="details" style="height:300px;overflow:scroll;">Details:</div>
-
-            <div class="col-lg-4" id="addLocation" style="height:300px;overflow:scroll;">Route:</div>
-
-        </div>
-
-    </div>
-
-
-
-=======
                 <div id="routemap" style="height:300px;"></div>
             </div>
         </div>
@@ -163,24 +62,11 @@
         </div>
     </div>
 
->>>>>>> dev
     @Styles.Render("https://unpkg.com/leaflet@1.6.0/dist/leaflet.css")
-
     @Scripts.Render("https://unpkg.com/leaflet@1.6.0/dist/leaflet.js")
-
     @Styles.Render("~/Content/leaflet-routing-machine.css")
-
     @Scripts.Render("~/Scripts/leaflet-routing-machine.js")
-
     @Scripts.Render("~/Scripts/mapScripts.js")
-<<<<<<< HEAD
-
-    @Scripts.Render("~/Scripts/main.js")
-
-    @Scripts.Render("~/Scripts/PlacesAPI.js")
-
-=======
     @Scripts.Render("~/Scripts/main.js")
     @Scripts.Render("~/Scripts/PlacesAPI.js")
->>>>>>> dev
 </body>
