@@ -27,11 +27,11 @@
                     @using (Html.BeginForm())
                     {
                         @Html.Label("Show me ")
-                        <input type="text" id="name" value="food" />
+                        <input class="mx-1" type="text" id="name" value="food" />
                         @Html.Label(" within ")
                         @Html.TextBox("numbers", 5, new
                         {
-                            @class = "form-control",
+                            @class = "form-control mx-1",
                             @placeholder = "15",
                             @type = "number",
                             @min = 1,
@@ -39,8 +39,8 @@
                             @style = "width: 60px;"
                         })
                         @Html.Label(" miles of ")
-                        <input type="text" id="city" value="monmouth" />
-                        <input type="text" id="state" value="oregon" />
+                        <input class="mx-1" type="text" id="city" value="monmouth" />
+                        <input class="mx-1" type="text" id="state" value="oregon" />
                         @Html.Label(".")
                         <button type="button" id="myButton" onclick="establishments()">Search</button>
                     }
@@ -58,7 +58,7 @@
         <div class="row">
             <div class="col-lg-4" id="establishments" style="height:300px;overflow:scroll;">Locations:</div>
             <div class="col-lg-4" id="details" style="height:300px;overflow:scroll;">Details:</div>
-            <div class="col-lg-4" id="addLocation" style="height:300px;overflow:scroll;">Route:</div>
+            <ul class="list-group" id="addLocation">Route:</ul>
         </div>
     </div>
 
