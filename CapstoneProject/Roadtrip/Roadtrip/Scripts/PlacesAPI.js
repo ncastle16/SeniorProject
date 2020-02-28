@@ -87,9 +87,18 @@ function addName(id) {
     }
     plotMap();
 }
+
+
 function showName(data) {
     console.log(data);
-    $('#addLocation').append(`<div style="margin-top:10px;margin-bottom:10px;"><b>${data.names[0]}</b><br></div>`);
+    $('#addLocation').append(`<li id="${data.names[0]}" class="list-group-item list-group-item-dark">${data.names[0]} 
+        <input id="${data.names[0]}" type="button" value="Delete" onclick="removeElement(this.id)"></li>`);
+}
+
+function removeElement(elementId) {
+    // Removes an element from the document
+    var element = document.getElementById(elementId);
+    element.parentNode.removeChild(element);
 }
 
 function showMap(data) {
