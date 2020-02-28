@@ -42,14 +42,6 @@ namespace Roadtrip
                 defaults: new { controller = "Routes", action = "GetLname"}
                 );
 
-
-            routes.MapRoute(
-
-                name: "GetDetails",
-                url: "Routes/GetDetails/{id}",
-                defaults: new { controller = "Routes", action = "GetDetails", id = UrlParameter.Optional }
-                );
-
             routes.MapRoute(
 
                 name: "Routes",
