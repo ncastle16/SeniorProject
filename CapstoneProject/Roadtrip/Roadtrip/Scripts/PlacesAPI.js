@@ -90,20 +90,33 @@ function addName(id) {
 
 
 
-function showName(data) {
-    console.log(data);
-    $('#addLocation').append(`<li id="${data.names[0]}" class="list-group-item list-group-item-dark">${data.names[0]} 
-        <input id="${data.names[0]}" type="button" value="Delete" onclick="removeElement(this.id)"></li>`);
-}
+
 
 
 
 function showName(data) {
-    console.log(data);
+    
     $('#addLocation').append(`<li class="list-group-item list-group-item-dark" id="${data.names[0]}"">${data.names[0]}<input id="${data.names[0]}" type="button" value="Delete" onclick="removeElement(this.id)"</li>`);
 }
 
 function removeElement(elementId) {
+    for (let i = selectedLocations.indexs.length; i >= 0; i--) {
+        if (elementId == selectedLocations.name[i]) {
+            console.log(selectedLocations.name[i]);
+
+
+            selectedLocations.name.splice(i, 1);
+            selectedLocations.latitude.splice(i, 1); 
+            selectedLocations.longitude.splice(i, 1); 
+
+            var element = document.getElementById(elementId);
+            element.parentNode.removeChild(element);
+            //delete selectedLocations.latitude[i];
+            //delete selectedLocations.longitude[i]; 
+            plotMap(); 
+        }
+    }
+
 var element = document.getElementById(elementId);
     element.parentNode.removeChild(element);
 }
