@@ -1,19 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Net;
 using System.Web;
-using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
 using Newtonsoft.Json.Linq;
+using System.Web.Helpers;
+
 using Microsoft.Ajax.Utilities;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using Roadtrip.Models.ViewModels; 
+using Roadtrip.Models.ViewModels;
 
 namespace Roadtrip.Controllers
 {
@@ -24,27 +22,6 @@ namespace Roadtrip.Controllers
         public ActionResult Index()
         {
             return View();
-        }
-        [HttpPost]
-        public ActionResult Index(string name)
-        {
-            /*Splitting the place
-            string[] words = name.Split(' ');
-            string test = words[0];
-            for (int i = 1; i <= words.Length-1; i++)
-            {
-                test = test + "+"+ words[i]; 
-            }
-            string myURL = "https://www.google.com/maps/embed/v1/place?key=AIzaSyArb3QIXJppRRSFTRgi8KZ51vrAm8yEExM&q=" + test + "," + "Seattle+WA"; 
-
-            MapInfoViewModel myInfo = new MapInfoViewModel()
-            {
-                Place = test, 
-                URL = myURL
-             
-            };*/
-
-            return View(); 
         }
 
         public ActionResult Create()
@@ -58,8 +35,9 @@ namespace Roadtrip.Controllers
             string state = Request.QueryString["state"];
             string term = Request.QueryString["name"];
             string radius = Request.QueryString["numbers"];
-            string key = System.Web.Configuration.WebConfigurationManager.AppSettings["YelpKey"];
-            string uri = "https://api.yelp.com/v3/businesses/search?location=" + city + "," + state + "&radius="+ radius + "&term=" + term;
+            //string key = System.Web.Configuration.WebConfigurationManager.AppSettings["YelpKey"];
+            string key = "3glYwaLZjmtLvAcgvmia-ocJ1tdhu6PAFCo0jCYrmsgHXZXX0tduCis8dKk3GMGO7Oc9jYYRLTPRSaWopVeUJMI8pjCj2nNcjDhh1mcYsMA3xjkndOqPba6k3_dOXnYx";
+            string uri = "https://api.yelp.com/v3/businesses/search?location=" + city + "," + state + "&radius=" + radius + "&term=" + term;
             string data = SendRequest(uri, key);
 
             JObject test = JObject.Parse(data);
@@ -71,7 +49,7 @@ namespace Roadtrip.Controllers
             List<string> BusinessID = new List<string>();
             int count = (int)test["total"];
 
-            if(count > 20)
+            if (count > 20)
             {
                 count = 20;
             }
@@ -83,8 +61,9 @@ namespace Roadtrip.Controllers
                 names.Add(((string)test["businesses"][i]["name"]).ToString());
                 lati.Add((decimal)test["businesses"][i]["coordinates"]["latitude"]);
                 longi.Add((decimal)test["businesses"][i]["coordinates"]["longitude"]);
-                BusinessID.Add((string)test["businesses"][i]["id"]);    
+                BusinessID.Add((string)test["businesses"][i]["id"]);
             }
+
 
             var FinalList = new
             {
@@ -118,7 +97,6 @@ namespace Roadtrip.Controllers
             List<string> state = new List<string>();
             List<string> zipcode = new List<string>();
 
-
             name.Add((string)test["name"]);
             rating.Add((double)test["rating"]);
             img.Add((string)test["image_url"]);
@@ -128,13 +106,8 @@ namespace Roadtrip.Controllers
             state.Add((string)test["location"]["state"]);
             zipcode.Add((string)test["location"]["zip_code"]);
 
-
-
-
             var FinalList = new
-
             {
-
                 names = name,
                 ratings = rating,
                 image = img,
@@ -143,34 +116,51 @@ namespace Roadtrip.Controllers
                 citys = city,
                 states = state,
                 zipcodes = zipcode
-
             };
-
-
             return Json(FinalList, JsonRequestBehavior.AllowGet);
         }
 
         private string SendRequest(string uri, string key)
+
         {
+
             Debug.WriteLine(uri);
+
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
+
             request.Headers.Add("Authorization", "Bearer " + key);
+
             request.Accept = "application/json";
 
+
+
             string jsonString = null;
+
+
+
             // TODO: You should handle exceptions here
+
             using (WebResponse response = request.GetResponse())
+
             {
+
                 Stream stream = response.GetResponseStream();
+
                 StreamReader reader = new StreamReader(stream);
+
                 jsonString = reader.ReadToEnd();
+
                 reader.Close();
+
                 stream.Close();
+
             }
+
             return jsonString;
+
         }
-    
-    public ActionResult DisplayInfo(string myInfo, string city)
+
+        public ActionResult DisplayInfo(string myInfo, string city)
         {
             string request = Request.QueryString["myInfo"];
             string myCity = Request.QueryString["city"];
@@ -185,13 +175,13 @@ namespace Roadtrip.Controllers
                 test = test + "+" + words[i];
             }
             /*Parsing and restructuring the City*/
-            
-            string urlPlace = "https://api.opencagedata.com/geocode/v1/json?q="+ test + "+" + myCity + "+" + myState + "&key=" + myKey;
+
+            string urlPlace = "https://api.opencagedata.com/geocode/v1/json?q=" + test + "+" + myCity + "+" + myState + "&key=" + myKey;
             //string urlCity = "https://api.opencagedata.com/geocode/v1/json?q=" + myCity + "&key=3e00b526f7af428a93598818cf2e926d";
-           string json = SendRequestToken(urlPlace, myKey );
+            string json = SendRequestToken(urlPlace, myKey);
             //string jsonCity = SendRequest(urlCity, key); 
             JObject mapInfo = JObject.Parse(json);
-           // JObject cityInfo = JObject.Parse(jsonCity);
+            // JObject cityInfo = JObject.Parse(jsonCity);
 
             //[JSON].results.[0].bounds.northeast.lat
             //[JSON].results.[0].bounds.northeast.lng
@@ -203,16 +193,16 @@ namespace Roadtrip.Controllers
             string lat = (string)mapInfo.SelectToken("results.[0].bounds.northeast.lat");
             string lon = (string)mapInfo.SelectToken("results.[0].bounds.northeast.lng");
 
-           /* string cityLat = (string)cityInfo.SelectToken("results.[0].bounds.northeast.lat");
-            string cityLon = (string)cityInfo.SelectToken("results.[0].bounds.northeast.lng");*/
+            /* string cityLat = (string)cityInfo.SelectToken("results.[0].bounds.northeast.lat");
+             string cityLon = (string)cityInfo.SelectToken("results.[0].bounds.northeast.lng");*/
 
             MapInfoViewModel updateInfo = new MapInfoViewModel()
             {
-                Lat = lat, 
+                Lat = lat,
                 Lon = lon,
-                
+
             };
-           
+
 
 
             return new ContentResult
@@ -224,7 +214,6 @@ namespace Roadtrip.Controllers
             };
         }
 
-
         private string SendRequestToken(string uri, string credentials)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
@@ -232,6 +221,7 @@ namespace Roadtrip.Controllers
             request.Accept = "application/json";
 
             string jsonString = null;
+
             // TODO: You should handle exceptions here
             using (WebResponse response = request.GetResponse())
             {
@@ -243,5 +233,6 @@ namespace Roadtrip.Controllers
             }
             return jsonString;
         }
+
     }
 }
