@@ -8,10 +8,46 @@
     width: 100%;
 }
 
+.dropdown-toggle::after {
+    display: none;
+}
+
+#inp {
+    text-align: center;
+    margin: auto;
+}
+
+.profilepic {
+    border: 1px solid #474747;
+    max-height: 200px;
+}
+
+.profilepic-navbar {
+    border: 1px solid #474747;
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    margin-left: 10px;
+    text-align: center;
+}
+
+.profileBackground {
+    text-align: center;
+    width: 60%;
+    height: 450px;
+    margin-bottom: 35px;
+    padding: 10px;
+    margin-top: 25px;
+    background-color: #EB8258;
+    border: 1px solid #474747;
+    box-shadow: 10px 10px 5px rgba(71,71,71, 0.4);
+}
+
 
 body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background-color: #F5CB5C;
 }
 
 /* Set padding to keep content from hitting the edges */

@@ -245,15 +245,9 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-
     <Content Include="Scripts\leaflet-routing-machine.js" />
-
-
     <Content Include="Scripts\main.js" />
-
-
     <Content Include="Scripts\mapScripts.js" />
-
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\PlacesAPI.js" />
     <Content Include="Web.config" />
@@ -292,6 +286,8 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Routes\Create.cshtml" />
     <Content Include="Views\Routes\Index.cshtml" />
+    <Content Include="Views\Home\EditProfile.cshtml" />
+    <Content Include="Views\Account\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DAL\" />

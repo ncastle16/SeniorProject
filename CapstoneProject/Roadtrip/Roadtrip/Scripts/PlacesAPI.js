@@ -143,10 +143,13 @@ function plotMap(data) {
     }
 
     var group = new L.featureGroup(array);
-    //mymap.fitBounds(group.getBounds());
 
-    L.Routing.control({
+
+    var control = L.Routing.control({
         waypoints: routewps,
+        units: 'imperial',
         router: L.Routing.mapbox('pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw')
     }).addTo(mymap);
+    control.hide();
+    mymap.fitBounds(group.getBounds());
 }
