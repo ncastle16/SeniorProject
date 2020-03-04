@@ -14,52 +14,22 @@
 <body>
 
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="btn btn-secondary mx-2" href="/Home/Index">Home</a>
-            </li>
-        </ul>
-
-       
-
-
-
-
-   
         @if (Request.IsAuthenticated)
         {
+
+        <ul class="nav navbar-nav">
+            <li class="nav-item">
+                <a href="/Home/Index" class="btn btn-primary active" role="button" aria-pressed="true">Home</a>
+            </li>
+        </ul>
             using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "nav navbar-nav ml-auto" }))
             {
                 @Html.AntiForgeryToken()
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown">
-
-                        <button type="button" class="btn btn-secondary">Hello, @User.Identity.Name!</button>
-                        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
-                            <span class="caret"></span>
-                            <span class="sr-only">Toggle Dropdown</span>
-                        </button>
-                        <ul class="dropdown-menu" role="menu">
-                            <li class="disabled"><a href="#">My Account</a></li>
-                            <li class="disabled"><a href="#">View Profile</a></li>
-                            <li class="disabled"><a href="#">Edit Profile</a></li>
-                            <li class="disabled"><a href="#">Change Password</a></li>
-                            <li class="disabled"><a href="#">Setting</a></li>
-                            <li><a href="javascript:document.getElementById('logoutForm').submit()">Logout</a></li>
-                        </ul>
-                    </li>
-                </ul>
-HEAD
-                @if (Request.IsAuthenticated)
-                {
-
-                    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
-                    {
-                        
-                        @Html.AntiForgeryToken()
-                        <li class="btn-group nav">
-                            <button type="button" class="btn navbar-btn dropdown-toggle" data-toggle="dropdown">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-secondary">Hello, @User.Identity.Name!</button>
+                            <button type="button" class="btn btn-secondary dropdown-toggle" style="padding:0px;" data-toggle="dropdown">
                                 @if (Request.IsAuthenticated)
                                 {
                                     var name = "default.jpg";
@@ -71,66 +41,40 @@ HEAD
                                         <img src="~/Uploads/@name" class="profilepic-navbar" />
                                     </div>
                                 }
-                                Hello, @User.Identity.Name!
                                 <span class="sr-only">Toggle Dropdown</span>
                             </button>
-                            <ul class="dropdown-menu" role="menu">
-                                <li class="disabled"><a href="#">My Account</a></li>
-                                <li class="disabled"><a href="#">View Profile</a></li>
-                                <li class=""><a href="/Account/Edit">Edit Profile</a></li>
-                                <li class="disabled"><a href="#">Change Password</a></li>
-                                <li class="disabled"><a href="#">Setting</a></li>
-                                <li><a href="javascript:document.getElementById('logoutForm').submit()">Logout</a></li>
-                            </ul>
-                        </li>
-                    }
-                }
-                else
-                {
-                    <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            <a href="@Url.Action("Register", "Account")">
-                                Register
-                            </a>
-                        </li>
-                        <li>
-                            <a href="@Url.Action("Login", "Account")">
-                                Login
-                            </a>
-                        </li>
-                    </ul>
-                }
-            </div>
-        </div>
-    </div>
-=======
+                            
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item disabled" href="#">My Account</a>
+                                <a class="dropdown-item disabled" href="#">View Profile</a>
+                                <a class="dropdown-item" href="/Account/Edit">Edit Profile</a>
+                                <a class="dropdown-item disabled" href="#">Change Password</a>
+                                <a class="dropdown-item disabled" href="#">Settings</a>
+                                <a class="dropdown-item" href="javascript:document.getElementById('logoutForm').submit()">Logout</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
             }
         }
-
         else
         {
 
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="btn btn-secondary mx-2" href="@Url.Action("Register", "Account")">
-                    Register
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="btn btn-secondary mx-2" href="@Url.Action("Login", "Account")">
-                    Login
-                </a>
-            </li>
-        </ul>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="btn btn-secondary mx-2" href="@Url.Action("Register", "Account")">
+                        Register
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="btn btn-secondary mx-2" href="@Url.Action("Login", "Account")">
+                        Login
+                    </a>
+                </li>
+            </ul>
         }
+    </nav>
 
-
-</nav>
-                
-
-
-
->>>>>>> dev
     <div class="container body-content">
         @RenderBody()
         <hr style="border-color: #474747;" />
@@ -138,7 +82,5 @@ HEAD
             <p style="text-align: center;">&copy; @DateTime.Now.Year - Digital Hijinks</p>
         </footer>
     </div>
-
-
 </body>
 </html>

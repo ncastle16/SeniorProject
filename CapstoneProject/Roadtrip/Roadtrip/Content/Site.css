@@ -23,12 +23,11 @@
 }
 
 .profilepic-navbar {
-    border: 1px solid #474747;
-    width: 20px;
-    height: 20px;
-    margin-right: 10px;
-    margin-left: 10px;
+    width: 36px;
+    height: 36px;
     text-align: center;
+    margin-top: 0px;
+    padding:0px;
 }
 
 .profileBackground {
@@ -45,7 +44,6 @@
 
 
 body {
-    padding-top: 50px;
     padding-bottom: 20px;
     background-color: #F5CB5C;
 }
