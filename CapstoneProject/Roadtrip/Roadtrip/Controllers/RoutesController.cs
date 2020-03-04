@@ -166,6 +166,8 @@ namespace Roadtrip.Controllers
             string myCity = Request.QueryString["city"];
             string myState = Request.QueryString["state"];
             string myKey = System.Web.Configuration.WebConfigurationManager.AppSettings["OpenCageKey"];
+            string yelpKey = System.Web.Configuration.WebConfigurationManager.AppSettings["YelpKey"]; 
+
 
             /*Parsing and restructuring the place element*/
             string[] words = myInfo.Split(' ');
@@ -185,6 +187,11 @@ namespace Roadtrip.Controllers
 
             //[JSON].results.[0].bounds.northeast.lat
             //[JSON].results.[0].bounds.northeast.lng
+
+            /*YELP SECTION*/
+            string uri = "https://api.yelp.com/v3/businesses/search?location=97361&limit=20";
+            string data = SendRequest(uri, yelpKey);
+
 
 
 
