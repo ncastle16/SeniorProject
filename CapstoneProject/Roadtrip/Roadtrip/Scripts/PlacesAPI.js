@@ -87,10 +87,12 @@ function addName(id) {
     }
     plotMap();
 }
+
 function showName(data) {
     console.log(data);
     $('#addLocation').append(`<div style="margin-top:10px;margin-bottom:10px;"><b>${data.names[0]}</b><br></div>`);
 }
+
 
 function showMap(data) {
     document.getElementById('searchmap').innerHTML = "<div id='smap' style='width: 100%; height: 100%;'></div>";
