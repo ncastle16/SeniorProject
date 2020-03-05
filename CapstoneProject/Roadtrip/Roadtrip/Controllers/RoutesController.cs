@@ -21,11 +21,25 @@ namespace Roadtrip.Controllers
         [HttpGet]
         public ActionResult Index()
         {
+            string path = Server.MapPath("~/Uploads/");
+            if (System.IO.File.Exists(path + User.Identity.Name + ".jpeg"))
+            {
+                ViewBag.loggedIn = true;
+            }
+            else
+                ViewBag.loggedIn = false;
             return View();
         }
 
         public ActionResult Create()
         {
+            string path = Server.MapPath("~/Uploads/");
+            if (System.IO.File.Exists(path + User.Identity.Name + ".jpeg"))
+            {
+                ViewBag.loggedIn = true;
+            }
+            else
+                ViewBag.loggedIn = false;
             return View();
         }
 
@@ -35,8 +49,7 @@ namespace Roadtrip.Controllers
             string state = Request.QueryString["state"];
             string term = Request.QueryString["name"];
             string radius = Request.QueryString["numbers"];
-            //string key = System.Web.Configuration.WebConfigurationManager.AppSettings["YelpKey"];
-            string key = "3glYwaLZjmtLvAcgvmia-ocJ1tdhu6PAFCo0jCYrmsgHXZXX0tduCis8dKk3GMGO7Oc9jYYRLTPRSaWopVeUJMI8pjCj2nNcjDhh1mcYsMA3xjkndOqPba6k3_dOXnYx";
+            string key = System.Web.Configuration.WebConfigurationManager.AppSettings["YelpKey"];
             string uri = "https://api.yelp.com/v3/businesses/search?location=" + city + "," + state + "&radius=" + radius + "&term=" + term;
             string data = SendRequest(uri, key);
 
@@ -82,7 +95,9 @@ namespace Roadtrip.Controllers
         public JsonResult GetDetails()
         {
             string ID = Request.QueryString["id"];
+            Console.WriteLine(ID);
             string key = System.Web.Configuration.WebConfigurationManager.AppSettings["YelpKey"];
+            Console.WriteLine(key);
             string uri = "https://api.yelp.com/v3/businesses/" + ID;
             string data = SendRequest(uri, key);
 
@@ -166,6 +181,8 @@ namespace Roadtrip.Controllers
             string myCity = Request.QueryString["city"];
             string myState = Request.QueryString["state"];
             string myKey = System.Web.Configuration.WebConfigurationManager.AppSettings["OpenCageKey"];
+            string yelpKey = System.Web.Configuration.WebConfigurationManager.AppSettings["YelpKey"]; 
+
 
             /*Parsing and restructuring the place element*/
             string[] words = myInfo.Split(' ');
@@ -185,6 +202,11 @@ namespace Roadtrip.Controllers
 
             //[JSON].results.[0].bounds.northeast.lat
             //[JSON].results.[0].bounds.northeast.lng
+
+            /*YELP SECTION*/
+            string uri = "https://api.yelp.com/v3/businesses/search?location=97361&limit=20";
+            string data = SendRequest(uri, yelpKey);
+
 
 
 

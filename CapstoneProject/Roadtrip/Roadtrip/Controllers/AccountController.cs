@@ -9,12 +9,52 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Roadtrip.Models;
+using System.IO;
+using System.Drawing;
+using System.Drawing.Drawing2D;
 
 namespace Roadtrip.Controllers
 {
     [Authorize]
     public class AccountController : Controller
     {
+
+        [HttpGet]
+        public ActionResult Edit()
+        {
+            string path = Server.MapPath("~/Uploads/");
+            if (System.IO.File.Exists(path + User.Identity.Name + ".jpeg"))
+            {
+                ViewBag.loggedIn = true;
+            }
+            else
+                ViewBag.loggedIn = false;
+
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Edit(HttpPostedFileBase postedFile)
+        {
+            if (postedFile != null)
+            {
+                string path = Server.MapPath("~/Uploads/");
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+
+                postedFile.SaveAs(path + Path.GetFileName(User.Identity.Name + ".jpeg"));
+
+                ViewBag.Message = "File uploaded successfully, " + User.Identity.Name + "!";
+            }
+
+            return Edit();
+        }
+
+
+
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
