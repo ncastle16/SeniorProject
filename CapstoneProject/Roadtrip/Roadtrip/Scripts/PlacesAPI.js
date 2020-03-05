@@ -94,9 +94,6 @@ function addName(id) {
 
 
 
-
-
-
 function showName(data) {
     
     $('#addLocation').append(`<li class="list-group-item list-group-item-dark" id="${data.names[0]}"">${data.names[0]}<input id="${data.names[0]}" type="button" value="Delete" onclick="removeElement(this.id)"</li>`);
@@ -120,9 +117,6 @@ function removeElement(elementId) {
         }
     }
 }
-
-
-
 
 
 

@@ -1,6 +1,9 @@
 ﻿@{
+
     ViewBag.Title = "Home Page";
+
 }
+
 <script type="text/javascript">
     searchedLocations = {
         name: [],
@@ -47,27 +50,31 @@
                 </div>
             </form>
         </div>
+
         <div class="row">
             <div class="col-lg-6">
                 <div id="searchmap" style="height:300px;"></div>
             </div>
+
             <div class="col-lg-6">
                 <div id="routemap" style="height:300px;"></div>
             </div>
         </div>
+
         <div class="row">
             <div class="col-lg-4" id="establishments" style="height:300px;overflow-y:scroll;">Locations:</div>
             <div class="col-lg-4" id="details" style="height:300px;overflow-y:scroll;">Details:</div>
             <ul class="col-lg-4" id="addLocation" style="height:300px;overflow-y:scroll;">Route:</ul>
-
         </div>
     </div>
 
-    @Styles.Render("https://unpkg.com/leaflet@1.6.0/dist/leaflet.css")
-    @Scripts.Render("https://unpkg.com/leaflet@1.6.0/dist/leaflet.js")
-    @Styles.Render("~/Content/leaflet-routing-machine.css")
-    @Scripts.Render("~/Scripts/leaflet-routing-machine.js")
-    @Scripts.Render("~/Scripts/mapScripts.js")
-    @Scripts.Render("~/Scripts/main.js")
-    @Scripts.Render("~/Scripts/PlacesAPI.js")
+
+        @Styles.Render("https://unpkg.com/leaflet@1.6.0/dist/leaflet.css")
+        @Scripts.Render("https://unpkg.com/leaflet@1.6.0/dist/leaflet.js")
+        @Styles.Render("~/Content/leaflet-routing-machine.css")
+        @Scripts.Render("~/Scripts/leaflet-routing-machine.js")
+        @Scripts.Render("~/Scripts/mapScripts.js")
+        @Scripts.Render("~/Scripts/main.js")
+        @Scripts.Render("~/Scripts/PlacesAPI.js")
+
 </body>
