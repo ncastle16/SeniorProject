@@ -382,10 +382,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Routes\Create.cshtml" />
     <Content Include="Views\Routes\Index.cshtml" />
-
-    <Content Include="Views\Home\EditProfile.cshtml" />
     <Content Include="Views\Account\Edit.cshtml" />
-
     <Content Include="Scripts\umd\popper.min.js.map" />
     <Content Include="Scripts\umd\popper.js.map" />
     <Content Include="Scripts\umd\popper.js.flow" />
@@ -396,7 +393,6 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
-
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DAL\" />

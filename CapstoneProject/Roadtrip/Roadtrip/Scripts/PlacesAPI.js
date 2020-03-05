@@ -116,9 +116,6 @@ function removeElement(elementId) {
             plotMap(); 
         }
     }
-
-var element = document.getElementById(elementId);
-    element.parentNode.removeChild(element);
 }
 
 
@@ -175,11 +172,31 @@ function plotMap(data) {
 
     var group = new L.featureGroup(array);
 
-   var control = L.Routing.control({
+    var control = L.Routing.control({
         waypoints: routewps,
         units: 'imperial',
         router: L.Routing.mapbox('pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw')
     }).addTo(mymap);
     control.hide();
     mymap.fitBounds(group.getBounds());
+
+    getDistance([selectedLocations.latitude[0], selectedLocations.longitude[0]], [selectedLocations.latitude[1], selectedLocations.longitude[1]]);
+}
+
+function getDistance(wp1, wp2)
+{
+    var wayPoint1 = L.latLng(wp1[0], wp1[1]);
+    var wayPoint2 = L.latLng(wp2[0], wp2[1]);
+
+    rWP1 = new L.Routing.Waypoint;
+    rWP1.latLng = wayPoint1;
+
+    rWP2 = new L.Routing.Waypoint;
+    rWP2.latLng = wayPoint2;  
+
+    var myRoute = L.Routing.osrmv1();
+    myRoute.route([rWP1, rWP2], function (err, routes) {
+        distance = routes[0].summary.totalDistance;
+        console.log('routing distance: ' + distance);
+    });
 }
