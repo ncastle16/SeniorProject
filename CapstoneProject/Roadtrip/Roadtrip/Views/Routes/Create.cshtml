@@ -28,10 +28,7 @@
                     @using (Html.BeginForm())
                     {
                         @Html.Label("Show me ")
-<<<<<<< HEAD
-                        <input class="mx-1" type="text" id="name" value="food" />
-=======
-                    <select id="name" class="form-control">
+                  <select id="name" class="form-control">
                         <option value="food">Food</option>
                         <option value="hotels">Hotels</option>
                         <option value="shopping">Shopping</option>
@@ -40,7 +37,6 @@
                         <option value="Arts&Entertainment">Arts & Entertainment</option>
                         <option value="nightlife">Nightlife</option>
                     </select>
->>>>>>> Sprint2
                         @Html.Label(" within ")
                         @Html.TextBox("numbers", 5, new
                         {
@@ -52,13 +48,10 @@
                             @style = "width: 60px;"
                         })
                         @Html.Label(" miles of ")
-<<<<<<< HEAD
-                        <input class="mx-1" type="text" id="city" value="monmouth" />
-                        <input class="mx-1" type="text" id="state" value="oregon" />
-=======
-                        <input type="text" class="form-control" id="city" placeholder="Monmouth" />
-                        <input type="text" class="form-control" id="state" placeholder="Oregon" />
->>>>>>> Sprint2
+
+                        <input class="mx-1" type="text" id="city" placeholder="monmouth" />
+                        <input class="mx-1" type="text" id="state" placeholder="oregon" />
+
                         @Html.Label(".")
                         <button type="button" class="btn btn-primary" id="myButton" onclick="establishments()">Search</button>
                     }
