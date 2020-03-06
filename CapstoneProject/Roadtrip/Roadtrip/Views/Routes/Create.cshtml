@@ -20,7 +20,7 @@
     };
 </script>
 <body>
-    <div class="container">
+    <div class="container" id="panel">
         <div class="row" style="text-align:center">
             <form class="form-inline">
                 <div class="form-group">
@@ -43,9 +43,11 @@
                         <input class="mx-1" type="text" id="state" value="oregon" />
                         @Html.Label(".")
                         <button type="button" id="myButton" onclick="establishments()">Search</button>
+                        <button type="button" id="saveButton" style="display: none; margin-left:5px;" onclick="saveRoute()">Save my route!</button>
                     }
                 </div>
             </form>
+            
         </div>
         <div class="row">
             <div class="col-lg-6">
@@ -61,7 +63,9 @@
             <ul class="col-lg-4" id="addLocation" style="height:300px;overflow-y:scroll;">Route:</ul>
 
         </div>
+        
     </div>
+    <div id="alertboard" style="display: none;"></div>
 
     @Styles.Render("https://unpkg.com/leaflet@1.6.0/dist/leaflet.css")
     @Scripts.Render("https://unpkg.com/leaflet@1.6.0/dist/leaflet.js")

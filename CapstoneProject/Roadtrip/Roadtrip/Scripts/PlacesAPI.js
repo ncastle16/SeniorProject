@@ -1,4 +1,66 @@
-﻿function establishments() {
+﻿function toggle(e) {
+    var x = document.getElementById(e);
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+function toggleOn(e) {
+    var x = document.getElementById(e);
+    x.style.display = "block";
+}
+$(document).ready(function () {
+    toggleOff("saveButton");
+    toggleOff("alertboard");
+});
+
+
+function toggleOff(e) {
+    var x = document.getElementById(e);
+    x.style.display = "none";
+}
+
+function saveRoute() {
+    if (confirm("Are you sure you want to save this route?")) {
+        var savedList = new Array();
+        
+        for (var i = 0; i < selectedLocations.name.length; i++) {
+            savedList.push({
+                Name: selectedLocations.name[i],
+                Latitude: selectedLocations.latitude[i],
+                Longitude: selectedLocations.longitude[i],
+                Id: selectedLocations.id[i]
+            });
+        }
+        console.log(savedList);
+
+        document.getElementById('alertboard').innerHTML = "<div id='panelinner'>SAVING...</div>";
+        toggleOff("panel");
+        toggleOn("alertboard");
+        $.ajax({
+            type: "POST",
+            url: "/SavedRoutes/SaveRoute",
+            data: JSON.stringify(savedList),
+            success: function (response) {
+                console.log("Data saved successfully");
+                alert("Route saved successfully!");
+                document.getElementById('alertboard').innerHTML = "";
+                document.getElementById('alertboard').innerHTML = "<div id='panelinner'>SAVED!</div>";
+                toggleOn("panel");
+                toggleOff("alertboard");
+                //if (response.result == 'Redirect')
+                //  window.location = response.url;
+            },
+            error: errorOnAjax,
+            dataType: "json",
+            contentType: 'application/json',
+            traditional: true
+        });
+    }
+}
+
+function establishments() {
     var name1 = document.getElementById('name');
     var radius1 = document.getElementById('numbers');
     var city1 = document.getElementById('city');
@@ -85,6 +147,11 @@ function addName(id) {
             selectedLocations.id.push(searchedLocations.id[i]);
         }
     }
+
+    if (selectedLocations.name.length > 1)
+        toggleOn("saveButton");
+
+
     plotMap();
 }
 
@@ -113,6 +180,9 @@ function removeElement(elementId) {
             element.parentNode.removeChild(element);
             //delete selectedLocations.latitude[i];
             //delete selectedLocations.longitude[i]; 
+            if (selectedLocations.name.length < 2)
+                toggleOff("saveButton");
+
             plotMap(); 
         }
     }

@@ -74,11 +74,10 @@ CREATE NONCLUSTERED INDEX [IX_RoleId] ON [dbo].[AspNetUserRoles]([RoleId] ASC);
 
 CREATE TABLE [dbo].[SavedRoutes]
 (
-    [SRID]         NVARCHAR (128) NOT NULL,
+    [SRID]         INT IDENTITY (1,1) NOT NULL,
     [Route]        NVARCHAR (MAX) NOT NULL,
     [Timestamp]    DATETIME       NOT NULL,
     [Username]     NVARCHAR (256) NOT NULL
-    CONSTRAINT [PK_dbo.SavedRoutes] PRIMARY KEY CLUSTERED ([SRID] ASC),
-	CONSTRAINT [FK_dbo.SavedRoutes] FOREIGN KEY ([Username]) REFERENCES [dbo].[AspNetUsers] ([Username])
+    CONSTRAINT [PK_dbo.SavedRoutes] PRIMARY KEY CLUSTERED ([SRID] ASC)
 );
 GO
