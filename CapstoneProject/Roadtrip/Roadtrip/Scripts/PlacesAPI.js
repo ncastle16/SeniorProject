@@ -31,18 +31,17 @@ function test(data) {
     
 
     $('#establishments').empty();
+    $('#establishments').append('<ul id="estList"></ul>');
     for (var i = 0; i < data.total; i++) {
         searchedLocations = data;
-        $('#establishments').append(`
-<div style="display:table; width:100%">
-        <div style="display: table-row">
-            <div style="width: 400px; display: table-cell; background-color:antiquewhite; border:1px solid black">
-                <ul>${data.name[i]}</ul> 
-                <input id="${data.id[i]}" type="button" value="Get Details" onclick="details(this.id)">
+        $('#estList').append(`
+        <li class="list-group-item list-group-item-dark" id="${data.latitude[i]}">${data.name[i]} <br>
+        <input id="${data.id[i]}" type="button" value="Get Details" onclick="details(this.id)">
                 <input id="${data.id[i]}" type="button" value="Add Location" onclick="addName(this.id)">
-            </div>
-        </div>
-</div>
+
+        </li>
+
+
 `);
     }
 }
@@ -122,6 +121,63 @@ var element = document.getElementById(elementId);
 }
 
 
+function highlight(name, color) {
+    var a = document.getElementById(name);
+    console.log(a); 
+    a.style.backgroundColor = color;
+}
+
+function jumpTo(data) {
+
+    var elem = document.getElementById(data);
+    console.log(elem); 
+    var topPos = elem.offsetTop;
+    
+
+    scrollTo(document.getElementById('establishments'), topPos - 5, 500);
+    highlight(data, "#ffff00");
+    setTimeout(function () { highlight(data, "#f6f622"); }, 400);
+    setTimeout(function () { highlight(data, "#eced43"); }, 500);
+    setTimeout(function () { highlight(data, "#e3e465"); }, 600);
+    setTimeout(function () { highlight(data, "#d9da87"); }, 700);
+    setTimeout(function () { highlight(data, "#d0d1a8"); }, 800);
+    setTimeout(function () { highlight(data, "#c6c8ca"); }, 900); 
+    
+
+}
+
+
+function scrollTo(element, to, duration) {
+    console.log(element); 
+    var start = element.scrollTop,
+        change = to - start,
+        currentTime = 0,
+        increment = 20;
+
+    var animateScroll = function () {
+        currentTime += increment;
+        var val = Math.easeInOutQuad(currentTime, start, change, duration);
+        element.scrollTop = val;
+        if (currentTime < duration) {
+            setTimeout(animateScroll, increment);
+        }
+    };
+    animateScroll();
+    
+}
+
+Math.easeInOutQuad = function (t, b, c, d) {
+    t /= d / 2;
+    if (t < 1) return c / 2 * t * t + b;
+    t--;
+    return -c / 2 * (t * (t - 2) - 1) + b;
+};
+
+
+
+
+
+
 
 function showMap(data) {
     document.getElementById('searchmap').innerHTML = "<div id='smap' style='width: 100%; height: 100%;'></div>";
@@ -141,7 +197,8 @@ function showMap(data) {
     var array = [];
 
     for (var i = 0; i < data.total; i++) {
-        array.push(L.marker([data.latitude[i], data.longitude[i]]).bindPopup(`<b>${data.name[i]}</b></br><input id="${ data.id[i] }" type="button" value="Add" onclick="addName(this.id)">`).addTo(mymap));
+        array.push(L.marker([data.latitude[i], data.longitude[i]]).bindPopup(`<b>${data.name[i]}</b>
+        </br><input id="${ data.id[i]}" type="button" value="Add" onclick="addName(this.id)"><input id="${data.name[i]}" type="button" value="Show" onclick="jumpTo(${data.latitude[i]})">`).addTo(mymap));
     }
 
     var group = new L.featureGroup(array);
