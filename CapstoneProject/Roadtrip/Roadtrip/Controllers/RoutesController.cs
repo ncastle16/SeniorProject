@@ -31,6 +31,11 @@ namespace Roadtrip.Controllers
             return View();
         }
 
+        public ActionResult HowTo()
+        {
+            return View();
+        }
+
         public ActionResult Create()
         {
             string path = Server.MapPath("~/Uploads/");
