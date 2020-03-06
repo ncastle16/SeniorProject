@@ -212,6 +212,9 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\RoutesController.cs" />
+    <Compile Include="Controllers\SavedRoutesController.cs" />
+    <Compile Include="DAL\SavedRoute.cs" />
+    <Compile Include="DAL\SavedRoutesModel.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -382,6 +385,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Routes\Create.cshtml" />
     <Content Include="Views\Routes\Index.cshtml" />
+    <Content Include="Views\Account\Edit.cshtml" />
     <Content Include="Scripts\umd\popper.min.js.map" />
     <Content Include="Scripts\umd\popper.js.map" />
     <Content Include="Scripts\umd\popper.js.flow" />
@@ -392,10 +396,13 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\SavedRoutes\Create.cshtml" />
+    <Content Include="Views\SavedRoutes\Delete.cshtml" />
+    <Content Include="Views\SavedRoutes\Details.cshtml" />
+    <Content Include="Views\SavedRoutes\Edit.cshtml" />
+    <Content Include="Views\SavedRoutes\Index.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DAL\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
