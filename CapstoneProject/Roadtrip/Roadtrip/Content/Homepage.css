@@ -1,13 +1,4 @@
-﻿#searchmap {
-    height: 500px;
-    width: 100%;
-}
-
-#routemap {
-    height: 500px;
-    width: 100%;
-}
-
+﻿
 .dropdown-toggle::after {
     display: none;
 }
@@ -27,7 +18,7 @@
     height: 36px;
     text-align: center;
     margin-top: 0px;
-    padding:0px;
+    padding: 0px;
 }
 
 .profileBackground {
@@ -45,6 +36,10 @@
 body {
     padding-bottom: 20px;
     background-color: floralwhite;
+    background-image: url(route.jpg);
+    background-repeat: no-repeat;
+    background-attachment: initial;
+    background-size: 100% 40%;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -66,6 +61,7 @@ select,
 textarea {
     max-width: 280px;
 }
+
 #mapid {
     height: 180px;
 }
