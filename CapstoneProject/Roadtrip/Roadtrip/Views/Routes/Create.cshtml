@@ -28,15 +28,15 @@
                     @using (Html.BeginForm())
                     {
                         @Html.Label("Show me ")
-                        <select id="name" class="form-control">
-                            <option value="food">Food</option>
-                            <option value="hotels">Hotels</option>
-                            <option value="shopping">Shopping</option>
-                            <option value="transportation">Transportation</option>
-                            <option value="activelife">Active Life</option>
-                            <option value="Arts&Entertainment">Arts & Entertainment</option>
-                            <option value="nightlife">Nightlife</option>
-                        </select>
+                  <select id="name" class="form-control">
+                        <option value="food">Food</option>
+                        <option value="hotels">Hotels</option>
+                        <option value="shopping">Shopping</option>
+                        <option value="transportation">Transportation</option>
+                        <option value="activelife">Active Life</option>
+                        <option value="Arts&Entertainment">Arts & Entertainment</option>
+                        <option value="nightlife">Nightlife</option>
+                    </select>
                         @Html.Label(" within ")
                         @Html.TextBox("numbers", 5, new
                         {
@@ -62,15 +62,15 @@
             <div class="col-lg-6">
                 <div id="searchmap" style="height:300px;"></div>
             </div>
+            <div class="col-lg-6">
+                <div id="routemap" style="height:300px;"></div>
+            </div>
         </div>
         <div class="row">
             <div class="col-lg-4" id="establishments" style="height:300px;overflow-y:scroll;">Locations:</div>
             <div class="col-lg-4" id="details" style="height:300px;overflow-y:scroll;">Details:</div>
             <ul class="col-lg-4" id="addLocation" style="height:300px;overflow-y:scroll;">Route:</ul>
 
-        </div>
-        <div>
-            <div id="routemap" style="height:900px; width:3000px"></div>
         </div>
     </div>
 
