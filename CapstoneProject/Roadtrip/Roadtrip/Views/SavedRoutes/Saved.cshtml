@@ -1,0 +1,66 @@
+﻿@model IEnumerable<Roadtrip.Controllers.Route>
+
+@{
+    ViewBag.Title = "Saved";
+}
+
+<script type="text/javascript">
+  var RouteList = @Html.Raw(Json.Encode(Model)); //For javascript object
+  var RoutelistJSON = '@Html.Raw(Json.Encode(Model))'; //For json data
+</script>
+
+@Styles.Render("https://unpkg.com/leaflet@1.6.0/dist/leaflet.css")
+@Scripts.Render("https://unpkg.com/leaflet@1.6.0/dist/leaflet.js")
+@Scripts.Render("https://momentjs.com/downloads/moment.js")
+@Styles.Render("~/Content/leaflet-routing-machine.css")
+@Scripts.Render("~/Scripts/leaflet-routing-machine.js")
+@Scripts.Render("~/Scripts/SavedRoutes.js")
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-3" id="routeCol" style="height:80vh;overflow-y:scroll; text-align:center;">Routes:</div>
+        <div class="col-lg-9" id="routemap" style="height:80vh; text-align: center;"><p style="padding-top: 20%;">Check out a route by clicking "Show Route" in the left panel.</p></div>
+    </div>
+</div>
+
+<!--
+@foreach (var item in Model)
+{
+    <table class="table">
+        <tr>
+            <th>
+                Names
+            </th>
+            <th>
+                BusinessID
+            </th>
+            <th>
+                Latitude
+            </th>
+            <th>
+                Longitude
+            </th>
+        </tr>
+
+        @foreach (var m in item.Locations)
+        {
+            <tr>
+                <td>
+                    @m.Name
+                </td>
+                <td>
+                    @m.Id
+                </td>
+                <td>
+                    @m.Latitude
+                </td>
+                <td>
+                    @m.Longitude
+                </td>
+            </tr>
+        }
+    </table>
+    <hr />
+}
+-->
+
