@@ -12,7 +12,11 @@ using Roadtrip.DAL;
 namespace Roadtrip.Controllers
 {
 
-
+    public struct Route
+    {
+        public DateTime Timestamp { get; set; }
+        public List<RLocation> Locations { get; set; }
+    }
 
 public struct RLocation
     {
@@ -21,6 +25,7 @@ public struct RLocation
         public double Longitude { get; set; }
         public string Id { get; set; }
     };
+    [Authorize]
     public class SavedRoutesController : Controller
     {
         private SavedRoutesModel db = new SavedRoutesModel();
@@ -78,8 +83,41 @@ public struct RLocation
             return Json(new { result = "Redirect", url = Url.Action("/Details/" + savedRoute.SRID ) });
         }
 
-        public void LoadRoute(string s)
+        // GET: SavedRoutes
+        public ActionResult Index()
         {
+            List<SavedRoute> sr = db.SavedRoutes.OrderByDescending(s => s.Timestamp).ToList();
+
+            return View(sr);
+        }
+
+        public ActionResult Saved()
+        {
+            List<SavedRoute> sr = db.SavedRoutes
+                .Where(s => s.Username.Contains(User.Identity.Name))
+                .OrderByDescending(s => s.Timestamp)
+                .ToList();
+
+            return View(LoadRoute(sr));
+        }
+
+        public List<Route> LoadRoute(List<SavedRoute> srs)
+        {
+            List<Route> rls = new List<Route>();
+
+            foreach(SavedRoute sr in srs)
+            {
+                rls.Add(ParseRoute(sr.Route, sr.Timestamp));
+            }
+
+
+            return rls;
+        }
+
+        public Route ParseRoute(string s, DateTime ts)
+        {
+            Route r = new Route();
+            r.Locations = new List<RLocation>();
             RLocation rl;
             int start, end;
 
@@ -87,32 +125,36 @@ public struct RLocation
             string[] words = s.Split('\n');
 
             //Foreach location-
-            for (int i = 0; i < words.Length; i++)
+            for (int i = 0; i < words.Length - 1; i++)
             {
                 //Reset our placeholder
                 rl = new RLocation();
 
-                //Set the start position to the first instance of [lat]
                 start = words[i].IndexOf("[Na]");
-                //Set the end position to the last instance of [lat]
                 end = words[i].LastIndexOf("[Na]");
+                rl.Name = words[i].Substring(start + 4, end - start - 4);
 
-                //Pull out the variable from between the two positions taking into account the tag sizes
-                rl.Latitude = double.Parse(words[i].Substring(start + 5, end - start - 5));
+                start = words[i].IndexOf("[La]");
+                end = words[i].LastIndexOf("[La]");
+                rl.Latitude = double.Parse(words[i].Substring(start + 4, end - start - 4));
+
+                start = words[i].IndexOf("[Lo]");
+                end = words[i].LastIndexOf("[Lo]");
+                rl.Longitude = double.Parse(words[i].Substring(start + 4, end - start - 4));
+
+                start = words[i].IndexOf("[Id]");
+                end = words[i].LastIndexOf("[Id]");
+                rl.Id = words[i].Substring(start + 4, end - start - 4);
 
                 //Repeat for others
-
+                r.Locations.Add(rl);
             }
+
+            r.Timestamp = ts;
+            return r;
         }
 
 
-        // GET: SavedRoutes
-        public ActionResult Index()
-        {
-
-
-            return View(db.SavedRoutes.ToList());
-        }
 
         // GET: SavedRoutes/Details/5
         public ActionResult Details(int? id)
