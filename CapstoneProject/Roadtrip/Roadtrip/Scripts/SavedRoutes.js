@@ -4,6 +4,7 @@
 
     for (var i = 0; i < RouteList.length; i++) {
 
+        $('#routeCol').empty();
         $('#routeCol').append(`
 <div style="display:table; width:100%">
         <div style="display: table-row">
