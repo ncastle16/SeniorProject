@@ -22,8 +22,15 @@
         id: []
     };
 </script>
+<!--<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+    $(function () {
+        $("#addLocation").sortable();
+        $("#addLocation").disableSelection();
+    });</script>-->
 <body>
-    <div class="container">
+    <div class="container" id="panel">
         <div class="row" style="text-align:center">
             <form class="form-inline">
                 <div class="form-group">
@@ -46,9 +53,11 @@
                         <input class="mx-1" type="text" id="state" value="oregon" />
                         @Html.Label(".")
                         <button type="button" id="myButton" onclick="establishments()">Search</button>
+                        <button type="button" id="saveButton" style="display: none; margin-left:5px;" onclick="saveRoute()">Save my route!</button>
                     }
                 </div>
             </form>
+
         </div>
 
         <div class="row">
@@ -70,9 +79,14 @@
                 <div class="col-lg-2" id="short"></div>
             </div>
         </div>
+
         
         
+
+
+
     </div>
+    <div id="alertboard" style="display: none;"></div>
 
 
         @Styles.Render("https://unpkg.com/leaflet@1.6.0/dist/leaflet.css")
