@@ -1,8 +1,18 @@
+
+﻿@{
+
+
 ﻿
-@{
+{
+
     ViewBag.Title = "Home Page";
+
 }
+
+
+
     <link rel="stylesheet" type="text/css" href="~/Content/Site.css">
+
 <script type="text/javascript">
     searchedLocations = {
         name: [],
@@ -76,16 +86,28 @@
             </form>
 
         </div>
+
         <div class="row">
 
             <div class="col-lg-6">
                 <div id="searchmap" style="height:300px;"></div>
             </div>
+
             <div class="col-lg-6">
                 <div id="routemap" style="height:300px;"></div>
             </div>
         </div>
+
         <div class="row">
+
+            <div class="col-lg-4" id="establishments" style="height:300px;overflow-y:scroll;">Locations:</div>
+            <div class="col-lg-3" id="details" style="height:300px;overflow-y:scroll;">Details:</div>
+            <ul class="col-lg-3" id="addLocation" style="height:300px;overflow-y:scroll;">Route:</ul>
+            <div class="col-lg-2" id="shortroute" style="height:300px;overflow-y:scroll;">Shortest Route:
+                <button type="button" id="myrButton" onclick="ACS()">generate</button>
+                <div class="col-lg-2" id="short"></div>
+            </div>
+
 
             <div class="col-lg-4" id="establishments" style="height:300px;overflow:scroll;">Locations:</div>
             <div class="col-lg-4" id="details" style="height:300px;overflow:scroll;">Details:</div>
@@ -97,12 +119,29 @@
 
 
 
+
         </div>
+
+        
+        
+
+
 
     </div>
     
     <div id="alertboard" style="display: none;"></div>
 
+
+
+        @Styles.Render("https://unpkg.com/leaflet@1.6.0/dist/leaflet.css")
+        @Scripts.Render("https://unpkg.com/leaflet@1.6.0/dist/leaflet.js")
+        @Styles.Render("~/Content/leaflet-routing-machine.css")
+        @Scripts.Render("~/Scripts/leaflet-routing-machine.js")
+        @Scripts.Render("~/Scripts/mapScripts.js")
+        @Scripts.Render("~/Scripts/main.js")
+        @Scripts.Render("~/Scripts/PlacesAPI.js")
+
+</body>
 
 
 
@@ -117,4 +156,5 @@
     @Scripts.Render("~/Scripts/main.js")
     @Scripts.Render("~/Scripts/PlacesAPI.js")
 </body>
+
 
