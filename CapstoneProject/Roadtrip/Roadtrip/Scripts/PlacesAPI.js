@@ -205,12 +205,8 @@ function reOrder() {
 
 
 function showName(data) {
-    
-<<<<<<< HEAD
-    $('#sortable').append(`<li class="list-group-item list-group-item-dark test" id="${data.names[0]}"">${data.names[0]} <br><input id="${data.names[0]}" type="button" value="Delete" onclick="removeElement(this.id)"</li>`);
-=======
-    $('#addLocation').append(`<li class="ui-state-default" id="${data.names[0]}""><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>${data.names[0]}<input id="${data.names[0]}" type="button" value="Delete" onclick="removeElement(this.id)"</li>`);
->>>>>>> dev
+        $('#sortable').append(`<li class="list-group-item list-group-item-dark test" id="${data.names[0]}"">${data.names[0]} <br><input id="${data.names[0]}" type="button" value="Delete" onclick="removeElement(this.id)"</li>`);
+
 }
 
 function removeElement(elementId) {
@@ -317,13 +313,10 @@ function showMap(data) {
     var array = [];
 
     for (var i = 0; i < data.total; i++) {
-<<<<<<< HEAD
+
         array.push(L.marker([data.latitude[i], data.longitude[i]]).bindPopup(`<b>${data.name[i]}</b>
         </br><input id="${data.id[i]}" type="button" value="Add" onclick="addName(this.id)"><input id="${data.name[i]}" type="button" value="Show" onclick="jumpTo(${data.latitude[i]})">`).addTo(mymap));
-=======
 
-        array.push(L.marker([data.latitude[i], data.longitude[i]]).bindPopup(`<b>${data.name[i]}</b></br><input id="${ data.id[i] }" type="button" value="Add" onclick="addName(this.id)">`).addTo(mymap));
->>>>>>> dev
     }
 
     var group = new L.featureGroup(array);
