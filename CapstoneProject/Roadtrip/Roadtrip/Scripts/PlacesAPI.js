@@ -67,7 +67,10 @@ function establishments() {
     var city1 = document.getElementById('city');
     var state1 = document.getElementById('state');
     var name = name1.value;
-    var numbers = radius1.value * 1609; 
+    var numbers = radius1.value * 1609;
+     if (numbers > 40000) {
+         numbers = 39999;
+     }
     var city = city1.value;
     var state = state1.value;
     console.log(numbers);
