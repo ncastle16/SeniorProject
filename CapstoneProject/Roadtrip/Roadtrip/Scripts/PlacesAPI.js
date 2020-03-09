@@ -154,37 +154,82 @@ function addName(id) {
     plotMap();
 }
 
+function reOrder() {
+    //var elements = document.getElementsByClassName("test");
+    var elements = document.getElementById("sortable").getElementsByTagName("li");
+    //var names = '';
+    var names = {
+        name: [],
+        rating: [],
+        indexs: [],
+        latitude: [],
+        longitude: [],
+        id: []
+    };
 
 
+
+    for (var i = 0; i < elements.length; i++) {
+        names.name.push(elements[i].id);
+    }
+
+    for (var i = 0; i < names.name.length; i++) {
+        for (var j = 0; j < selectedLocations.indexs.length; j++) {
+            if (names.name[i] == selectedLocations.name[j]) {
+                names.latitude.push(selectedLocations.latitude[j]);
+                names.longitude.push(selectedLocations.longitude[j]);
+                names.id.push(selectedLocations.id[j]);
+                
+            }
+        }
+    }
+
+    for (var i = 0; i < selectedLocations.indexs.length; i++) {
+        selectedLocations.name[i] = names.name[i];
+        selectedLocations.latitude[i] = names.latitude[i];
+        selectedLocations.longitude[i] = names.longitude[i];
+        selectedLocations.id[i] = names.id[i];
+         
+    }
+    console.log(names);
+    console.log(selectedLocations);
+
+    plotMap();
+
+}
 
 
 
 
 function showName(data) {
     
-    $('#addLocation').append(`<li class="list-group-item list-group-item-dark" id="${data.names[0]}"">${data.names[0]}<input id="${data.names[0]}" type="button" value="Delete" onclick="removeElement(this.id)"</li>`);
+    $('#sortable').append(`<li class="list-group-item list-group-item-dark test" id="${data.names[0]}"">${data.names[0]} <br><input id="${data.names[0]}" type="button" value="Delete" onclick="removeElement(this.id)"</li>`);
 }
 
 function removeElement(elementId) {
     for (let i = selectedLocations.indexs.length; i >= 0; i--) {
         if (elementId == selectedLocations.name[i]) {
-            console.log(selectedLocations.name[i]);
+           
 
 
             selectedLocations.name.splice(i, 1);
             selectedLocations.latitude.splice(i, 1); 
-            selectedLocations.longitude.splice(i, 1); 
+            selectedLocations.longitude.splice(i, 1);
+            selectedLocations.indexs.splice(i, 1);
+            selectedLocations.id.splice(i, 1); 
 
             var element = document.getElementById(elementId);
             element.parentNode.removeChild(element);
             //delete selectedLocations.latitude[i];
             //delete selectedLocations.longitude[i]; 
-            if (selectedLocations.name.length < 2)
+            if (selectedLocations.name.length < 2) {
                 toggleOff("saveButton");
-
+            }
+            console.log(selectedLocations); 
             plotMap(); 
         }
     }
+   
 }
 
 
@@ -194,7 +239,7 @@ function highlight(name, color) {
     a.style.backgroundColor = color;
 }
 
-function jumpTo(data) {
+function jumpTo(data, id) {
 
     var elem = document.getElementById(data);
     console.log(elem); 
@@ -202,13 +247,14 @@ function jumpTo(data) {
     
 
     scrollTo(document.getElementById('establishments'), topPos - 5, 500);
+   
     highlight(data, "#ffff00");
-    setTimeout(function () { highlight(data, "#f6f622"); }, 400);
-    setTimeout(function () { highlight(data, "#eced43"); }, 500);
-    setTimeout(function () { highlight(data, "#e3e465"); }, 600);
-    setTimeout(function () { highlight(data, "#d9da87"); }, 700);
-    setTimeout(function () { highlight(data, "#d0d1a8"); }, 800);
-    setTimeout(function () { highlight(data, "#c6c8ca"); }, 900); 
+    setTimeout(function () { highlight(data, "#f6f622"); }, 500);
+    setTimeout(function () { highlight(data, "#eced43"); }, 600);
+    setTimeout(function () { highlight(data, "#e3e465"); }, 700);
+    setTimeout(function () { highlight(data, "#d9da87"); }, 800);
+    setTimeout(function () { highlight(data, "#d0d1a8"); }, 900);
+    setTimeout(function () { highlight(data, "#c6c8ca"); }, 1000); 
     
 
 }
@@ -265,7 +311,7 @@ function showMap(data) {
 
     for (var i = 0; i < data.total; i++) {
         array.push(L.marker([data.latitude[i], data.longitude[i]]).bindPopup(`<b>${data.name[i]}</b>
-        </br><input id="${ data.id[i]}" type="button" value="Add" onclick="addName(this.id)"><input id="${data.name[i]}" type="button" value="Show" onclick="jumpTo(${data.latitude[i]})">`).addTo(mymap));
+        </br><input id="${data.id[i]}" type="button" value="Add" onclick="addName(this.id)"><input id="${data.name[i]}" type="button" value="Show" onclick="jumpTo(${data.latitude[i]})">`).addTo(mymap));
     }
 
     var group = new L.featureGroup(array);
