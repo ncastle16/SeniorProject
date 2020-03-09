@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Home Page";
 }
+    <link rel="stylesheet" type="text/css" href="~/Content/Site.css">
 <script type="text/javascript">
     searchedLocations = {
         name: [],
@@ -20,6 +21,15 @@
         id: []
     };
 </script>
+<<<<<<< HEAD
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+    $(function () {
+        $("#sortable").sortable();
+        $("#sortable").disableSelection();
+    });</script>
+=======
 <!--<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
@@ -27,6 +37,7 @@
         $("#addLocation").sortable();
         $("#addLocation").disableSelection();
     });</script>-->
+>>>>>>> dev
 <body>
     <div class="container" id="panel">
         <div class="row" style="text-align:center">
@@ -66,6 +77,7 @@
 
         </div>
         <div class="row">
+
             <div class="col-lg-6">
                 <div id="searchmap" style="height:300px;"></div>
             </div>
@@ -74,14 +86,28 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-4" id="establishments" style="height:300px;overflow-y:scroll;">Locations:</div>
-            <div class="col-lg-4" id="details" style="height:300px;overflow-y:scroll;">Details:</div>
-            <ul class="col-lg-4" id="addLocation" style="height:300px;overflow-y:scroll;">Route:</ul>
+
+            <div class="col-lg-4" id="establishments" style="height:300px;overflow:scroll;">Locations:</div>
+            <div class="col-lg-4" id="details" style="height:300px;overflow:scroll;">Details:</div>
+
+            <ul class="col-lg-4" id="sortable" style="height:300px; overflow:scroll">Route: <input type="button" value="Re-Order" onclick="reOrder()"></ul>
+
+           
+
+
+
 
         </div>
 
     </div>
+    
     <div id="alertboard" style="display: none;"></div>
+
+
+
+
+
+
 
     @Styles.Render("https://unpkg.com/leaflet@1.6.0/dist/leaflet.css")
     @Scripts.Render("https://unpkg.com/leaflet@1.6.0/dist/leaflet.js")
@@ -91,5 +117,8 @@
     @Scripts.Render("~/Scripts/main.js")
     @Scripts.Render("~/Scripts/PlacesAPI.js")
 </body>
+<<<<<<< HEAD
+=======
 
 
+>>>>>>> dev

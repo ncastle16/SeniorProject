@@ -4,6 +4,21 @@
     height: 700px;
     width: 100%;
 }
+#sortable {
+    list-style-type: inherit;
+    margin: 0;
+    padding: 0;
+    width: 60%;
+}
+
+    #sortable li {
+       cursor:pointer; 
+    }
+
+        #sortable li span {
+            position: absolute;
+            margin-left: -1.3em;
+        }
 
 /*
 #addLocation li {
