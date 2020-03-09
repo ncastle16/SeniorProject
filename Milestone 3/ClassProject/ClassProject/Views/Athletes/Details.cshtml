@@ -1,0 +1,50 @@
+﻿@model ClassProject.Models.Athlete
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+<body class="home-bg">
+    <div>
+        <h4>Athlete</h4>
+        <hr />
+        <dl class="dl-horizontal" style="background-color:aquamarine;">
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.DOB)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DOB)
+            </dd>
+        </dl>
+        <table cellpadding="2" cellspacing="5">
+            <tr>
+                <th>
+                    Race Times
+                </th>
+            </tr>
+            @foreach (var item in ViewBag.times)
+            {
+                <tr>
+                    <td>
+                        @item.Time1
+                    </td>
+                </tr>
+
+            }
+        </table>
+    </div>
+    <p>
+        @Html.ActionLink("Back to List", "Search")
+    </p>
+</body>
+

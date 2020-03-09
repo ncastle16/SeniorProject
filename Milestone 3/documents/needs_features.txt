@@ -1,0 +1,7 @@
+Needs and Features
+-Able to create pub crawl route
+-Able to change route based on road conditions
+-Establishment review/price/stars
+-Social media aspect
+-Possible interests nearby (EventBrite)
+-Recommendations nearby

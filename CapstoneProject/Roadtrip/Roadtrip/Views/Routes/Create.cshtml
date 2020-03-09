@@ -1,0 +1,95 @@
+﻿
+@{
+    ViewBag.Title = "Home Page";
+}
+<script type="text/javascript">
+    searchedLocations = {
+        name: [],
+        rating: [],
+        indexs: [],
+        latitude: [],
+        longitude: [],
+        id: []
+    };
+    selectedLocations = {
+        name: [],
+        rating: [],
+        indexs: [],
+        latitude: [],
+        longitude: [],
+        id: []
+    };
+</script>
+<!--<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+    $(function () {
+        $("#addLocation").sortable();
+        $("#addLocation").disableSelection();
+    });</script>-->
+<body>
+    <div class="container" id="panel">
+        <div class="row" style="text-align:center">
+            <form class="form-inline">
+                <div class="form-group">
+                    @using (Html.BeginForm())
+                    {
+                        @Html.Label("Show me ")
+                    <select id="name" class="form-control">
+                        <option value="food">Food</option>
+                        <option value="hotels">Hotels</option>
+                        <option value="shopping">Shopping</option>
+                        <option value="transportation">Transportation</option>
+                        <option value="activelife">Active Life</option>
+                        <option value="Arts&Entertainment">Arts & Entertainment</option>
+                        <option value="nightlife">Nightlife</option>
+                    </select>
+                        @Html.Label(" within ")
+                        @Html.TextBox("numbers", 5, new
+                        {
+                            @class = "form-control mx-1",
+                            @placeholder = "15",
+                            @type = "number",
+                            @min = 1,
+                            @max = 25,
+                            @style = "width: 60px;"
+                        })
+                        @Html.Label(" miles of ")
+                        <input class="mx-1" type="text" id="city" value="monmouth" />
+                        <input class="mx-1" type="text" id="state" value="oregon" />
+                        @Html.Label(".")
+                        <button type="button" id="myButton" class="btn btn-primary"onclick="establishments()">Search</button>
+                        <button type="button" id="saveButton" style="display: none; margin-left:5px;" onclick="saveRoute()">Save my route!</button>
+                    }
+                </div>
+            </form>
+
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div id="searchmap" style="height:300px;"></div>
+            </div>
+            <div class="col-lg-6">
+                <div id="routemap" style="height:300px;"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4" id="establishments" style="height:300px;overflow-y:scroll;">Locations:</div>
+            <div class="col-lg-4" id="details" style="height:300px;overflow-y:scroll;">Details:</div>
+            <ul class="col-lg-4" id="addLocation" style="height:300px;overflow-y:scroll;">Route:</ul>
+
+        </div>
+
+    </div>
+    <div id="alertboard" style="display: none;"></div>
+
+    @Styles.Render("https://unpkg.com/leaflet@1.6.0/dist/leaflet.css")
+    @Scripts.Render("https://unpkg.com/leaflet@1.6.0/dist/leaflet.js")
+    @Styles.Render("~/Content/leaflet-routing-machine.css")
+    @Scripts.Render("~/Scripts/leaflet-routing-machine.js")
+    @Scripts.Render("~/Scripts/mapScripts.js")
+    @Scripts.Render("~/Scripts/main.js")
+    @Scripts.Render("~/Scripts/PlacesAPI.js")
+</body>
+
+
