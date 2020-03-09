@@ -250,23 +250,16 @@ function plotMap(data) {
     control.hide();
     mymap.fitBounds(group.getBounds());
 
-    getDistance([selectedLocations.latitude[0], selectedLocations.longitude[0]], [selectedLocations.latitude[1], selectedLocations.longitude[1]]);
+ }
+
+function getDistance(rwp1, rwp2) {
+    var source = 'https://router.project-osrm.org/route/v1/driving/' + rwp1[1] + ',' + rwp1[0] + ';' + rwp2[1] + ',' + rwp2[0] + '?overview=false';
+
+    return JSON.parse($.ajax({
+        type: 'GET',
+        dataType: 'application/json',
+        url: source,
+        async: false
+    }).responseText).routes[0].distance;
 }
 
-function getDistance(wp1, wp2)
-{
-    var wayPoint1 = L.latLng(wp1[0], wp1[1]);
-    var wayPoint2 = L.latLng(wp2[0], wp2[1]);
-
-    rWP1 = new L.Routing.Waypoint;
-    rWP1.latLng = wayPoint1;
-
-    rWP2 = new L.Routing.Waypoint;
-    rWP2.latLng = wayPoint2;  
-
-    var myRoute = L.Routing.osrmv1();
-    myRoute.route([rWP1, rWP2], function (err, routes) {
-        distance = routes[0].summary.totalDistance;
-        console.log('routing distance: ' + distance);
-    });
-}
