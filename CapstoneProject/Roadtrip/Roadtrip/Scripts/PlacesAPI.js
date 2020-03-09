@@ -1,3 +1,4 @@
+
 ﻿function toggle(e) {
     var x = document.getElementById(e);
     if (x.style.display === "none") {
@@ -67,6 +68,9 @@ function establishments() {
     var state1 = document.getElementById('state');
     var name = name1.value;
     var numbers = radius1.value * 1609;
+     if (numbers > 40000) {
+         numbers = 39999;
+     }
     var city = city1.value;
     var state = state1.value;
     console.log(numbers);
@@ -90,7 +94,6 @@ function test(data) {
 
     console.log(data);
     showMap(data);
-    
 
     $('#establishments').empty();
     for (var i = 0; i < data.total; i++) {
@@ -208,6 +211,7 @@ function showMap(data) {
     var array = [];
 
     for (var i = 0; i < data.total; i++) {
+
         array.push(L.marker([data.latitude[i], data.longitude[i]]).bindPopup(`<b>${data.name[i]}</b></br><input id="${ data.id[i] }" type="button" value="Add" onclick="addName(this.id)">`).addTo(mymap));
     }
 

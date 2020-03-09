@@ -1,4 +1,5 @@
-﻿@{
+﻿
+@{
     ViewBag.Title = "Home Page";
 }
 <script type="text/javascript">
@@ -34,7 +35,15 @@
                     @using (Html.BeginForm())
                     {
                         @Html.Label("Show me ")
-                        <input class="mx-1" type="text" id="name" value="food" />
+                    <select id="name" class="form-control">
+                        <option value="food">Food</option>
+                        <option value="hotels">Hotels</option>
+                        <option value="shopping">Shopping</option>
+                        <option value="transportation">Transportation</option>
+                        <option value="activelife">Active Life</option>
+                        <option value="Arts&Entertainment">Arts & Entertainment</option>
+                        <option value="nightlife">Nightlife</option>
+                    </select>
                         @Html.Label(" within ")
                         @Html.TextBox("numbers", 5, new
                         {
@@ -42,14 +51,14 @@
                             @placeholder = "15",
                             @type = "number",
                             @min = 1,
-                            @max = 50,
+                            @max = 25,
                             @style = "width: 60px;"
                         })
                         @Html.Label(" miles of ")
                         <input class="mx-1" type="text" id="city" value="monmouth" />
                         <input class="mx-1" type="text" id="state" value="oregon" />
                         @Html.Label(".")
-                        <button type="button" id="myButton" onclick="establishments()">Search</button>
+                        <button type="button" id="myButton" class="btn btn-primary"onclick="establishments()">Search</button>
                         <button type="button" id="saveButton" style="display: none; margin-left:5px;" onclick="saveRoute()">Save my route!</button>
                     }
                 </div>
@@ -82,3 +91,5 @@
     @Scripts.Render("~/Scripts/main.js")
     @Scripts.Render("~/Scripts/PlacesAPI.js")
 </body>
+
+

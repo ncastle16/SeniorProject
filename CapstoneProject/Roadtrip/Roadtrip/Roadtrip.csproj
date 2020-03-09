@@ -233,12 +233,18 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\croppedVid.mp4" />
+    <Content Include="Content\homepage.css" />
     <Content Include="Content\img1.jpg" />
     <Content Include="Content\img2.jpg" />
     <Content Include="Content\img3.jpg" />
     <Content Include="Content\leaflet-routing-machine.css" />
     <Content Include="Content\leaflet.routing.icons.png" />
+    <Content Include="Content\navbar.png" />
+    <Content Include="Content\route.jpg" />
+    <Content Include="Content\routeCreation.png" />
     <Content Include="Content\routing-icon.png" />
+    <Content Include="Content\Search.png" />
     <Content Include="Content\rt.gif" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -269,6 +275,7 @@
     <Content Include="Scripts\bootstrap.bundle.min.js.map" />
     <Content Include="Scripts\bootstrap.bundle.js.map" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\Homepage.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
@@ -402,6 +409,10 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\Routes\HowTo.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DAL\" />
     <Content Include="Views\SavedRoutes\Create.cshtml" />
     <Content Include="Views\SavedRoutes\Delete.cshtml" />
     <Content Include="Views\SavedRoutes\Details.cshtml" />
