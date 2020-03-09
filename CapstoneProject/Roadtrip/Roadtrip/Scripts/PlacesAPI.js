@@ -484,9 +484,15 @@ function ACS() {
         }
         iter++;
     }
+    shortestR.shift();
+    console.log(shortestR);
+   
     var text = "";
+    var kk = 2;
     for (var i = 0; i < cn - 1; i++) {
-        text += "#distance:" + dis[shortestR[i][0]][shortestR[i][1]] +"<br>" + "("+(i+2)+")" + selectedLocations.name[shortestR[i][1]] + "<br>"
+        
+        text += "#distance:" + dis[shortestR[i][0]][shortestR[i][1]] + "<br>" + "(" + kk + ")" + selectedLocations.name[shortestR[i][1]] + "<br>"
+        kk++;
     }
     document.getElementById("short").innerHTML = "(1)" + selectedLocations.name[shortestR[0][0]] + "<br>" + text;
 
@@ -517,7 +523,7 @@ function ACS() {
     }
     
 
-    var group = new L.featureGroup(array);
+   
 
     var control = L.Routing.control({
         waypoints: routewps,
@@ -525,5 +531,6 @@ function ACS() {
         router: L.Routing.mapbox('pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw')
     }).addTo(mymap);
     control.hide();
+    var group = new L.featureGroup(array);
     mymap.fitBounds(group.getBounds());
 }
