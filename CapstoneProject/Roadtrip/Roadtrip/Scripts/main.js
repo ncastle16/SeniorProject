@@ -53,4 +53,6 @@ function showSearchMap(data) {
     var marker = L.marker([data.Lat, data.Lon]).addTo(mymap);
 
 
-        }
+}
+
+ 
