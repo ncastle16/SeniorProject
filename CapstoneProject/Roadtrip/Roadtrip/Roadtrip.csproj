@@ -233,9 +233,19 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\croppedVid.mp4" />
+    <Content Include="Content\homepage.css" />
+    <Content Include="Content\img1.jpg" />
+    <Content Include="Content\img2.jpg" />
+    <Content Include="Content\img3.jpg" />
     <Content Include="Content\leaflet-routing-machine.css" />
     <Content Include="Content\leaflet.routing.icons.png" />
+    <Content Include="Content\navbar.png" />
+    <Content Include="Content\route.jpg" />
+    <Content Include="Content\routeCreation.png" />
     <Content Include="Content\routing-icon.png" />
+    <Content Include="Content\Search.png" />
+    <Content Include="Content\rt.gif" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -254,6 +264,8 @@
     <Content Include="Scripts\esm\popper-utils.min.js" />
     <Content Include="Scripts\esm\popper.js" />
     <Content Include="Scripts\esm\popper.min.js" />
+    <Content Include="Scripts\homepage.js" />
+    <Content Include="Scripts\HowTo.js" />
     <Content Include="Scripts\index.js.flow" />
     <Content Include="Scripts\esm\popper.min.js.map" />
     <Content Include="Scripts\esm\popper.js.map" />
@@ -264,6 +276,7 @@
     <Content Include="Scripts\bootstrap.bundle.min.js.map" />
     <Content Include="Scripts\bootstrap.bundle.js.map" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\Homepage.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
@@ -282,6 +295,7 @@
     <Content Include="Scripts\popper-utils.min.js" />
     <Content Include="Scripts\popper.js" />
     <Content Include="Scripts\popper.min.js" />
+    <Content Include="Scripts\SavedRoutes.js" />
     <Content Include="Scripts\src\index.js" />
     <Content Include="Scripts\src\methods\defaults.js" />
     <Content Include="Scripts\src\methods\destroy.js" />
@@ -396,11 +410,15 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\Routes\HowTo.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Views\SavedRoutes\Create.cshtml" />
     <Content Include="Views\SavedRoutes\Delete.cshtml" />
     <Content Include="Views\SavedRoutes\Details.cshtml" />
     <Content Include="Views\SavedRoutes\Edit.cshtml" />
     <Content Include="Views\SavedRoutes\Index.cshtml" />
+    <Content Include="Views\SavedRoutes\Saved.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

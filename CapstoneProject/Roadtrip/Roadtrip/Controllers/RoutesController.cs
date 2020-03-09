@@ -38,6 +38,11 @@ namespace Roadtrip.Controllers
             return View();
         }
 
+        public ActionResult HowTo()
+        {
+            return View();
+        }
+
         public ActionResult Create()
         {
             string path = Server.MapPath("~/Uploads/");
@@ -84,7 +89,7 @@ namespace Roadtrip.Controllers
                 longi.Add((decimal)test["businesses"][i]["coordinates"]["longitude"]);
                 BusinessID.Add((string)test["businesses"][i]["id"]);
             }
-            
+
 
             var FinalList = new
             {
@@ -266,13 +271,3 @@ namespace Roadtrip.Controllers
 
     }
 }
-
-
-
-
-
-
-
-
-
-

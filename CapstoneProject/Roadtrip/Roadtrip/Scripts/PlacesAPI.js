@@ -1,3 +1,4 @@
+
 ﻿function toggle(e) {
     var x = document.getElementById(e);
     if (x.style.display === "none") {
@@ -67,6 +68,9 @@ function establishments() {
     var state1 = document.getElementById('state');
     var name = name1.value;
     var numbers = radius1.value * 1609;
+     if (numbers > 40000) {
+         numbers = 39999;
+     }
     var city = city1.value;
     var state = state1.value;
     console.log(numbers);
@@ -90,7 +94,6 @@ function test(data) {
 
     console.log(data);
     showMap(data);
-    
 
     $('#establishments').empty();
     $('#establishments').append('<ul id="estList"></ul>');
@@ -203,7 +206,11 @@ function reOrder() {
 
 function showName(data) {
     
+<<<<<<< HEAD
     $('#sortable').append(`<li class="list-group-item list-group-item-dark test" id="${data.names[0]}"">${data.names[0]} <br><input id="${data.names[0]}" type="button" value="Delete" onclick="removeElement(this.id)"</li>`);
+=======
+    $('#addLocation').append(`<li class="ui-state-default" id="${data.names[0]}""><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>${data.names[0]}<input id="${data.names[0]}" type="button" value="Delete" onclick="removeElement(this.id)"</li>`);
+>>>>>>> dev
 }
 
 function removeElement(elementId) {
@@ -310,8 +317,13 @@ function showMap(data) {
     var array = [];
 
     for (var i = 0; i < data.total; i++) {
+<<<<<<< HEAD
         array.push(L.marker([data.latitude[i], data.longitude[i]]).bindPopup(`<b>${data.name[i]}</b>
         </br><input id="${data.id[i]}" type="button" value="Add" onclick="addName(this.id)"><input id="${data.name[i]}" type="button" value="Show" onclick="jumpTo(${data.latitude[i]})">`).addTo(mymap));
+=======
+
+        array.push(L.marker([data.latitude[i], data.longitude[i]]).bindPopup(`<b>${data.name[i]}</b></br><input id="${ data.id[i] }" type="button" value="Add" onclick="addName(this.id)">`).addTo(mymap));
+>>>>>>> dev
     }
 
     var group = new L.featureGroup(array);
@@ -353,23 +365,16 @@ function plotMap(data) {
     control.hide();
     mymap.fitBounds(group.getBounds());
 
-    getDistance([selectedLocations.latitude[0], selectedLocations.longitude[0]], [selectedLocations.latitude[1], selectedLocations.longitude[1]]);
+ }
+
+function getDistance(rwp1, rwp2) {
+    var source = 'https://router.project-osrm.org/route/v1/driving/' + rwp1[1] + ',' + rwp1[0] + ';' + rwp2[1] + ',' + rwp2[0] + '?overview=false';
+
+    return JSON.parse($.ajax({
+        type: 'GET',
+        dataType: 'application/json',
+        url: source,
+        async: false
+    }).responseText).routes[0].distance;
 }
 
-function getDistance(wp1, wp2)
-{
-    var wayPoint1 = L.latLng(wp1[0], wp1[1]);
-    var wayPoint2 = L.latLng(wp2[0], wp2[1]);
-
-    rWP1 = new L.Routing.Waypoint;
-    rWP1.latLng = wayPoint1;
-
-    rWP2 = new L.Routing.Waypoint;
-    rWP2.latLng = wayPoint2;  
-
-    var myRoute = L.Routing.osrmv1();
-    myRoute.route([rWP1, rWP2], function (err, routes) {
-        distance = routes[0].summary.totalDistance;
-        console.log('routing distance: ' + distance);
-    });
-}
