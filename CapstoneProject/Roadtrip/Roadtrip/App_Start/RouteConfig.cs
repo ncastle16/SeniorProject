@@ -20,6 +20,12 @@ namespace Roadtrip
             );
 
             routes.MapRoute(
+                name: "SaveRoute",
+                url: "SavedRoutes/SaveRoute",
+                defaults: new { controller = "SavedRoutes", action = "SaveRoute" }
+            );
+
+            routes.MapRoute(
                 name: "GetEstablishment",
                 url: "Routes/GetEstablishment",
                 defaults: new { controller = "Routes", action = "GetEstablishment"}

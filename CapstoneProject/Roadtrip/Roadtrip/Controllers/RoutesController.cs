@@ -8,15 +8,22 @@ using System.IO;
 using System.Net;
 using Newtonsoft.Json.Linq;
 using System.Web.Helpers;
-
 using Microsoft.Ajax.Utilities;
 using Newtonsoft.Json;
 using Roadtrip.Models.ViewModels;
+using System.Text;
+using Roadtrip.Controllers;
+using Roadtrip.Models;
 
 namespace Roadtrip.Controllers
 {
+    [Authorize]
     public class RoutesController : Controller
     {
+        ApplicationDbContext db = new ApplicationDbContext();
+
+
+
         // GET: Routes
         [HttpGet]
         public ActionResult Index()
@@ -47,6 +54,7 @@ namespace Roadtrip.Controllers
                 ViewBag.loggedIn = false;
             return View();
         }
+
 
         public JsonResult GetEstablishment()
         {

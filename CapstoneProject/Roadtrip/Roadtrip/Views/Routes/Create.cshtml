@@ -20,15 +20,22 @@
         id: []
     };
 </script>
+<!--<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+    $(function () {
+        $("#addLocation").sortable();
+        $("#addLocation").disableSelection();
+    });</script>-->
 <body>
-    <div class="container">
+    <div class="container" id="panel">
         <div class="row" style="text-align:center">
             <form class="form-inline">
                 <div class="form-group">
                     @using (Html.BeginForm())
                     {
                         @Html.Label("Show me ")
-                  <select id="name" class="form-control">
+                    <select id="name" class="form-control">
                         <option value="food">Food</option>
                         <option value="hotels">Hotels</option>
                         <option value="shopping">Shopping</option>
@@ -48,15 +55,15 @@
                             @style = "width: 60px;"
                         })
                         @Html.Label(" miles of ")
-
-                        <input class="mx-1" type="text" id="city" placeholder="monmouth" />
-                        <input class="mx-1" type="text" id="state" placeholder="oregon" />
-
+                        <input class="mx-1" type="text" id="city" value="monmouth" />
+                        <input class="mx-1" type="text" id="state" value="oregon" />
                         @Html.Label(".")
-                        <button type="button" class="btn btn-primary" id="myButton" onclick="establishments()">Search</button>
+                        <button type="button" id="myButton" class="btn btn-primary"onclick="establishments()">Search</button>
+                        <button type="button" id="saveButton" style="display: none; margin-left:5px;" onclick="saveRoute()">Save my route!</button>
                     }
                 </div>
             </form>
+
         </div>
         <div class="row">
             <div class="col-lg-6">
@@ -72,7 +79,9 @@
             <ul class="col-lg-4" id="addLocation" style="height:300px;overflow-y:scroll;">Route:</ul>
 
         </div>
+
     </div>
+    <div id="alertboard" style="display: none;"></div>
 
     @Styles.Render("https://unpkg.com/leaflet@1.6.0/dist/leaflet.css")
     @Scripts.Render("https://unpkg.com/leaflet@1.6.0/dist/leaflet.js")
