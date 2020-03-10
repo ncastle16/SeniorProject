@@ -130,31 +130,43 @@ function showDetails(data) {
 }
 
 function addName(id) {
-    var source = '/Routes/GetDetails?id=' + id;
-    $.ajax({
-        type: 'GET',
-        dataType: 'json',
-        url: source,
-        success: showName,
-        error: errorOnAjax
-    });
-
-    for (let i = 0; i < searchedLocations.indexs.length; i++) {
-        if (searchedLocations.id[i] == id) {
-            selectedLocations.name.push(searchedLocations.name[i]);
-            selectedLocations.rating.push(searchedLocations.rating[i]);
-            selectedLocations.indexs.push(searchedLocations.indexs[i]);
-            selectedLocations.latitude.push(searchedLocations.latitude[i]);
-            selectedLocations.longitude.push(searchedLocations.longitude[i]);
-            selectedLocations.id.push(searchedLocations.id[i]);
+    
+    var bool = true; 
+    for (var i = 0; i < selectedLocations.name.length; i++) {
+        if (id == selectedLocations.id[i]) {
+            bool = false;
         }
+       
     }
+    console.log(bool); 
 
-    if (selectedLocations.name.length > 1)
-        toggleOn("saveButton");
+    if (bool == true) {
+        var source = '/Routes/GetDetails?id=' + id;
+        $.ajax({
+            type: 'GET',
+            dataType: 'json',
+            url: source,
+            success: showName,
+            error: errorOnAjax
+        });
+        for (let i = 0; i < searchedLocations.indexs.length; i++) {
+            if (searchedLocations.id[i] == id) {
+                selectedLocations.name.push(searchedLocations.name[i]);
+                selectedLocations.rating.push(searchedLocations.rating[i]);
+                selectedLocations.indexs.push(searchedLocations.indexs[i]);
+                selectedLocations.latitude.push(searchedLocations.latitude[i]);
+                selectedLocations.longitude.push(searchedLocations.longitude[i]);
+                selectedLocations.id.push(searchedLocations.id[i]);
+            }
+        }
+        if (selectedLocations.name.length > 1) {
+            toggleOn("saveButton");
+        }
 
 
-    plotMap();
+        plotMap();
+    }
+   
 }
 
 function reOrder() {
@@ -206,11 +218,11 @@ function reOrder() {
 
 function showName(data) {
     
-<<<<<<< HEAD
+
     $('#sortable').append(`<li class="list-group-item list-group-item-dark test" id="${data.names[0]}"">${data.names[0]} <br><input id="${data.names[0]}" type="button" value="Delete" onclick="removeElement(this.id)"</li>`);
-=======
-    $('#addLocation').append(`<li class="ui-state-default" id="${data.names[0]}""><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>${data.names[0]}<input id="${data.names[0]}" type="button" value="Delete" onclick="removeElement(this.id)"</li>`);
->>>>>>> dev
+
+   
+
 }
 
 function removeElement(elementId) {
@@ -317,13 +329,13 @@ function showMap(data) {
     var array = [];
 
     for (var i = 0; i < data.total; i++) {
-<<<<<<< HEAD
+
         array.push(L.marker([data.latitude[i], data.longitude[i]]).bindPopup(`<b>${data.name[i]}</b>
         </br><input id="${data.id[i]}" type="button" value="Add" onclick="addName(this.id)"><input id="${data.name[i]}" type="button" value="Show" onclick="jumpTo(${data.latitude[i]})">`).addTo(mymap));
-=======
 
-        array.push(L.marker([data.latitude[i], data.longitude[i]]).bindPopup(`<b>${data.name[i]}</b></br><input id="${ data.id[i] }" type="button" value="Add" onclick="addName(this.id)">`).addTo(mymap));
->>>>>>> dev
+
+       
+
     }
 
     var group = new L.featureGroup(array);
