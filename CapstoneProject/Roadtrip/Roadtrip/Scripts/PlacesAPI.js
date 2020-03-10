@@ -1,5 +1,5 @@
 
-﻿function toggle(e) {
+function toggle(e) {
     var x = document.getElementById(e);
     if (x.style.display === "none") {
         x.style.display = "block";
@@ -25,7 +25,7 @@ function toggleOff(e) {
 function saveRoute() {
     if (confirm("Are you sure you want to save this route?")) {
         var savedList = new Array();
-        
+
         for (var i = 0; i < selectedLocations.name.length; i++) {
             savedList.push({
                 Name: selectedLocations.name[i],
@@ -68,9 +68,9 @@ function establishments() {
     var state1 = document.getElementById('state');
     var name = name1.value;
     var numbers = radius1.value * 1609;
-     if (numbers > 40000) {
-         numbers = 39999;
-     }
+    if (numbers > 40000) {
+        numbers = 39999;
+    }
     var city = city1.value;
     var state = state1.value;
     console.log(numbers);
@@ -144,39 +144,50 @@ function moreDetails(id) {
 function showMoreDetails(data) {
     console.log(data);
     for (var i = 0; i < 3; i++) {
-        
+
         $('#details').append(`<div style="margin-top:50px;margin-bottom:50px;"><img src="${data.image[i]}" style="width:200px;height:150px;"><br><b>${data.name[i]}</b><br>${data.text[i]}<br><b>This user has a rating of</b> ${data.rating[i]}<br></div>`);
     }
 }
 
 function addName(id) {
-    var source = '/Routes/GetDetails?id=' + id;
-    $.ajax({
-        type: 'GET',
-        dataType: 'json',
-        url: source,
-        success: showName,
-        error: errorOnAjax
-    });
 
-    for (let i = 0; i < searchedLocations.indexs.length; i++) {
-        if (searchedLocations.id[i] == id) {
-            selectedLocations.name.push(searchedLocations.name[i]);
-            selectedLocations.rating.push(searchedLocations.rating[i]);
-            selectedLocations.indexs.push(searchedLocations.indexs[i]);
-            selectedLocations.latitude.push(searchedLocations.latitude[i]);
-            selectedLocations.longitude.push(searchedLocations.longitude[i]);
-            selectedLocations.id.push(searchedLocations.id[i]);
+    var bool = true;
+    for (var i = 0; i < selectedLocations.name.length; i++) {
+        if (id == selectedLocations.id[i]) {
+            bool = false;
         }
+
+    }
+    console.log(bool);
+
+    if (bool == true) {
+        var source = '/Routes/GetDetails?id=' + id;
+        $.ajax({
+            type: 'GET',
+            dataType: 'json',
+            url: source,
+            success: showName,
+            error: errorOnAjax
+        });
+        for (let i = 0; i < searchedLocations.indexs.length; i++) {
+            if (searchedLocations.id[i] == id) {
+                selectedLocations.name.push(searchedLocations.name[i]);
+                selectedLocations.rating.push(searchedLocations.rating[i]);
+                selectedLocations.indexs.push(searchedLocations.indexs[i]);
+                selectedLocations.latitude.push(searchedLocations.latitude[i]);
+                selectedLocations.longitude.push(searchedLocations.longitude[i]);
+                selectedLocations.id.push(searchedLocations.id[i]);
+            }
+        }
+        if (selectedLocations.name.length > 1) {
+            toggleOn("saveButton");
+        }
+
+
+        plotMap();
     }
 
-    if (selectedLocations.name.length > 1)
-        toggleOn("saveButton");
-
-
-    plotMap();
 }
-
 function reOrder() {
     //var elements = document.getElementsByClassName("test");
     var elements = document.getElementById("sortable").getElementsByTagName("li");
@@ -202,7 +213,7 @@ function reOrder() {
                 names.latitude.push(selectedLocations.latitude[j]);
                 names.longitude.push(selectedLocations.longitude[j]);
                 names.id.push(selectedLocations.id[j]);
-                
+
             }
         }
     }
@@ -212,7 +223,7 @@ function reOrder() {
         selectedLocations.latitude[i] = names.latitude[i];
         selectedLocations.longitude[i] = names.longitude[i];
         selectedLocations.id[i] = names.id[i];
-         
+
     }
     console.log(names);
     console.log(selectedLocations);
@@ -225,21 +236,21 @@ function reOrder() {
 
 
 function showName(data) {
-        $('#sortable').append(`<li class="list-group-item list-group-item-dark test" id="${data.names[0]}"">${data.names[0]} <br><input id="${data.names[0]}" type="button" value="Delete" onclick="removeElement(this.id)"</li>`);
+    $('#sortable').append(`<li class="list-group-item list-group-item-dark test" id="${data.names[0]}"">${data.names[0]} <br><input id="${data.names[0]}" type="button" value="Delete" onclick="removeElement(this.id)"</li>`);
 
 }
 
 function removeElement(elementId) {
     for (let i = selectedLocations.indexs.length; i >= 0; i--) {
         if (elementId == selectedLocations.name[i]) {
-           
+
 
 
             selectedLocations.name.splice(i, 1);
-            selectedLocations.latitude.splice(i, 1); 
+            selectedLocations.latitude.splice(i, 1);
             selectedLocations.longitude.splice(i, 1);
             selectedLocations.indexs.splice(i, 1);
-            selectedLocations.id.splice(i, 1); 
+            selectedLocations.id.splice(i, 1);
 
             var element = document.getElementById(elementId);
             element.parentNode.removeChild(element);
@@ -248,43 +259,43 @@ function removeElement(elementId) {
             if (selectedLocations.name.length < 2) {
                 toggleOff("saveButton");
             }
-            console.log(selectedLocations); 
-            plotMap(); 
+            console.log(selectedLocations);
+            plotMap();
         }
     }
-   
+
 }
 
 
 function highlight(name, color) {
     var a = document.getElementById(name);
-    console.log(a); 
+    console.log(a);
     a.style.backgroundColor = color;
 }
 
 function jumpTo(data, id) {
 
     var elem = document.getElementById(data);
-    console.log(elem); 
+    console.log(elem);
     var topPos = elem.offsetTop;
-    
+
 
     scrollTo(document.getElementById('establishments'), topPos - 5, 500);
-   
+
     highlight(data, "#ffff00");
     setTimeout(function () { highlight(data, "#f6f622"); }, 500);
     setTimeout(function () { highlight(data, "#eced43"); }, 600);
     setTimeout(function () { highlight(data, "#e3e465"); }, 700);
     setTimeout(function () { highlight(data, "#d9da87"); }, 800);
     setTimeout(function () { highlight(data, "#d0d1a8"); }, 900);
-    setTimeout(function () { highlight(data, "#c6c8ca"); }, 1000); 
-    
+    setTimeout(function () { highlight(data, "#c6c8ca"); }, 1000);
+
 
 }
 
 
 function scrollTo(element, to, duration) {
-    console.log(element); 
+    console.log(element);
     var start = element.scrollTop,
         change = to - start,
         currentTime = 0,
@@ -299,7 +310,7 @@ function scrollTo(element, to, duration) {
         }
     };
     animateScroll();
-    
+
 }
 
 Math.easeInOutQuad = function (t, b, c, d) {
@@ -404,7 +415,7 @@ function newA(arr, x) {
 
 function getType(o) {
     var _t;
-    return ((_t = typeof(o)) == "object" ? o==null && "null" || Object.prototype.toString.call(o).slice(8,-1):_t).toLowerCase();
+    return ((_t = typeof (o)) == "object" ? o == null && "null" || Object.prototype.toString.call(o).slice(8, -1) : _t).toLowerCase();
 }
 function extend(destination, source) {
     for (var p in source) {
@@ -419,7 +430,7 @@ function extend(destination, source) {
 }
 
 function totalR(r) {
-    var s = 0; 
+    var s = 0;
     var l = r.length;
     for (var i = 0; i < l; i++) {
         s += r[i];
@@ -442,7 +453,7 @@ function ACS() {
     var shortdis = 999999999;
     var shortestR = new Array();
     shortestR[0] = new Array();
-    
+
     for (var i = 0; i < cn; i++) {
         for (var j = i + 1; j < cn; j++) {
             var distance = getDistance([selectedLocations.latitude[i], selectedLocations.longitude[i]], [selectedLocations.latitude[j], selectedLocations.longitude[j]]);
@@ -451,7 +462,7 @@ function ACS() {
         }
         dis[i][i] = 0;
     }
-    
+
     for (var i = 0; i < cn; i++) {
         for (var j = i + 1; j < cn; j++) {
             Ax[i][j] = 1 / (cn * (cn - 1));
@@ -463,7 +474,7 @@ function ACS() {
     extend(Rx, Ax);
 
     while (iter <= itermax) {
-        
+
         var road = new Array();
 
         road[0] = new Array();
@@ -481,12 +492,13 @@ function ACS() {
 
             }
         }
+        console.log(road);
         for (var h = 0; h < an; h++) {
-            road[h].shift();
-            road[h].shift();
-            road[h].shift();
+            for (var h1 = 0; h1 < cn - 1; h1++) {
+                road[h].shift();
+
+            }
         }
-        
 
         for (var ai = 0; ai < an; ai++) {
             extend(Ax, Rx);
@@ -497,8 +509,8 @@ function ACS() {
             var pre = 0;
             var next = 0;
 
-            
-            
+
+
 
             while (totalR(route) != 0) {
 
@@ -530,10 +542,10 @@ function ACS() {
                 }
 
 
-                
+
 
                 road[ai].push([pre, next]);
-                
+
                 route[next] = 0;
 
                 for (var i = 0; i < cn; i++) {
@@ -543,28 +555,28 @@ function ACS() {
             }
 
             next = 0;
-            
-            road[ai].shift();
-            
 
-            
+            road[ai].shift();
+
+
+
         }
 
         var rd = new Array();
         for (var i = 0; i < an; i++) {
             rd[i] = 0;
         }
-       
+
         for (var i = 0; i < an; i++) {
-            for (var j = 0; j < cn-1; j++) {
-                
-               rd[i] += dis[road[i][j][0]][road[i][j][1]];
-                
+            for (var j = 0; j < cn - 1; j++) {
+
+                rd[i] += dis[road[i][j][0]][road[i][j][1]];
+
             }
         }
 
 
-        
+
         var min = rd[0];
         var temp1 = 0;
         var shorter = min;
@@ -574,18 +586,18 @@ function ACS() {
                 temp1 = i;
             }
         }
-       
-       
+
+
         if (shortdis > shorter) {
             shortdis = shorter;
             shortestR = road[temp1];
         }
 
-        for (var i = 0; i < cn-1; i++) {
+        for (var i = 0; i < cn - 1; i++) {
             Rx[road[temp1][i][0]][road[temp1][i][1]] = Rx[road[temp1][i][0]][road[temp1][i][1]] * (1 - p) + p * (1 / shorter);
         }
-        for (var i = 0; i < cn-1; i++) {
-            for (var j = 0; j < cn-1; j++) {
+        for (var i = 0; i < cn - 1; i++) {
+            for (var j = 0; j < cn - 1; j++) {
                 if (j != road[temp1][i][1]) {
                     Rx[i][j] = Rx[i][j] * (1 - p);
                 }
@@ -593,13 +605,13 @@ function ACS() {
         }
         iter++;
     }
-    shortestR.shift();
+    //shortestR.shift();
     console.log(shortestR);
-   
+
     var text = "";
     var kk = 2;
     for (var i = 0; i < cn - 1; i++) {
-        
+
         text += "#distance:" + dis[shortestR[i][0]][shortestR[i][1]] + "<br>" + "(" + kk + ")" + selectedLocations.name[shortestR[i][1]] + "<br>"
         kk++;
     }
@@ -609,7 +621,7 @@ function ACS() {
     document.getElementById('routemap').innerHTML = "<div id='rmap' style='width: 100%; height: 100%;'></div>";
     var mymap = L.map('rmap').setView([selectedLocations.latitude[shortestR[0][0]], selectedLocations.longitude[shortestR[0][0]]], 13);
 
-    
+
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
         maxZoom: 18,
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
@@ -626,13 +638,13 @@ function ACS() {
     array.push(L.marker([selectedLocations.latitude[shortestR[0][0]], selectedLocations.longitude[shortestR[0][0]]]).bindPopup("<b>" + selectedLocations.name[shortestR[0][0]] + "</b>").addTo(mymap));
     routewps.push(L.latLng([selectedLocations.latitude[shortestR[0][0]], selectedLocations.longitude[shortestR[0][0]]]));
 
-    for (var i = 0; i < cn-1; i++) {
+    for (var i = 0; i < cn - 1; i++) {
         array.push(L.marker([selectedLocations.latitude[shortestR[i][1]], selectedLocations.longitude[shortestR[i][1]]]).bindPopup("<b>" + selectedLocations.name[shortestR[i][1]] + "</b>").addTo(mymap));
         routewps.push(L.latLng([selectedLocations.latitude[shortestR[i][1]], selectedLocations.longitude[shortestR[i][1]]]));
     }
-    
 
-   
+
+
 
     var control = L.Routing.control({
         waypoints: routewps,
@@ -644,9 +656,9 @@ function ACS() {
     mymap.fitBounds(group.getBounds());
 }
 
- }
 
-function getDistance(rwp1, rwp2) {
+
+function getDistanceb(rwp1, rwp2) {
     var source = 'https://router.project-osrm.org/route/v1/driving/' + rwp1[1] + ',' + rwp1[0] + ';' + rwp2[1] + ',' + rwp2[0] + '?overview=false';
 
     return JSON.parse($.ajax({
