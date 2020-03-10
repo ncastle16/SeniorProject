@@ -384,13 +384,11 @@ function plotMap(data) {
     var control = L.Routing.control({
         waypoints: routewps,
         units: 'imperial',
+        createMarker: function () { return null; },
         router: L.Routing.mapbox('pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw')
     }).addTo(mymap);
     control.hide();
     mymap.fitBounds(group.getBounds());
-
-
-    getDistance([selectedLocations.latitude[0], selectedLocations.longitude[0]], [selectedLocations.latitude[1], selectedLocations.longitude[1]]);
 }
 
 function getDistance(rwp1, rwp2) {
