@@ -10,6 +10,7 @@
 <div style="display:table; width:100%">
         <div style="display: table-row">
             <div style="width: 100%; display: table-cell; background-color:antiquewhite; border:1px solid black;">
+                <div  style="font-size: 20px;">Route Name: ${RouteList[i].routeName}</div>
                 <div  style="font-size: 15px;">Start: ${RouteList[i].Locations[0].Name}</div>
                 <div  style="font-size: 15px;">End: ${RouteList[i].Locations[RouteList[i].Locations.length - 1].Name}</div>
                 <p style="font-size: 10px;">Created on ${ moment(RouteList[i].Timestamp).format('MMMM Do YYYY, h:mm a')}</p>

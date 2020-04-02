@@ -25,6 +25,9 @@ function toggleOff(e) {
 function saveRoute() {
     if (confirm("Are you sure you want to save this route?")) {
         var savedList = new Array();
+        var RName = document.getElementById('routeName');
+        var routeName = RName.value
+        console.log(routeName);
         
         for (var i = 0; i < selectedLocations.name.length; i++) {
             savedList.push({
@@ -32,17 +35,19 @@ function saveRoute() {
                 Latitude: selectedLocations.latitude[i],
                 Longitude: selectedLocations.longitude[i],
                 Id: selectedLocations.id[i]
+               
             });
         }
         console.log(savedList);
+       
 
         document.getElementById('alertboard').innerHTML = "<div id='panelinner'>SAVING...</div>";
         toggleOff("panel");
         toggleOn("alertboard");
         $.ajax({
             type: "POST",
-            url: "/SavedRoutes/SaveRoute",
-            data: JSON.stringify(savedList),
+            url: "/SavedRoutes/SaveRoute?routeName=" + routeName,
+            data:  JSON.stringify(savedList),   
             success: function (response) {
                 console.log("Data saved successfully");
                 alert("Route saved successfully!");

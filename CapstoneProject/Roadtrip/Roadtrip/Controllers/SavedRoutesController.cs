@@ -14,6 +14,7 @@ namespace Roadtrip.Controllers
 
     public struct Route
     {
+        public string routeName { get; set; } 
         public DateTime Timestamp { get; set; }
         public List<RLocation> Locations { get; set; }
     }
@@ -31,13 +32,16 @@ public struct RLocation
         private SavedRoutesModel db = new SavedRoutesModel();
 
         [HttpPost]
-        public JsonResult SaveRoute(List<RLocation> rl)
+        public JsonResult SaveRoute(List<RLocation> rl, string actName)
         {
             StringBuilder sb = new StringBuilder();
             SavedRoute savedRoute = new SavedRoute();
+            string Rname = Request.QueryString["routeName"];
+            string myName = actName;
 
             foreach (RLocation r in rl) 
-            { 
+            {
+               
                 sb.AppendFormat("[Na]{0}[Na] [La]{1}[La] [Lo]{2}[Lo] [Id]{3}[Id] \n",
                     r.Name, r.Latitude, r.Longitude, r.Id);
             }
@@ -55,6 +59,7 @@ public struct RLocation
                 savedRoute.Username = "test123@wou.com";
             savedRoute.Timestamp = DateTime.UtcNow;
             savedRoute.Route = sb.ToString();
+            savedRoute.RouteName = Rname; 
 
             db.SavedRoutes.Add(savedRoute);
             
@@ -107,14 +112,18 @@ public struct RLocation
 
             foreach(SavedRoute sr in srs)
             {
-                rls.Add(ParseRoute(sr.Route, sr.Timestamp));
+                rls.Add(ParseRoute(sr.Route, sr.Timestamp, sr.RouteName)) ;
+               
+
             }
+            
+            
 
 
             return rls;
         }
 
-        public Route ParseRoute(string s, DateTime ts)
+        public Route ParseRoute(string s, DateTime ts, string routeName)
         {
             Route r = new Route();
             r.Locations = new List<RLocation>();
@@ -151,6 +160,7 @@ public struct RLocation
             }
 
             r.Timestamp = ts;
+            r.routeName = routeName; 
             return r;
         }
 
