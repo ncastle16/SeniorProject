@@ -59,3 +59,8 @@ function showRoute(id) {
 
     mymap.fitBounds(group.getBounds());
 }
+
+function like(data) {
+
+
+}
