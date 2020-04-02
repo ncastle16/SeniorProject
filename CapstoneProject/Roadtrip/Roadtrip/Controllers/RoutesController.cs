@@ -124,6 +124,7 @@ namespace Roadtrip.Controllers
             List<string> city = new List<string>();
             List<string> state = new List<string>();
             List<string> zipcode = new List<string>();
+            //List<string> ids = new List<string>();
 
             name.Add((string)test["name"]);
             rating.Add((double)test["rating"]);
@@ -133,9 +134,11 @@ namespace Roadtrip.Controllers
             city.Add((string)test["location"]["city"]);
             state.Add((string)test["location"]["state"]);
             zipcode.Add((string)test["location"]["zip_code"]);
+            //ids.Add((string)test["id"]);
 
             var FinalList = new
             {
+                id = ID,
                 names = name,
                 ratings = rating,
                 image = img,
@@ -144,6 +147,44 @@ namespace Roadtrip.Controllers
                 citys = city,
                 states = state,
                 zipcodes = zipcode
+            };
+            return Json(FinalList, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetMoreDetails()
+        {
+            string ID = Request.QueryString["id"];
+            Console.WriteLine(ID);
+            string key = System.Web.Configuration.WebConfigurationManager.AppSettings["YelpKey"];
+            Console.WriteLine(key);
+            string uri = "https://api.yelp.com/v3/businesses/" + ID +"/reviews";
+           
+            string data = SendRequest(uri, key);
+
+            JObject test = JObject.Parse(data);
+
+            List<string> texts = new List<string>();
+            List<int> ratings = new List<int>();
+            List<string> img = new List<string>();
+            List<string> names = new List<string>();
+
+            for (int i = 0; i < 3; i++)
+            {
+                texts.Add((string)test["reviews"][i]["text"]);
+                ratings.Add((int)test["reviews"][i]["rating"]);
+                img.Add((string)test["reviews"][i]["user"]["image_url"]);
+                names.Add((string)test["reviews"][i]["user"]["name"]);
+            }
+
+
+
+            var FinalList = new
+            {
+               
+                text = texts,
+                rating = ratings,
+                image = img,
+                name = names
             };
             return Json(FinalList, JsonRequestBehavior.AllowGet);
         }
@@ -270,4 +311,17 @@ namespace Roadtrip.Controllers
         }
 
     }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
