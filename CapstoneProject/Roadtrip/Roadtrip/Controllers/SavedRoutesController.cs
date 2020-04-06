@@ -14,6 +14,7 @@ namespace Roadtrip.Controllers
 
     public struct Route
     {
+        public int SRID { get; set; }
         public DateTime Timestamp { get; set; }
         public List<RLocation> Locations { get; set; }
     }
@@ -101,20 +102,34 @@ public struct RLocation
             return View(LoadRoute(sr));
         }
 
+        public void DeleteRoute()
+        {
+            int id = Int32.Parse(Request.QueryString["id"]);
+            List<SavedRoute> sr = db.SavedRoutes
+                .Where(s => s.SRID.Equals(id))
+                .ToList();
+
+            foreach (SavedRoute s in sr)
+            {
+                db.SavedRoutes.Remove(s);
+                db.SaveChanges();
+            }
+        }
+
         public List<Route> LoadRoute(List<SavedRoute> srs)
         {
             List<Route> rls = new List<Route>();
 
             foreach(SavedRoute sr in srs)
             {
-                rls.Add(ParseRoute(sr.Route, sr.Timestamp));
+                rls.Add(ParseRoute(sr.Route, sr.Timestamp, sr.SRID));
             }
 
 
             return rls;
         }
 
-        public Route ParseRoute(string s, DateTime ts)
+        public Route ParseRoute(string s, DateTime ts, int SRID)
         {
             Route r = new Route();
             r.Locations = new List<RLocation>();
@@ -151,6 +166,7 @@ public struct RLocation
             }
 
             r.Timestamp = ts;
+            r.SRID = SRID;
             return r;
         }
 
