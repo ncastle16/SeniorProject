@@ -26,23 +26,30 @@ function saveRoute() {
     if (confirm("Are you sure you want to save this route?")) {
         var savedList = new Array();
 
+        var RName = document.getElementById('routeName');
+        var routeName = RName.value
+        console.log(routeName);
+        
+
         for (var i = 0; i < selectedLocations.name.length; i++) {
             savedList.push({
                 Name: selectedLocations.name[i],
                 Latitude: selectedLocations.latitude[i],
                 Longitude: selectedLocations.longitude[i],
                 Id: selectedLocations.id[i]
+               
             });
         }
         console.log(savedList);
+       
 
         document.getElementById('alertboard').innerHTML = "<div id='panelinner'>SAVING...</div>";
         toggleOff("panel");
         toggleOn("alertboard");
         $.ajax({
             type: "POST",
-            url: "/SavedRoutes/SaveRoute",
-            data: JSON.stringify(savedList),
+            url: "/SavedRoutes/SaveRoute?routeName=" + routeName,
+            data:  JSON.stringify(savedList),   
             success: function (response) {
                 console.log("Data saved successfully");
                 alert("Route saved successfully!");
@@ -129,6 +136,11 @@ function showDetails(data) {
     $('#details').append(`<div style="margin-top:50px;margin-bottom:50px;"><img src="${data.image[0]}" style="width:200px;height:150px;"><br> <b>${data.names[0]}</b><br>This business has a rating of ${data.ratings[0]}<br> Located at: ${data.addresss[0]}  ${data.citys[0]}, ${data.states[0]} ${data.zipcodes[0]}<br>The phone number for this business is: ${data.phones[0]}<input id="${data.id}" type="button" value="MoreDetails" onclick="moreDetails(this.id)"></div>`);
 }
 
+
+/*function addName(id) {
+    
+    var bool = true; 
+
 function moreDetails(id) {
     var source = '/Routes/GetMoreDetails?id=' + id;
 
@@ -139,7 +151,7 @@ function moreDetails(id) {
         success: showMoreDetails,
         error: errorOnAjax
     });
-}
+}*/
 
 function showMoreDetails(data) {
     console.log(data);
@@ -152,13 +164,20 @@ function showMoreDetails(data) {
 function addName(id) {
 
     var bool = true;
+
     for (var i = 0; i < selectedLocations.name.length; i++) {
         if (id == selectedLocations.id[i]) {
             bool = false;
         }
 
+       
     }
-    console.log(bool);
+    console.log(bool); 
+
+
+    
+    
+
 
     if (bool == true) {
         var source = '/Routes/GetDetails?id=' + id;
@@ -187,7 +206,11 @@ function addName(id) {
         plotMap();
     }
 
-}
+   }
+
+
+
+
 function reOrder() {
     //var elements = document.getElementsByClassName("test");
     var elements = document.getElementById("sortable").getElementsByTagName("li");
@@ -236,7 +259,16 @@ function reOrder() {
 
 
 function showName(data) {
+
+    
+
     $('#sortable').append(`<li class="list-group-item list-group-item-dark test" id="${data.names[0]}"">${data.names[0]} <br><input id="${data.names[0]}" type="button" value="Delete" onclick="removeElement(this.id)"</li>`);
+
+   
+
+
+   
+
 
 }
 
@@ -347,6 +379,7 @@ function showMap(data) {
 
         array.push(L.marker([data.latitude[i], data.longitude[i]]).bindPopup(`<b>${data.name[i]}</b>
         </br><input id="${data.id[i]}" type="button" value="Add" onclick="addName(this.id)"><input id="${data.name[i]}" type="button" value="Show" onclick="jumpTo(${data.latitude[i]})">`).addTo(mymap));
+
 
     }
 

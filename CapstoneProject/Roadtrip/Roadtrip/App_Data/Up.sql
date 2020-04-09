@@ -77,7 +77,8 @@ CREATE TABLE [dbo].[SavedRoutes]
     [SRID]         INT IDENTITY (1,1) NOT NULL,
     [Route]        NVARCHAR (MAX) NOT NULL,
     [Timestamp]    DATETIME       NOT NULL,
-    [Username]     NVARCHAR (256) NOT NULL
+    [Username]     NVARCHAR (256) NOT NULL,
+	[RouteName]	   NVARCHAR (256)
     CONSTRAINT [PK_dbo.SavedRoutes] PRIMARY KEY CLUSTERED ([SRID] ASC)
 );
 GO
