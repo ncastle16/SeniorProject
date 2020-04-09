@@ -20,6 +20,7 @@ function populateRouteList() {
                 <div  style="font-size: 15px;">Start: ${RouteList[i].Locations[i].Name}</div>
                 <div  style="font-size: 15px;">End: ${RouteList[i].Locations[RouteList[i].Locations.length - 1].Name}</div>
                 <div  style="font-size: 10px;">Created By: ${RouteList[i].userName}</div>
+
                 <p style="font-size: 10px;">Created on ${ moment(RouteList[i].Timestamp).format('MMMM Do YYYY, h:mm a')}</p>
                  
                  <input id="${RouteList[i].SRID}" name="${RouteList[i].userName}" type="button" value="Like" onclick="like(this.id, this.name)">
@@ -124,6 +125,7 @@ function showRoute(id) {
 
     mymap.fitBounds(group.getBounds());
 }
+
 
 function like(SRID, userName) {
     
