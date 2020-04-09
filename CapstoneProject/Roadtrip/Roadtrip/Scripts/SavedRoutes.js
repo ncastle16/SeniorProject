@@ -1,11 +1,7 @@
-<<<<<<< HEAD
-﻿
-$(document).ready(function () {
-=======
+
 ﻿$(document).ready(function () {
     populateRouteList();
 });
->>>>>>> dev
 
 function populateRouteList() {
     if (RouteList.length > 0)
@@ -17,7 +13,7 @@ function populateRouteList() {
         $('#routeCol').append(`
 <div style="display:table; width:100%">
         <div style="display: table-row">
-<<<<<<< HEAD
+
             <div  id="${RouteList[i].SRID}" style="width: 100%; display: table-cell; background-color:antiquewhite; border:1px solid black;">
                 <div  style="font-size: 20px;">Route Name: ${RouteList[i].routeName}</div>
                 
@@ -28,20 +24,15 @@ function populateRouteList() {
                  
                  <input id="${RouteList[i].SRID}" name="${RouteList[i].userName}" type="button" value="Like" onclick="like(this.id, this.name)">
                 <input name="${i}" type="button" value="Show Route" onclick="showRoute(this.name)">
-=======
-            <div style="width: 100%; display: table-cell; background-color:antiquewhite; border:1px solid black;">
-                <div  style="font-size: 15px;">Start: ${RouteList[i].Locations[0].Name}</div>
-                <div  style="font-size: 15px;">${RouteList[i].Locations[RouteList[i].Locations.length - 1].Name}</div>
-                <p style="font-size: 10px;">Created on ${ moment(RouteList[i].Timestamp).format('MMMM Do YYYY, h:mm a')}</p>
-                <input id="${i}" type="button" value="Show Route" onclick="showRoute(this.id)">
+
                 <input id="${RouteList[i].SRID}" type="button" value="Delete Route" onclick="deleteRoute(this.id)">
->>>>>>> dev
+
             </div>
         </div>
 </div>
 `);
     }
-<<<<<<< HEAD
+
 
     var iy = tryingWork();
     if (iy != null) {
@@ -66,9 +57,9 @@ function populateRouteList() {
         
         
     }
-});
-=======
 }
+
+
 
 function removeItem(srid) {
     var pos = 0;
@@ -94,7 +85,7 @@ function deleteRoute(id) {
         removeItem(id);
     }
 }
->>>>>>> dev
+
 
 function showRoute(id) {
 

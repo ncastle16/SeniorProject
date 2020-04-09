@@ -15,14 +15,14 @@ namespace Roadtrip.Controllers
 
     public struct Route
     {
-<<<<<<< HEAD
+
         public int SRID { get; set; }
         public string userName { get; set; }
         public string routeName { get; set; } 
-=======
+
         public string Username { get; set; }
-        public int SRID { get; set; }
->>>>>>> dev
+       // public int SRID { get; set; }
+
         public DateTime Timestamp { get; set; }
         public List<RLocation> Locations { get; set; }
     }
@@ -139,13 +139,13 @@ public struct RLocation
 
             foreach(SavedRoute sr in srs)
             {
-<<<<<<< HEAD
+
                 rls.Add(ParseRoute(sr.Route, sr.Timestamp, sr.RouteName, sr.SRID, sr.Username)) ;
                
 
-=======
-                rls.Add(ParseRoute(sr.Route, sr.Timestamp, sr.SRID, sr.Username));
->>>>>>> dev
+
+                //rls.Add(ParseRoute(sr.Route, sr.Timestamp, sr.SRID, sr.Username));
+
             }
             
             
@@ -154,11 +154,11 @@ public struct RLocation
             return rls;
         }
 
-<<<<<<< HEAD
+
         public Route ParseRoute(string s, DateTime ts, string routeName, int srid, string uName)
-=======
-        public Route ParseRoute(string s, DateTime ts, int SRID, string Username)
->>>>>>> dev
+
+//        public Route ParseRoute(string s, DateTime ts, int SRID, string Username)
+
         {
             Route r = new Route();
             r.Locations = new List<RLocation>();
@@ -195,14 +195,14 @@ public struct RLocation
             }
 
             r.Timestamp = ts;
-<<<<<<< HEAD
+
             r.routeName = routeName;
             r.SRID = srid;
             r.userName = uName; 
-=======
-            r.SRID = SRID;
-            r.Username = Username;
->>>>>>> dev
+
+           // r.SRID = SRID;
+            //r.Username = Username;
+
             return r;
         }
 
