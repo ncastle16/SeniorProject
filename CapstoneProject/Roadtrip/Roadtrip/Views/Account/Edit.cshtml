@@ -1,7 +1,15 @@
-﻿
+﻿@model IEnumerable<Roadtrip.DAL.LikedRoute>
 @{
     ViewBag.Title = "Edit";
 }
+
+<script type="text/javascript">
+  var LikedList = @Html.Raw(Json.Encode(Model)); //For javascript object
+
+</script>
+
+@Scripts.Render("~/Scripts/LikedRoutes.js")
+@Scripts.Render("~/Scripts/link.js")
 
 <h2 style="text-align:center;">@User.Identity.Name</h2>
 <body style="background-color: #F5CB5C;">
@@ -30,9 +38,11 @@
                     <br />
                     <span style="color:green">@ViewBag.Message</span>
                 }
-            </div>           
+            </div>
         </div>
     </div>
+    <div id="LikedRoutes" style="width:400px"> </div>
+
 </body>
 
 

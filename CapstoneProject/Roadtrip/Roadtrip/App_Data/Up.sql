@@ -81,4 +81,12 @@ CREATE TABLE [dbo].[SavedRoutes]
 	[RouteName]	   NVARCHAR (256)
     CONSTRAINT [PK_dbo.SavedRoutes] PRIMARY KEY CLUSTERED ([SRID] ASC)
 );
+
+CREATE TABLE [dbo].[LikedRoutes]
+(
+[LRID]			INT IDENTITY (1,1) NOT NULL,
+[UserName]		NVARCHAR (256) NOT NULL,
+[RouteID]		INT NOT NULL 
+CONSTRAINT [PK_dbo.LikedRoutes] PRIMARY KEY CLUSTERED ([LRID] ASC)
+);
 GO
