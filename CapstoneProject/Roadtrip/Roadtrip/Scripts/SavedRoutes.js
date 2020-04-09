@@ -1,26 +1,55 @@
 ﻿$(document).ready(function () {
+    populateRouteList();
+});
 
+function populateRouteList() {
     if (RouteList.length > 0)
         $('#routeCol').empty();
 
     for (var i = 0; i < RouteList.length; i++) {
 
-        
+
         $('#routeCol').append(`
 <div style="display:table; width:100%">
         <div style="display: table-row">
             <div style="width: 100%; display: table-cell; background-color:antiquewhite; border:1px solid black;">
                 <div  style="font-size: 20px;">Route Name: ${RouteList[i].routeName}</div>
                 <div  style="font-size: 15px;">Start: ${RouteList[i].Locations[0].Name}</div>
-                <div  style="font-size: 15px;">End: ${RouteList[i].Locations[RouteList[i].Locations.length - 1].Name}</div>
+                <div  style="font-size: 15px;">${RouteList[i].Locations[RouteList[i].Locations.length - 1].Name}</div>
                 <p style="font-size: 10px;">Created on ${ moment(RouteList[i].Timestamp).format('MMMM Do YYYY, h:mm a')}</p>
                 <input id="${i}" type="button" value="Show Route" onclick="showRoute(this.id)">
+                <input id="${RouteList[i].SRID}" type="button" value="Delete Route" onclick="deleteRoute(this.id)">
             </div>
         </div>
 </div>
 `);
     }
-});
+}
+
+function removeItem(srid) {
+    var pos = 0;
+    for (var i = 0; i < RouteList.length; i++) {
+        if (RouteList[i].SRID == srid)
+            pos = i;
+    }
+    RouteList.splice(pos, 1);
+    populateRouteList();
+    $('#routemap').empty();
+    $('#routemap').append(`<p style="padding-top: 20%;">Check out a route by clicking "Show Route" in the left panel.</p>`);
+    alert("Route deleted successfully.");
+}
+
+function deleteRoute(id) {
+    if (confirm("Are you sure you want to delete this route?")) {
+        var source = '/SavedRoutes/DeleteRoute?id=' + id;
+
+        $.ajax({
+            url: source 
+        });
+
+        removeItem(id);
+    }
+}
 
 function showRoute(id) {
 

@@ -14,7 +14,11 @@ namespace Roadtrip.Controllers
 
     public struct Route
     {
+
         public string routeName { get; set; } 
+        public string Username { get; set; }
+        public int SRID { get; set; }
+
         public DateTime Timestamp { get; set; }
         public List<RLocation> Locations { get; set; }
     }
@@ -91,9 +95,13 @@ public struct RLocation
         // GET: SavedRoutes
         public ActionResult Index()
         {
-            List<SavedRoute> sr = db.SavedRoutes.OrderByDescending(s => s.Timestamp).ToList();
+            //List<SavedRoute> sr = db.SavedRoutes.OrderByDescending(s => s.Timestamp).ToList();
 
-            return View(sr);
+            List<SavedRoute> sr = db.SavedRoutes
+                .OrderByDescending(s => s.Timestamp)
+                .ToList();
+
+            return View(LoadRoute(sr));
         }
 
         public ActionResult Saved()
@@ -106,15 +114,27 @@ public struct RLocation
             return View(LoadRoute(sr));
         }
 
+        public void DeleteRoute()
+        {
+            int id = Int32.Parse(Request.QueryString["id"]);
+            List<SavedRoute> sr = db.SavedRoutes
+                .Where(s => s.SRID.Equals(id))
+                .ToList();
+
+            foreach (SavedRoute s in sr)
+            {
+                db.SavedRoutes.Remove(s);
+                db.SaveChanges();
+            }
+        }
+
         public List<Route> LoadRoute(List<SavedRoute> srs)
         {
             List<Route> rls = new List<Route>();
 
             foreach(SavedRoute sr in srs)
             {
-                rls.Add(ParseRoute(sr.Route, sr.Timestamp, sr.RouteName)) ;
-               
-
+                rls.Add(ParseRoute(sr.Route, sr.Timestamp, sr.RouteName, sr.SRID, sr.Username));
             }
             
             
@@ -123,7 +143,8 @@ public struct RLocation
             return rls;
         }
 
-        public Route ParseRoute(string s, DateTime ts, string routeName)
+
+        public Route ParseRoute(string s, DateTime ts, string routeName, int SRID, string Username)
         {
             Route r = new Route();
             r.Locations = new List<RLocation>();
@@ -161,6 +182,8 @@ public struct RLocation
 
             r.Timestamp = ts;
             r.routeName = routeName; 
+            r.SRID = SRID;
+            r.Username = Username;
             return r;
         }
 
