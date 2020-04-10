@@ -12,12 +12,16 @@ using Roadtrip.Models;
 using System.IO;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using Roadtrip.DAL;
+using System.Collections.Generic;
 
 namespace Roadtrip.Controllers
 {
     [Authorize]
     public class AccountController : Controller
     {
+        private SavedRoutesModel db = new SavedRoutesModel();
+
 
         [HttpGet]
         public ActionResult Edit()
@@ -31,7 +35,15 @@ namespace Roadtrip.Controllers
                 ViewBag.loggedIn = false;
 
 
-            return View();
+
+            List<LikedRoute> lr = db.LikedRoute
+               .Where(s => s.UserName.Contains(User.Identity.Name))
+               
+               .ToList();
+            
+
+
+            return View(lr);
         }
 
         [HttpPost]
