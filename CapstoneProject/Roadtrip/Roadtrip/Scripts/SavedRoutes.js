@@ -1,3 +1,4 @@
+
 ﻿$(document).ready(function () {
     populateRouteList();
 });
@@ -12,19 +13,54 @@ function populateRouteList() {
         $('#routeCol').append(`
 <div style="display:table; width:100%">
         <div style="display: table-row">
-            <div style="width: 100%; display: table-cell; background-color:antiquewhite; border:1px solid black;">
+
+            <div  id="${RouteList[i].SRID}" style="width: 100%; display: table-cell; background-color:antiquewhite; border:1px solid black;">
                 <div  style="font-size: 20px;">Route Name: ${RouteList[i].routeName}</div>
-                <div  style="font-size: 15px;">Start: ${RouteList[i].Locations[0].Name}</div>
-                <div  style="font-size: 15px;">${RouteList[i].Locations[RouteList[i].Locations.length - 1].Name}</div>
+                
+                <div  style="font-size: 15px;">Start: ${RouteList[i].Locations[i].Name}</div>
+                <div  style="font-size: 15px;">End: ${RouteList[i].Locations[RouteList[i].Locations.length - 1].Name}</div>
+                <div  style="font-size: 10px;">Created By: ${RouteList[i].userName}</div>
+
                 <p style="font-size: 10px;">Created on ${ moment(RouteList[i].Timestamp).format('MMMM Do YYYY, h:mm a')}</p>
-                <input id="${i}" type="button" value="Show Route" onclick="showRoute(this.id)">
+                 
+                 <input id="${RouteList[i].SRID}" name="${RouteList[i].userName}" type="button" value="Like" onclick="like(this.id, this.name)">
+                <input name="${i}" type="button" value="Show Route" onclick="showRoute(this.name)">
+
                 <input id="${RouteList[i].SRID}" type="button" value="Delete Route" onclick="deleteRoute(this.id)">
+
             </div>
         </div>
 </div>
 `);
     }
+
+
+    var iy = tryingWork();
+    if (iy != null) {
+        //console.log(iy);
+        var elem = document.getElementById(iy);
+        console.log(elem); 
+        var topPos = elem.offsetTop;
+
+
+        scrollTo(document.getElementById('routeCol'), topPos - 5, 500);
+
+        highlight(iy, "#ffff00");
+        setTimeout(function () { highlight(iy, "#FEFD1B"); }, 500);
+        setTimeout(function () { highlight(iy, "#FEFA36"); }, 600);
+        setTimeout(function () { highlight(iy, "#FDF851"); }, 700);
+        setTimeout(function () { highlight(iy, "#FDF56C"); }, 800);
+        setTimeout(function () { highlight(iy, "#FCF386"); }, 900);
+        setTimeout(function () { highlight(iy, "#FBF0A1"); }, 1000);
+        setTimeout(function () { highlight(iy, "#FBEEBC"); }, 1100);
+        setTimeout(function () { highlight(iy, "#FAEBD7"); }, 1200);
+        
+        
+        
+    }
 }
+
+
 
 function removeItem(srid) {
     var pos = 0;
@@ -50,6 +86,7 @@ function deleteRoute(id) {
         removeItem(id);
     }
 }
+
 
 function showRoute(id) {
 
@@ -89,7 +126,66 @@ function showRoute(id) {
     mymap.fitBounds(group.getBounds());
 }
 
-function like(data) {
 
+function like(SRID, userName) {
+    
+    console.log(SRID);
+    console.log(userName);
+    var URL = '/SavedRoutes/SaveLike?userName=' + userName + '&SRID=' + SRID;
+    $.ajax({
+        type: "POST",
+        url: URL,
+       
+        success: function (response) {
+            console.log("Data saved successfully");
+           
+        },
+        error: errorOnAjax,
+        dataType: "json",
+        contentType: 'application/json',
+        traditional: true
+    });
 
+}
+function errorOnAjax(data) {
+    console.log('Error on AJAX return');
+    console.log(data);
+}
+
+function tryingWork() {
+    let params = new URLSearchParams(location.search);
+    var my = params.get("ID");
+    
+    return my; 
+}
+function scrollTo(element, to, duration) {
+    console.log(element);
+    var start = element.scrollTop,
+        change = to - start,
+        currentTime = 0,
+        increment = 20;
+
+    var animateScroll = function () {
+        currentTime += increment;
+        var val = Math.easeInOutQuad(currentTime, start, change, duration);
+        element.scrollTop = val;
+        if (currentTime < duration) {
+            setTimeout(animateScroll, increment);
+        }
+    };
+    animateScroll();
+
+}
+
+Math.easeInOutQuad = function (t, b, c, d) {
+    t /= d / 2;
+    if (t < 1) return c / 2 * t * t + b;
+    t--;
+    return -c / 2 * (t * (t - 2) - 1) + b;
+};
+
+function highlight(name, color) {
+    var a = document.getElementById(name);
+    console.log(a);
+    a.style.backgroundColor = color;
 }

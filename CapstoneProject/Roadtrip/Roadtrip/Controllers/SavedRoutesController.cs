@@ -8,6 +8,7 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using Roadtrip.DAL;
+using Roadtrip.Models; 
 
 namespace Roadtrip.Controllers
 {
@@ -15,9 +16,13 @@ namespace Roadtrip.Controllers
     public struct Route
     {
 
-        public string routeName { get; set; } 
-        public string Username { get; set; }
+
         public int SRID { get; set; }
+        public string userName { get; set; }
+        public string routeName { get; set; } 
+
+        public string Username { get; set; }
+
 
         public DateTime Timestamp { get; set; }
         public List<RLocation> Locations { get; set; }
@@ -42,6 +47,7 @@ public struct RLocation
             SavedRoute savedRoute = new SavedRoute();
             string Rname = Request.QueryString["routeName"];
             string myName = actName;
+
 
             foreach (RLocation r in rl) 
             {
@@ -143,8 +149,8 @@ public struct RLocation
             return rls;
         }
 
+        public Route ParseRoute(string s, DateTime ts, string routeName, int SRID,string uName, string Username)
 
-        public Route ParseRoute(string s, DateTime ts, string routeName, int SRID, string Username)
         {
             Route r = new Route();
             r.Locations = new List<RLocation>();
@@ -181,9 +187,15 @@ public struct RLocation
             }
 
             r.Timestamp = ts;
-            r.routeName = routeName; 
+
+
+            r.routeName = routeName;
+            r.SRID = srid;
+            r.userName = uName; 
+ 
             r.SRID = SRID;
             r.Username = Username;
+
             return r;
         }
 
@@ -291,6 +303,22 @@ public struct RLocation
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public ActionResult SaveLike()
+        {
+            string userName = Request.QueryString["userName"];
+            string SRID = Request.QueryString["SRID"];
+            int realSRID = Int32.Parse(SRID);
+            LikedRoute likeRoute = new LikedRoute();
+            likeRoute.RouteID = realSRID;
+            likeRoute.UserName = userName;
+
+            db.LikedRoute.Add(likeRoute);
+            
+            db.SaveChanges();
+
+            return RedirectToAction("Saved");
         }
     }
 }

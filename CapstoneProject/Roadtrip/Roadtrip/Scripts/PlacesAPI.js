@@ -27,7 +27,9 @@ function saveRoute() {
         var savedList = new Array();
 
         var RName = document.getElementById('routeName');
-        var routeName = RName.value
+
+        var routeName = RName.value;
+
         console.log(routeName);
         
 
