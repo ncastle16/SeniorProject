@@ -226,11 +226,6 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\qu.sql" />
-    <Content Include="App_Data\SavedDB.mdf" />
-    <Content Include="App_Data\SavedDB_log.ldf">
-      <DependentUpon>SavedDB.mdf</DependentUpon>
-    </Content>
     <Content Include="App_Data\Up.sql" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
