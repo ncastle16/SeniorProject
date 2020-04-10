@@ -149,7 +149,7 @@ public struct RLocation
             return rls;
         }
 
-        public Route ParseRoute(string s, DateTime ts, string routeName, int SRID,string uName, string Username)
+        public Route ParseRoute(string s, DateTime ts, string routeName, int SRID, string uName)
 
         {
             Route r = new Route();
@@ -187,14 +187,9 @@ public struct RLocation
             }
 
             r.Timestamp = ts;
-
-
             r.routeName = routeName;
-            r.SRID = srid;
-            r.userName = uName; 
- 
             r.SRID = SRID;
-            r.Username = Username;
+            r.userName = uName; 
 
             return r;
         }
