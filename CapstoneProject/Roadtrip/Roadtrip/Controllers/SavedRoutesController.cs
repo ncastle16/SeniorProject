@@ -18,7 +18,6 @@ namespace Roadtrip.Controllers
 
 
         public int SRID { get; set; }
-        public string userName { get; set; }
         public string routeName { get; set; } 
 
         public string Username { get; set; }
@@ -189,7 +188,7 @@ public struct RLocation
             r.Timestamp = ts;
             r.routeName = routeName;
             r.SRID = SRID;
-            r.userName = uName; 
+            r.Username = uName; 
 
             return r;
         }
