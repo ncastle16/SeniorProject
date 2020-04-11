@@ -14,6 +14,7 @@ using Roadtrip.Models.ViewModels;
 using System.Text;
 using Roadtrip.Controllers;
 using Roadtrip.Models;
+using Roadtrip.DAL;
 
 namespace Roadtrip.Controllers
 {
@@ -21,7 +22,7 @@ namespace Roadtrip.Controllers
     public class RoutesController : Controller
     {
         ApplicationDbContext db = new ApplicationDbContext();
-
+        CommentsModel db1 = new CommentsModel();
 
 
         // GET: Routes
@@ -45,6 +46,7 @@ namespace Roadtrip.Controllers
 
         public ActionResult Create()
         {
+
             string path = Server.MapPath("~/Uploads/");
             if (System.IO.File.Exists(path + User.Identity.Name + ".jpeg"))
             {
@@ -53,6 +55,22 @@ namespace Roadtrip.Controllers
             else
                 ViewBag.loggedIn = false;
             return View();
+        }
+
+        public JsonResult LoadComments(string id)
+        {
+            var comments = db1.Comments.Where(s => s.EstablishmentID == id).ToList();
+            if(comments.Count() == 0)
+            {
+                var model = new
+                {
+                    EstablishmentID = id
+                };
+                
+                return Json(model, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(comments, JsonRequestBehavior.AllowGet);
         }
 
 
