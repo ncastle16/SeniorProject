@@ -1,4 +1,4 @@
-namespace Roadtrip.Models
+﻿namespace Roadtrip.Models
 {
     using System;
     using System.Data.Entity;

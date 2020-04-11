@@ -144,22 +144,28 @@ var span = document.getElementsByClassName("close")[0];
 
 // When the user clicks the button, open the modal 
 function modalComments(data) {
-    console.log(data[0]);
-    var link = '/Comments/Create/' + data[0].EstablishmentID;
-    console.log(link);
-    modal.style.display = "block";
-    var length = data.length;
-
-    $('#modalBody').empty();
-    for (var i = 0; i < length; i++) {
-        $('#modalBody').append(`${data[i].Comment1} <br/>`)
+    console.log(data.EstablishmentID);
+    if (data[0] == null) {
+        var link = '/Comments/Create/' + data.EstablishmentID;
+        modal.style.display = "block";
+        $('#createComment').attr("href", link)
     }
-    $('#createComment').attr("href", link)
+    else {
+        var link = '/Comments/Create/' + data[0].EstablishmentID;
+        console.log(link);
+        modal.style.display = "block";
+        var length = data.length;
+
+        $('#modalBody').empty();
+        for (var i = 0; i < length; i++) {
+            $('#modalBody').append(`${data[i].Comment1} <br/>`)
+        }
+            $('#createComment').attr("href", link)
+    }
 }
 
 function modalComments1(id) {
     var source = '/Routes/LoadComments?id=' + id;
-    console.log(id);
     $.ajax({
         type: 'GET',
         dataType: 'json',

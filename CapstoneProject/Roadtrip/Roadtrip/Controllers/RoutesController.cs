@@ -14,6 +14,7 @@ using Roadtrip.Models.ViewModels;
 using System.Text;
 using Roadtrip.Controllers;
 using Roadtrip.Models;
+using Roadtrip.DAL;
 
 namespace Roadtrip.Controllers
 {
@@ -59,6 +60,15 @@ namespace Roadtrip.Controllers
         public JsonResult LoadComments(string id)
         {
             var comments = db1.Comments.Where(s => s.EstablishmentID == id).ToList();
+            if(comments.Count() == 0)
+            {
+                var model = new
+                {
+                    EstablishmentID = id
+                };
+                
+                return Json(model, JsonRequestBehavior.AllowGet);
+            }
 
             return Json(comments, JsonRequestBehavior.AllowGet);
         }
