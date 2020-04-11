@@ -4,6 +4,7 @@ namespace Roadtrip.DAL
     using System.Data.Entity;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
+    using Roadtrip.Models;
 
     public partial class SavedRoutesModel : DbContext
     {

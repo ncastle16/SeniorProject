@@ -2,6 +2,7 @@ namespace Roadtrip.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
@@ -14,6 +15,7 @@ namespace Roadtrip.Models
         public string EstablishmentID { get; set; }
 
         [Column("Comment")]
+        [DisplayName("Comment")]
         [Required]
         public string Comment1 { get; set; }
     }

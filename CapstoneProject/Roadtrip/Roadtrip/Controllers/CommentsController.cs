@@ -54,7 +54,7 @@ namespace Roadtrip.Controllers
             {
                 db.Comments.Add(comment);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return View("Close");
             }
 
             return View(comment);
