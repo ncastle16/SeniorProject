@@ -14,6 +14,9 @@ namespace Roadtrip.DAL
         }
 
         public virtual DbSet<SavedRoute> SavedRoutes { get; set; }
+      public virtual DbSet<LikedRoute> LikedRoute { get; set; }
+
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
         }

@@ -223,6 +223,7 @@
     <Compile Include="Models\CommentsModel.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="DAL\LikedRoute.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ViewModels\MapInfoViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -290,6 +291,8 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\leaflet-routing-machine.js" />
+    <Content Include="Scripts\LikedRoutes.js" />
+    <Content Include="Scripts\link.js" />
     <Content Include="Scripts\main.js" />
     <Content Include="Scripts\mapScripts.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
@@ -298,6 +301,7 @@
     <Content Include="Scripts\popper-utils.min.js" />
     <Content Include="Scripts\popper.js" />
     <Content Include="Scripts\popper.min.js" />
+    <Content Include="Scripts\SavedRouteIndex.js" />
     <Content Include="Scripts\SavedRoutes.js" />
     <Content Include="Scripts\src\index.js" />
     <Content Include="Scripts\src\methods\defaults.js" />

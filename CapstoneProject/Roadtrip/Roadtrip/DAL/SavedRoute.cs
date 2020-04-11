@@ -14,6 +14,8 @@ namespace Roadtrip.DAL
         [Required]
         public string Route { get; set; }
 
+        public string RouteName { get; set; }
+
         public DateTime Timestamp { get; set; }
 
         [Required]

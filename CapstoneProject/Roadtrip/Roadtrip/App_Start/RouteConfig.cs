@@ -32,6 +32,12 @@ namespace Roadtrip
             );
 
             routes.MapRoute(
+                name: "DeleteRoute",
+                url: "SavedRoutes/DeleteRoute",
+                defaults: new { controller = "SavedRoutes", action = "DeleteRoute" }
+            );
+
+            routes.MapRoute(
                 name: "GetEstablishment",
                 url: "Routes/GetEstablishment",
                 defaults: new { controller = "Routes", action = "GetEstablishment" }
