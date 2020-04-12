@@ -155,6 +155,7 @@ var span = document.getElementsByClassName("close")[0];
 function modalComments(data) {
     console.log(data.EstablishmentID);
     if (data[0] == null) {
+        $('#modalBody').empty();
         var link = '/Comments/Create/' + data.EstablishmentID;
         modal.style.display = "block";
         $('#createComment').attr("href", link)
@@ -164,10 +165,9 @@ function modalComments(data) {
         console.log(link);
         modal.style.display = "block";
         var length = data.length;
-
         $('#modalBody').empty();
         for (var i = 0; i < length; i++) {
-            $('#modalBody').append(`${data[i].Comment1} <br/>`)
+            $('#modalBody').append(`<div class="commentBox">${data[i].Comment1} <div/> <br />`)
         }
             $('#createComment').attr("href", link)
     }
