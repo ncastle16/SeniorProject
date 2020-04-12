@@ -61,16 +61,24 @@ namespace Roadtrip.Controllers
                 : message == ManageMessageId.Error ? "An error has occurred."
                 : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
                 : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
+                : message == ManageMessageId.ChangeUserNameSuccess ? "Your userName has been changed."
+                : message == ManageMessageId.ChangeEmailSuccess ? "Your Email has been changed."
                 : "";
 
             var userId = User.Identity.GetUserId();
+            var currentUser = await UserManager.FindByIdAsync(userId);
+
+            
+           
             var model = new IndexViewModel
             {
+
                 HasPassword = HasPassword(),
                 PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
                 Logins = await UserManager.GetLoginsAsync(userId),
-                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
+                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
+                email = await UserManager.GetEmailAsync(userId),
             };
             return View(model);
         }
@@ -276,6 +284,56 @@ namespace Roadtrip.Controllers
             return View(model);
         }
 
+        public ActionResult ChangeUserName()
+        {
+            return View();
+        }
+
+        //
+        // POST: /Manage/ChangeUserName
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ChangeUserName(ChangeUserNameViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            var user = UserManager.FindById(User.Identity.GetUserId());
+            user.UserName = model.NewUserName;
+            var result = await UserManager.UpdateAsync(user);
+            if (result.Succeeded)
+            {
+                return RedirectToAction("Index", new { Message = ManageMessageId.ChangeUserNameSuccess });
+            }
+            AddErrors(result);
+            return View(model);
+        }
+
+        public ActionResult ChangeEmail()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ChangeEmail(ChangeEmailViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            var user = UserManager.FindById(User.Identity.GetUserId());
+            user.Email = model.Email;
+            var result = await UserManager.UpdateAsync(user);
+            if (result.Succeeded)
+            {
+                return RedirectToAction("Index", new { Message = ManageMessageId.ChangeEmailSuccess });
+            }
+            AddErrors(result);
+            return View(model);
+        }
+
         //
         // GET: /Manage/ManageLogins
         public async Task<ActionResult> ManageLogins(ManageMessageId? message)
@@ -376,6 +434,8 @@ namespace Roadtrip.Controllers
         public enum ManageMessageId
         {
             AddPhoneSuccess,
+            ChangeUserNameSuccess,
+            ChangeEmailSuccess,
             ChangePasswordSuccess,
             SetTwoFactorSuccess,
             SetPasswordSuccess,

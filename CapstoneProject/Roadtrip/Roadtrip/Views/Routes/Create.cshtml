@@ -1,9 +1,6 @@
 
-﻿@{
-
-
 ﻿
-{
+@{
 
     ViewBag.Title = "Home Page";
 
@@ -102,18 +99,14 @@
 
             <div class="col-lg-4" id="establishments" style="height:300px;overflow-y:scroll;">Locations:</div>
             <div class="col-lg-3" id="details" style="height:300px;overflow-y:scroll;">Details:</div>
-            <ul class="col-lg-3" id="addLocation" style="height:300px;overflow-y:scroll;">Route:</ul>
+            <ul class="col-lg-3" id="sortable" style="height:300px; overflow:scroll">Route: <input type="button" value="Re-Order" onclick="reOrder()"></ul>
             <div class="col-lg-2" id="shortroute" style="height:300px;overflow-y:scroll;">Shortest Route:
                 <button type="button" id="myrButton" onclick="ACS()">generate</button>
                 <div class="col-lg-2" id="short"></div>
             </div>
 
 
-            <div class="col-lg-4" id="establishments" style="height:300px;overflow:scroll;">Locations:</div>
-            <div class="col-lg-4" id="details" style="height:300px;overflow:scroll;">Details:</div>
-
-            <ul class="col-lg-4" id="sortable" style="height:300px; overflow:scroll">Route: <input type="button" value="Re-Order" onclick="reOrder()"></ul>
-
+            
            
 
 
@@ -148,13 +141,4 @@
 
 
 
-    @Styles.Render("https://unpkg.com/leaflet@1.6.0/dist/leaflet.css")
-    @Scripts.Render("https://unpkg.com/leaflet@1.6.0/dist/leaflet.js")
-    @Styles.Render("~/Content/leaflet-routing-machine.css")
-    @Scripts.Render("~/Scripts/leaflet-routing-machine.js")
-    @Scripts.Render("~/Scripts/mapScripts.js")
-    @Scripts.Render("~/Scripts/main.js")
-    @Scripts.Render("~/Scripts/PlacesAPI.js")
-</body>
-
-
+   

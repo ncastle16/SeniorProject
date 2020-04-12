@@ -481,12 +481,13 @@ function ACS() {
 
             }
         }
+        console.log(road);
         for (var h = 0; h < an; h++) {
-            road[h].shift();
-            road[h].shift();
-            road[h].shift();
+            for (var h1 = 0; h1 < cn-1; h1++) {
+                road[h].shift();
+                
+            }
         }
-        
 
         for (var ai = 0; ai < an; ai++) {
             extend(Ax, Rx);
@@ -593,12 +594,12 @@ function ACS() {
         }
         iter++;
     }
-    shortestR.shift();
+    //shortestR.shift();
     console.log(shortestR);
    
     var text = "";
     var kk = 2;
-    for (var i = 0; i < cn - 1; i++) {
+    for (var i = 0; i < cn-1; i++) {
         
         text += "#distance:" + dis[shortestR[i][0]][shortestR[i][1]] + "<br>" + "(" + kk + ")" + selectedLocations.name[shortestR[i][1]] + "<br>"
         kk++;
@@ -644,7 +645,7 @@ function ACS() {
     mymap.fitBounds(group.getBounds());
 }
 
- }
+ 
 
 function getDistance(rwp1, rwp2) {
     var source = 'https://router.project-osrm.org/route/v1/driving/' + rwp1[1] + ',' + rwp1[0] + ';' + rwp2[1] + ',' + rwp2[0] + '?overview=false';
