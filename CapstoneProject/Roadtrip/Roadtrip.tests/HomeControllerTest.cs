@@ -29,4 +29,16 @@ namespace Roadtrip.Tests.Controllers
         }
     }
 
+    [TestClass]
+    public class RoutesControllerTest
+    {
+        [TestMethod]
+        public void HowTo()
+        {
+            RoutesController controller = new RoutesController();
+            ViewResult result = controller.HowTo() as ViewResult;
+            Assert.IsNotNull(result);
+        }
+    }
+
 }

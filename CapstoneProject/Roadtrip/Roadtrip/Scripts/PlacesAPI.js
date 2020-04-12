@@ -527,15 +527,9 @@ function ACS() {
         }
         console.log(road);
         for (var h = 0; h < an; h++) {
-<<<<<<< HEAD
             for (var h1 = 0; h1 < cn-1; h1++) {
                 road[h].shift();
                 
-=======
-            for (var h1 = 0; h1 < cn - 1; h1++) {
-                road[h].shift();
-
->>>>>>> dev
             }
         }
 
@@ -649,13 +643,8 @@ function ACS() {
 
     var text = "";
     var kk = 2;
-<<<<<<< HEAD
     for (var i = 0; i < cn-1; i++) {
         
-=======
-    for (var i = 0; i < cn - 1; i++) {
-
->>>>>>> dev
         text += "#distance:" + dis[shortestR[i][0]][shortestR[i][1]] + "<br>" + "(" + kk + ")" + selectedLocations.name[shortestR[i][1]] + "<br>"
         kk++;
     }
@@ -700,10 +689,6 @@ function ACS() {
     mymap.fitBounds(group.getBounds());
 }
 
-<<<<<<< HEAD
- 
-=======
->>>>>>> dev
 
 
 function getDistanceb(rwp1, rwp2) {
