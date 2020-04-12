@@ -8,11 +8,12 @@ namespace Roadtrip.DAL
     public partial class SavedRoutesModel : DbContext
     {
         public SavedRoutesModel()
-            : base("name=SavedRoutesModel")
+            : base("name=SavedContext")
         {
         }
 
         public virtual DbSet<SavedRoute> SavedRoutes { get; set; }
+      public virtual DbSet<LikedRoute> LikedRoute { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
