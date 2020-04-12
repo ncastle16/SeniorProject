@@ -1,7 +1,28 @@
 
 ﻿$(document).ready(function () {
     populateRouteList();
-});
+ });
+
+
+function checkLike(ID, Username) {
+
+    var source = '/SavedRoutes/CheckLike?ID=' + ID;
+    $.ajax({
+        type: 'POST',
+        datatype: 'json',
+        url: source,
+        success: function (response) {
+            if (response) {
+                like(ID, Username)
+            }
+            else {
+                errorOnAjax
+            }
+        }
+       
+    });
+
+}
 
 function populateRouteList() {
     if (RouteList.length > 0)
@@ -19,10 +40,11 @@ function populateRouteList() {
                 
                 <div  style="font-size: 15px;">Start: ${RouteList[i].Locations[i].Name}</div>
                 <div  style="font-size: 15px;">End: ${RouteList[i].Locations[RouteList[i].Locations.length - 1].Name}</div>
-                <div  style="font-size: 10px;">Created By: ${RouteList[i].userName}</div>
+                <div  style="font-size: 10px;">Created By: ${RouteList[i].Username}</div>
                 <p style="font-size: 10px;">Created on ${ moment(RouteList[i].Timestamp).format('MMMM Do YYYY, h:mm a')}</p>
+                <div  style="font-size: 10px;">Tags: ${RouteList[i].Tag1} , ${RouteList[i].Tag2} </div>
                  
-                 <input id="${RouteList[i].SRID}" name="${RouteList[i].userName}" type="button" value="Like" onclick="like(this.id, this.name)">
+                 <input id="${RouteList[i].SRID}" name="${RouteList[i].Username}" type="button" value="Like" onclick="checkLike(this.id, this.name)">
                 <input name="${i}" type="button" value="Show Route" onclick="showRoute(this.name)">
 
                 <input id="${RouteList[i].SRID}" type="button" value="Delete Route" onclick="deleteRoute(this.id)">

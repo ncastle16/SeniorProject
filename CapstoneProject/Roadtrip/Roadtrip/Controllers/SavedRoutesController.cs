@@ -25,6 +25,8 @@ namespace Roadtrip.Controllers
 
         public DateTime Timestamp { get; set; }
         public List<RLocation> Locations { get; set; }
+        public string Tag1 { get; set; }
+        public string Tag2 { get; set; }
     }
 
 public struct RLocation
@@ -45,6 +47,8 @@ public struct RLocation
             StringBuilder sb = new StringBuilder();
             SavedRoute savedRoute = new SavedRoute();
             string Rname = Request.QueryString["routeName"];
+            string tag1 = Request.QueryString["tag1"];
+            string tag2 = Request.QueryString["tag2"]; 
             string myName = actName;
             
 
@@ -68,7 +72,9 @@ public struct RLocation
                 savedRoute.Username = "test123@wou.com";
             savedRoute.Timestamp = DateTime.UtcNow;
             savedRoute.Route = sb.ToString();
-            savedRoute.RouteName = Rname; 
+            savedRoute.RouteName = Rname;
+            savedRoute.Tag1 = tag1;
+            savedRoute.Tag2 = tag2; 
 
             db.SavedRoutes.Add(savedRoute);
             
@@ -140,7 +146,7 @@ public struct RLocation
             foreach(SavedRoute sr in srs)
             {
 
-                rls.Add(ParseRoute(sr.Route, sr.Timestamp, sr.RouteName, sr.SRID, sr.Username)) ;
+                rls.Add(ParseRoute(sr.Route, sr.Timestamp, sr.RouteName, sr.SRID, sr.Username, sr.Tag1, sr.Tag2)) ;
                
 
 
@@ -155,7 +161,7 @@ public struct RLocation
         }
 
 
-        public Route ParseRoute(string s, DateTime ts, string routeName, int srid, string uName)
+        public Route ParseRoute(string s, DateTime ts, string routeName, int srid, string uName, string tag1, string tag2)
 
 //        public Route ParseRoute(string s, DateTime ts, int SRID, string Username)
 
@@ -198,10 +204,12 @@ public struct RLocation
 
             r.routeName = routeName;
             r.SRID = srid;
-            r.userName = uName; 
+            //r.userName = uName;
+            r.Tag1 = tag1;
+            r.Tag2 = tag2; 
 
            // r.SRID = SRID;
-            //r.Username = Username;
+            r.Username = uName;
 
             return r;
         }
@@ -326,6 +334,26 @@ public struct RLocation
             db.SaveChanges();
 
             return RedirectToAction("Saved");
+        }
+
+        public ActionResult CheckLike()
+        {
+            string ID1 = Request.QueryString["ID"];
+            int ID = Int32.Parse(ID1); 
+
+            List<LikedRoute> lr = db.LikedRoute
+              .Where(s => s.UserName.Contains(User.Identity.Name))
+
+              .ToList();
+
+            for (int i = 0; i < lr.Count; i++)
+            {
+                if (ID == lr[i].RouteID)
+                {
+                    return Json(false); 
+                }
+            }
+            return Json(true); 
         }
     }
 }
