@@ -16,12 +16,12 @@ namespace Roadtrip.Controllers
     public struct Route
     {
 
+
         public int SRID { get; set; }
-        public string userName { get; set; }
         public string routeName { get; set; } 
 
         public string Username { get; set; }
-       // public int SRID { get; set; }
+
 
         public DateTime Timestamp { get; set; }
         public List<RLocation> Locations { get; set; }
@@ -50,7 +50,7 @@ public struct RLocation
             string tag1 = Request.QueryString["tag1"];
             string tag2 = Request.QueryString["tag2"]; 
             string myName = actName;
-            
+
 
             foreach (RLocation r in rl) 
             {
@@ -145,6 +145,7 @@ public struct RLocation
 
             foreach(SavedRoute sr in srs)
             {
+<<<<<<< HEAD
 
                 rls.Add(ParseRoute(sr.Route, sr.Timestamp, sr.RouteName, sr.SRID, sr.Username, sr.Tag1, sr.Tag2)) ;
                
@@ -152,6 +153,9 @@ public struct RLocation
 
                 //rls.Add(ParseRoute(sr.Route, sr.Timestamp, sr.SRID, sr.Username));
 
+=======
+                rls.Add(ParseRoute(sr.Route, sr.Timestamp, sr.RouteName, sr.SRID, sr.Username));
+>>>>>>> dev
             }
             
             
@@ -160,10 +164,14 @@ public struct RLocation
             return rls;
         }
 
+<<<<<<< HEAD
 
         public Route ParseRoute(string s, DateTime ts, string routeName, int srid, string uName, string tag1, string tag2)
 
 //        public Route ParseRoute(string s, DateTime ts, int SRID, string Username)
+=======
+        public Route ParseRoute(string s, DateTime ts, string routeName, int SRID, string uName)
+>>>>>>> dev
 
         {
             Route r = new Route();
@@ -201,8 +209,8 @@ public struct RLocation
             }
 
             r.Timestamp = ts;
-
             r.routeName = routeName;
+<<<<<<< HEAD
             r.SRID = srid;
             //r.userName = uName;
             r.Tag1 = tag1;
@@ -210,6 +218,10 @@ public struct RLocation
 
            // r.SRID = SRID;
             r.Username = uName;
+=======
+            r.SRID = SRID;
+            r.Username = uName; 
+>>>>>>> dev
 
             return r;
         }
