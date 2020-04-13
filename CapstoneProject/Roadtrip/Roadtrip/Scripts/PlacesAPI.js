@@ -31,6 +31,11 @@ function saveRoute() {
         var routeName = RName.value;
 
         console.log(routeName);
+        var ta = document.getElementById('Tag');
+        var tag1 = ta.value;
+        var ta2 = document.getElementById('Tag2'); 
+        var tag2 = ta2.value; 
+        console.log(tag2); 
         
 
         for (var i = 0; i < selectedLocations.name.length; i++) {
@@ -43,14 +48,14 @@ function saveRoute() {
             });
         }
         console.log(savedList);
-       
 
+        var source = '/SavedRoutes/SaveRoute?routeName=' + routeName + '&tag1=' + tag1 + '&tag2=' + tag2; 
         document.getElementById('alertboard').innerHTML = "<div id='panelinner'>SAVING...</div>";
         toggleOff("panel");
         toggleOn("alertboard");
         $.ajax({
             type: "POST",
-            url: "/SavedRoutes/SaveRoute?routeName=" + routeName,
+            url: source,
             data:  JSON.stringify(savedList),   
             success: function (response) {
                 console.log("Data saved successfully");
