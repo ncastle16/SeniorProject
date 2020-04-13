@@ -26,7 +26,7 @@ namespace Roadtrip.Controllers
         public ActionResult Details(Profile profile)
         {
             string name = User.Identity.Name;
-            Profile temp = db.Profiles.FirstOrDefault(s => s.UserName.Equals(name.Substring(0, name.IndexOf("@"))));
+            Profile temp = db.Profiles.FirstOrDefault(s => s.UserName.Equals(name));
             string st = profile.AboutMe;
             temp.AboutMe = st;
             db.SaveChanges();
