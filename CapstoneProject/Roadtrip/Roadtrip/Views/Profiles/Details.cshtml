@@ -1,0 +1,61 @@
+﻿@model Roadtrip.Models.Profile
+
+@{
+    ViewBag.Title = Model.UserName + "'s Profile";
+}
+
+<body style="background-color: #F5CB5C;">
+    <div class="container profileBackground">
+        <div class="row">
+            <div class="col-lg-12" style="height:100px;">
+                @{
+                    var name = "default.jpg";
+                    if (File.Exists(Server.MapPath("/Uploads/" + Model.UserName + ".jpeg")))
+                    {
+                        name = Model.UserName + ".jpeg";
+                    }
+                    <div style="height: 100px;">
+                        <img src="~/Uploads/@name" class="profilepic" />
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3" style="text-align:center;">
+                @Model.Friends
+            </div>
+            <div class="col-lg-6" style="text-align:center;">
+                @if (Model.UserName + "@wou.com" == User.Identity.Name)
+                {
+                    using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-horizontal">
+                            <hr />
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="form-group">
+                                @Html.Label("About Me")
+                                <textarea class="form-control" rows="10" style="width:100%" name="AboutMe">@Model.AboutMe</textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" value="Create" class="btn" />
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    @Html.Label("About Me")
+                    <p style="width:100%">@Model.AboutMe</p>
+                }
+            </div>
+            <div class="col-lg-3" style="text-align:center;">
+                [COMMENTS PLACEHOLDER]
+            </div>
+        </div>
+    </div>
+</body>
