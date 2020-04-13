@@ -60,7 +60,7 @@ namespace Roadtrip.Controllers
         public JsonResult LoadComments(string id)
         {
             var comments = db1.Comments.Where(s => s.EstablishmentID == id).ToList();
-
+            Trace.WriteLine(comments);
             if(comments.Count() == 0)
             {
                 var model = new
