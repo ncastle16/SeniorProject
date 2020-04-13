@@ -590,9 +590,9 @@ function ACS() {
         }
         console.log(road);
         for (var h = 0; h < an; h++) {
-            for (var h1 = 0; h1 < cn - 1; h1++) {
+            for (var h1 = 0; h1 < cn-1; h1++) {
                 road[h].shift();
-
+                
             }
         }
 
@@ -706,8 +706,8 @@ function ACS() {
 
     var text = "";
     var kk = 2;
-    for (var i = 0; i < cn - 1; i++) {
-
+    for (var i = 0; i < cn-1; i++) {
+        
         text += "#distance:" + dis[shortestR[i][0]][shortestR[i][1]] + "<br>" + "(" + kk + ")" + selectedLocations.name[shortestR[i][1]] + "<br>"
         kk++;
     }

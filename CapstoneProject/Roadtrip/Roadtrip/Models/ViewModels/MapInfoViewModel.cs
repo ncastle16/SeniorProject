@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Roadtrip.Models.ViewModels
 {
-    public class MapInfoViewModel
+    public class MapInfoViewModel 
     {
         public string Lat { get; set; }
         public string Lon { get; set; }
