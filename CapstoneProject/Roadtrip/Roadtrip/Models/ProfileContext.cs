@@ -1,21 +1,21 @@
-namespace Roadtrip.DAL
+namespace Roadtrip.Models
 {
     using System;
     using System.Data.Entity;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
-    using Roadtrip.Models;
+    using Roadtrip.DAL;
 
-    public partial class SavedRoutesModel : DbContext
+    public partial class ProfileContext : DbContext
     {
-        public SavedRoutesModel()
+        public ProfileContext()
             : base("name=SavedContext")
         {
         }
 
+        public virtual DbSet<LikedRoute> LikedRoutes { get; set; }
+        public virtual DbSet<Profile> Profiles { get; set; }
         public virtual DbSet<SavedRoute> SavedRoutes { get; set; }
-      public virtual DbSet<LikedRoute> LikedRoute { get; set; }
-
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
