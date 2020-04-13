@@ -161,9 +161,9 @@ namespace Roadtrip.Controllers
             if (profile == null)
             {
                 profile = new Profile();
-                profile.UserName = name.Substring(0, name.IndexOf("@"));
-                profile.Friends = name.Substring(0, name.IndexOf("@")) + " has no friends yet!";
-                profile.AboutMe = "This is " + name.Substring(0, name.IndexOf("@")) + "'s about me section.";
+                profile.UserName = name;// name.Substring(0, name.IndexOf("@"));
+                profile.Friends = name + " has no friends yet!";
+                profile.AboutMe = "This is " + name + "'s about me section.";
                 profile.PrivacyFlag = "public";
 
                 profileDB.Profiles.Add(profile);
