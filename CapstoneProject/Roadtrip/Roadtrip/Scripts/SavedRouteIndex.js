@@ -7,6 +7,8 @@
 
 function addToIndexList() {
 
+    if (RouteList.length < loadItems)
+        loadItems = RouteList.length;
 
     for (var i = paginationPosition; i < paginationPosition + loadItems; i++) {
         $('#indexList').append(`
