@@ -5,6 +5,7 @@
 
 Web_Deploy.config
 AppSettingsSecrets.config
+AppConStrings.config
 
 /HW1/*
 /HW2/*

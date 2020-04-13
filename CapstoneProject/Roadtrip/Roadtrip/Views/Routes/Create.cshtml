@@ -1,4 +1,5 @@
-﻿@{
+﻿@model  IEnumerable<Roadtrip.Models.Comment>
+@{
 
     ViewBag.Title = "Home Page";
 
@@ -33,7 +34,8 @@
     }
 });
         $("#sortable").disableSelection();
-    });</script>
+    });
+</script>
 
 <!--<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -51,15 +53,15 @@
                     @using (Html.BeginForm())
                     {
                         @Html.Label("Show me ")
-                    <select id="name" class="form-control">
-                        <option value="food">Food</option>
-                        <option value="hotels">Hotels</option>
-                        <option value="shopping">Shopping</option>
-                        <option value="transportation">Transportation</option>
-                        <option value="activelife">Active Life</option>
-                        <option value="Arts&Entertainment">Arts & Entertainment</option>
-                        <option value="nightlife">Nightlife</option>
-                    </select>
+                        <select id="name" class="form-control">
+                            <option value="food">Food</option>
+                            <option value="hotels">Hotels</option>
+                            <option value="shopping">Shopping</option>
+                            <option value="transportation">Transportation</option>
+                            <option value="activelife">Active Life</option>
+                            <option value="Arts&Entertainment">Arts & Entertainment</option>
+                            <option value="nightlife">Nightlife</option>
+                        </select>
                         @Html.Label(" within ")
                         @Html.TextBox("numbers", 5, new
                         {
@@ -74,7 +76,7 @@
                         <input class="mx-1" type="text" id="city" value="monmouth" />
                         <input class="mx-1" type="text" id="state" value="oregon" />
                         @Html.Label(".")
-                        <button type="button" id="myButton" class="btn btn-primary"onclick="establishments()">Search</button>
+                        <button type="button" id="myButton" class="btn btn-primary" onclick="establishments()">Search</button>
                         <button type="button" id="saveButton" style="display: none; margin-left:5px;" onclick="saveRoute()">Save my route!</button>
                     }
                 </div>
@@ -141,24 +143,41 @@
 
 
 
-
+            
 
 
 
         </div>
     </div>
-    
+
+    <div class="modalWrapper">
+        <div id="myModal" class="modal">
+
+            <!-- Modal content -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close">&times;</span>
+                </div>
+                <div class="modal-body" id="modalBody">
+
+                </div>
+                <a href="Create/Comments/1" id="createComment" target="_blank, width = '400px', height = '400px'">Add Comment</a>
+            </div>
+
+        </div>
+    </div>
+
     <div id="alertboard" style="display: none;"></div>
 
 
 
-        @Styles.Render("https://unpkg.com/leaflet@1.6.0/dist/leaflet.css")
-        @Scripts.Render("https://unpkg.com/leaflet@1.6.0/dist/leaflet.js")
-        @Styles.Render("~/Content/leaflet-routing-machine.css")
-        @Scripts.Render("~/Scripts/leaflet-routing-machine.js")
-        @Scripts.Render("~/Scripts/mapScripts.js")
-        @Scripts.Render("~/Scripts/main.js")
-        @Scripts.Render("~/Scripts/PlacesAPI.js")
+    @Styles.Render("https://unpkg.com/leaflet@1.6.0/dist/leaflet.css")
+    @Scripts.Render("https://unpkg.com/leaflet@1.6.0/dist/leaflet.js")
+    @Styles.Render("~/Content/leaflet-routing-machine.css")
+    @Scripts.Render("~/Scripts/leaflet-routing-machine.js")
+    @Scripts.Render("~/Scripts/mapScripts.js")
+    @Scripts.Render("~/Scripts/main.js")
+    @Scripts.Render("~/Scripts/PlacesAPI.js")
 
 </body>
 
