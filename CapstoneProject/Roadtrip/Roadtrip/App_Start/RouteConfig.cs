@@ -21,6 +21,12 @@ namespace Roadtrip
 
 
             routes.MapRoute(
+                name: "UserComments",
+                url: "Comments/Create/{id}",
+                defaults: new { controller = "Comments", action = "Create", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
                 name: "SaveRoute",
                 url: "SavedRoutes/SaveRoute",
                 defaults: new { controller = "SavedRoutes", action = "SaveRoute" }
@@ -48,6 +54,12 @@ namespace Roadtrip
                 name: "GetMoreDetails",
                 url: "Routes/GetMoreDetails/{id}",
                 defaults: new { controller = "Routes", action = "GetMoreDetails", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                name: "LoadComments",
+                url: "Routes/LoadComments/{id}",
+                defaults: new { controller = "Routes", action = "LoadComments", id = UrlParameter.Optional }
             );
 
             routes.MapRoute(

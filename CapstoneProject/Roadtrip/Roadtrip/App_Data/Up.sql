@@ -1,4 +1,7 @@
-﻿-- #######################################
+﻿INSERT INTO [dbo].[Comments] (EstablishmentID, Comment) VALUES
+    ('s4FmjFMz382LnEGPWIOLPg', 'I love the grain STATIONS!!!')
+GO
+ -- #######################################
 -- #             Identity Tables         #
 -- #######################################
 
@@ -81,6 +84,16 @@ CREATE TABLE [dbo].[SavedRoutes]
 	[RouteName]	   NVARCHAR (256)
     CONSTRAINT [PK_dbo.SavedRoutes] PRIMARY KEY CLUSTERED ([SRID] ASC)
 );
+GO
+
+CREATE TABLE [dbo].[Comments]
+(
+    [CommentID] INT IDENTITY (1,1) NOT NULL,
+    [EstablishmentID] NVARCHAR (MAX) NOT NULL,
+    [Comment] NVARCHAR (MAX) NOT NULL,
+    CONSTRAINT [PK_dbo.Comments] PRIMARY KEY CLUSTERED ([CommentID] ASC)
+);
+
 
 CREATE TABLE [dbo].[LikedRoutes]
 (
@@ -102,3 +115,4 @@ CREATE TABLE [dbo].[Profile]
 CONSTRAINT [PK_dbo.Profile] PRIMARY KEY CLUSTERED ([PPID] ASC)
 );
 GO
+
