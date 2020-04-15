@@ -12,6 +12,12 @@ namespace Roadtrip.Models
         public string PhoneNumber { get; set; }
         public bool TwoFactor { get; set; }
         public bool BrowserRemembered { get; set; }
+
+        public string userName { get; set; }
+
+        public string email { get; set; }
+
+
     }
 
     public class ManageLoginsViewModel
@@ -56,6 +62,22 @@ namespace Roadtrip.Models
         [Display(Name = "Confirm new password")]
         [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+    }
+
+    public class ChangeUserNameViewModel
+    {
+        //[Required]
+        //[Display(Name = "UserName")]
+       // public string OldUserName { get; set; }
+
+        [Required]
+        [Display(Name = "New UserName")]
+        public string NewUserName { get; set; }
+
+       
+        //[Display(Name = "Confirm new UserName")]
+        //[Compare("NewUserName", ErrorMessage = "The new username and confirmation username do not match.")]
+        //public string ConfirmUserName { get; set; }
     }
 
     public class AddPhoneNumberViewModel

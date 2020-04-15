@@ -8,26 +8,72 @@ using System.IO;
 using System.Net;
 using Newtonsoft.Json.Linq;
 using System.Web.Helpers;
-
 using Microsoft.Ajax.Utilities;
 using Newtonsoft.Json;
 using Roadtrip.Models.ViewModels;
+using System.Text;
+using Roadtrip.Controllers;
+using Roadtrip.Models;
+using Roadtrip.DAL;
 
 namespace Roadtrip.Controllers
 {
+    [Authorize]
     public class RoutesController : Controller
     {
+        ApplicationDbContext db = new ApplicationDbContext();
+        CommentsModel db1 = new CommentsModel();
+
+
         // GET: Routes
         [HttpGet]
         public ActionResult Index()
+        {
+            string path = Server.MapPath("~/Uploads/");
+            if (System.IO.File.Exists(path + User.Identity.Name + ".jpeg"))
+            {
+                ViewBag.loggedIn = true;
+            }
+            else
+                ViewBag.loggedIn = false;
+            return View();
+        }
+
+        public ActionResult HowTo()
         {
             return View();
         }
 
         public ActionResult Create()
         {
+
+            string path = Server.MapPath("~/Uploads/");
+            if (System.IO.File.Exists(path + User.Identity.Name + ".jpeg"))
+            {
+                ViewBag.loggedIn = true;
+            }
+            else
+                ViewBag.loggedIn = false;
             return View();
         }
+
+        public JsonResult LoadComments(string id)
+        {
+            var comments = db1.Comments.Where(s => s.EstablishmentID == id).ToList();
+            Trace.WriteLine(comments);
+            if(comments.Count() == 0)
+            {
+                var model = new
+                {
+                    EstablishmentID = id
+                };
+                
+                return Json(model, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(comments, JsonRequestBehavior.AllowGet);
+        }
+
 
         public JsonResult GetEstablishment()
         {
@@ -35,8 +81,7 @@ namespace Roadtrip.Controllers
             string state = Request.QueryString["state"];
             string term = Request.QueryString["name"];
             string radius = Request.QueryString["numbers"];
-            //string key = System.Web.Configuration.WebConfigurationManager.AppSettings["YelpKey"];
-            string key = "3glYwaLZjmtLvAcgvmia-ocJ1tdhu6PAFCo0jCYrmsgHXZXX0tduCis8dKk3GMGO7Oc9jYYRLTPRSaWopVeUJMI8pjCj2nNcjDhh1mcYsMA3xjkndOqPba6k3_dOXnYx";
+            string key = System.Web.Configuration.WebConfigurationManager.AppSettings["YelpKey"];
             string uri = "https://api.yelp.com/v3/businesses/search?location=" + city + "," + state + "&radius=" + radius + "&term=" + term;
             string data = SendRequest(uri, key);
 
@@ -63,7 +108,7 @@ namespace Roadtrip.Controllers
                 longi.Add((decimal)test["businesses"][i]["coordinates"]["longitude"]);
                 BusinessID.Add((string)test["businesses"][i]["id"]);
             }
-            
+
 
             var FinalList = new
             {
@@ -82,7 +127,9 @@ namespace Roadtrip.Controllers
         public JsonResult GetDetails()
         {
             string ID = Request.QueryString["id"];
+            Console.WriteLine(ID);
             string key = System.Web.Configuration.WebConfigurationManager.AppSettings["YelpKey"];
+            Console.WriteLine(key);
             string uri = "https://api.yelp.com/v3/businesses/" + ID;
             string data = SendRequest(uri, key);
 
@@ -96,6 +143,7 @@ namespace Roadtrip.Controllers
             List<string> city = new List<string>();
             List<string> state = new List<string>();
             List<string> zipcode = new List<string>();
+            //List<string> ids = new List<string>();
 
             name.Add((string)test["name"]);
             rating.Add((double)test["rating"]);
@@ -105,9 +153,11 @@ namespace Roadtrip.Controllers
             city.Add((string)test["location"]["city"]);
             state.Add((string)test["location"]["state"]);
             zipcode.Add((string)test["location"]["zip_code"]);
+            //ids.Add((string)test["id"]);
 
             var FinalList = new
             {
+                id = ID,
                 names = name,
                 ratings = rating,
                 image = img,
@@ -116,6 +166,44 @@ namespace Roadtrip.Controllers
                 citys = city,
                 states = state,
                 zipcodes = zipcode
+            };
+            return Json(FinalList, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetMoreDetails()
+        {
+            string ID = Request.QueryString["id"];
+            Console.WriteLine(ID);
+            string key = System.Web.Configuration.WebConfigurationManager.AppSettings["YelpKey"];
+            Console.WriteLine(key);
+            string uri = "https://api.yelp.com/v3/businesses/" + ID +"/reviews";
+           
+            string data = SendRequest(uri, key);
+
+            JObject test = JObject.Parse(data);
+
+            List<string> texts = new List<string>();
+            List<int> ratings = new List<int>();
+            List<string> img = new List<string>();
+            List<string> names = new List<string>();
+
+            for (int i = 0; i < 3; i++)
+            {
+                texts.Add((string)test["reviews"][i]["text"]);
+                ratings.Add((int)test["reviews"][i]["rating"]);
+                img.Add((string)test["reviews"][i]["user"]["image_url"]);
+                names.Add((string)test["reviews"][i]["user"]["name"]);
+            }
+
+
+
+            var FinalList = new
+            {
+               
+                text = texts,
+                rating = ratings,
+                image = img,
+                name = names
             };
             return Json(FinalList, JsonRequestBehavior.AllowGet);
         }
@@ -166,6 +254,8 @@ namespace Roadtrip.Controllers
             string myCity = Request.QueryString["city"];
             string myState = Request.QueryString["state"];
             string myKey = System.Web.Configuration.WebConfigurationManager.AppSettings["OpenCageKey"];
+            string yelpKey = System.Web.Configuration.WebConfigurationManager.AppSettings["YelpKey"]; 
+
 
             /*Parsing and restructuring the place element*/
             string[] words = myInfo.Split(' ');
@@ -185,6 +275,11 @@ namespace Roadtrip.Controllers
 
             //[JSON].results.[0].bounds.northeast.lat
             //[JSON].results.[0].bounds.northeast.lng
+
+            /*YELP SECTION*/
+            string uri = "https://api.yelp.com/v3/businesses/search?location=97361&limit=20";
+            string data = SendRequest(uri, yelpKey);
+
 
 
 
@@ -235,7 +330,10 @@ namespace Roadtrip.Controllers
         }
 
     }
+
 }
+
+
 
 
 

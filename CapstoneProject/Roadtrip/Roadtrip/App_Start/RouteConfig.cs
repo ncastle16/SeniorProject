@@ -19,10 +19,29 @@ namespace Roadtrip
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
 
+
+            routes.MapRoute(
+                name: "UserComments",
+                url: "Comments/Create/{id}",
+                defaults: new { controller = "Comments", action = "Create", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                name: "SaveRoute",
+                url: "SavedRoutes/SaveRoute",
+                defaults: new { controller = "SavedRoutes", action = "SaveRoute" }
+            );
+
+            routes.MapRoute(
+                name: "DeleteRoute",
+                url: "SavedRoutes/DeleteRoute",
+                defaults: new { controller = "SavedRoutes", action = "DeleteRoute" }
+            );
+
             routes.MapRoute(
                 name: "GetEstablishment",
                 url: "Routes/GetEstablishment",
-                defaults: new { controller = "Routes", action = "GetEstablishment"}
+                defaults: new { controller = "Routes", action = "GetEstablishment" }
             );
 
             routes.MapRoute(
@@ -32,8 +51,20 @@ namespace Roadtrip
             );
 
             routes.MapRoute(
+                name: "GetMoreDetails",
+                url: "Routes/GetMoreDetails/{id}",
+                defaults: new { controller = "Routes", action = "GetMoreDetails", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                name: "LoadComments",
+                url: "Routes/LoadComments/{id}",
+                defaults: new { controller = "Routes", action = "LoadComments", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
                 name: "Routes",
-                url: "{controller}/{action}/{id}", 
+                url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Routes", action = "Create", id = UrlParameter.Optional }
             );
         }

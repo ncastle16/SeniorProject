@@ -1,4 +1,7 @@
-﻿-- #######################################
+﻿INSERT INTO [dbo].[Comments] (EstablishmentID, Comment) VALUES
+    ('s4FmjFMz382LnEGPWIOLPg', 'I love the grain STATIONS!!!')
+GO
+ -- #######################################
 -- #             Identity Tables         #
 -- #######################################
 
@@ -71,3 +74,47 @@ GO
 CREATE NONCLUSTERED INDEX [IX_UserId] ON [dbo].[AspNetUserRoles]([UserId] ASC);
 GO
 CREATE NONCLUSTERED INDEX [IX_RoleId] ON [dbo].[AspNetUserRoles]([RoleId] ASC);
+
+CREATE TABLE [dbo].[SavedRoutes]
+(
+    [SRID]         INT IDENTITY (1,1) NOT NULL,
+    [Route]        NVARCHAR (MAX) NOT NULL,
+    [Timestamp]    DATETIME       NOT NULL,
+    [Username]     NVARCHAR (256) NOT NULL,
+	[RouteName]	   NVARCHAR (256) NOT NULL, 
+	[Tag1]		   NVARCHAR (256) NOT NULL, 
+	[Tag2]		   NVARCHAR (256) NOT NULL 
+    CONSTRAINT [PK_dbo.SavedRoutes] PRIMARY KEY CLUSTERED ([SRID] ASC)
+);
+GO
+
+CREATE TABLE [dbo].[Comments]
+(
+    [CommentID] INT IDENTITY (1,1) NOT NULL,
+    [EstablishmentID] NVARCHAR (MAX) NOT NULL,
+    [Comment] NVARCHAR (MAX) NOT NULL,
+    CONSTRAINT [PK_dbo.Comments] PRIMARY KEY CLUSTERED ([CommentID] ASC)
+);
+
+
+CREATE TABLE [dbo].[LikedRoutes]
+(
+[LRID]			INT IDENTITY (1,1) NOT NULL,
+[UserName]		NVARCHAR (256) NOT NULL,
+[RouteID]		INT NOT NULL 
+CONSTRAINT [PK_dbo.LikedRoutes] PRIMARY KEY CLUSTERED ([LRID] ASC)
+);
+GO
+
+CREATE TABLE [dbo].[Profile]
+(
+[PPID]			INT IDENTITY (1,1) NOT NULL,
+[UserName]		NVARCHAR (256) NOT NULL,
+[Friends]		NVARCHAR (MAX) NOT NULL,
+[AboutMe]		NVARCHAR (501) NOT NULL,
+[PrivacyFlag]   NVARCHAR (20) NOT NULL,
+[Email]         NVARCHAR(128) NOT NULL
+CONSTRAINT [PK_dbo.Profile] PRIMARY KEY CLUSTERED ([PPID] ASC)
+);
+GO
+

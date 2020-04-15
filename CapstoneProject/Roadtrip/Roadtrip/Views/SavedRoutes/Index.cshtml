@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Roadtrip.Controllers.Route>
+
+
+<script type="text/javascript">
+
+        var RouteList = @Html.Raw(Json.Encode(Model)); //For javascript object
+
+        var loadItems = 3;
+        var paginationPosition = 0;
+
+</script>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@Styles.Render("https://unpkg.com/leaflet@1.6.0/dist/leaflet.css")
+@Scripts.Render("https://unpkg.com/leaflet@1.6.0/dist/leaflet.js")
+@Scripts.Render("https://momentjs.com/downloads/moment.js")
+@Styles.Render("~/Content/leaflet-routing-machine.css")
+@Scripts.Render("~/Scripts/leaflet-routing-machine.js")
+@Scripts.Render("~/Scripts/SavedRouteIndex.js")
+
+
+<h2>Routes Index</h2>
+
+<div class="container">
+    <div class="row">
+        <div id="indexList" class="col-lg-9">
+
+        </div>
+        <div id="likedList" class="col-lg-3" style="background-color:darkseagreen; border-style: solid; border-color: darkslategrey;">
+            <div style="text-align: center; padding-top: 13vh;">Liked routes coming soon!</div>
+        </div>
+    </div>
+    <div class="row" style="text-align: center;">
+        <input id="loadMore" type="button" value="" onclick="addToIndexList()">
+    </div>
+</div>
+
+
+
+

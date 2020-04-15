@@ -1,6 +1,11 @@
-﻿@{
+﻿@model  IEnumerable<Roadtrip.Models.Comment>
+
+@{
+
     ViewBag.Title = "Home Page";
+
 }
+
 <script type="text/javascript">
     searchedLocations = {
         name: [],
@@ -19,48 +24,151 @@
         id: []
     };
 </script>
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+    $(function () {
+        $("#sortable").sortable({
+            stop: function (event, ui) {
+                reOrder(); // re-number rows after sorting
+    }
+});
+        $("#sortable").disableSelection();
+    });
+</script>
+
+<!--<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+    $(function () {
+        $("#addLocation").sortable();
+        $("#addLocation").disableSelection();
+    });</script>-->
+
 <body>
-    <div class="container">
+    <div class="container" id="panel">
         <div class="row" style="text-align:center">
             <form class="form-inline">
                 <div class="form-group">
                     @using (Html.BeginForm())
                     {
                         @Html.Label("Show me ")
-                        <input type="text" id="name" value="food" />
+                        <select id="name" class="form-control">
+                            <option value="food">Food</option>
+                            <option value="hotels">Hotels</option>
+                            <option value="shopping">Shopping</option>
+                            <option value="transportation">Transportation</option>
+                            <option value="activelife">Active Life</option>
+                            <option value="Arts&Entertainment">Arts & Entertainment</option>
+                            <option value="nightlife">Nightlife</option>
+                        </select>
                         @Html.Label(" within ")
                         @Html.TextBox("numbers", 5, new
                         {
-                            @class = "form-control",
+                            @class = "form-control mx-1",
                             @placeholder = "15",
                             @type = "number",
                             @min = 1,
-                            @max = 50,
+                            @max = 25,
                             @style = "width: 60px;"
                         })
                         @Html.Label(" miles of ")
-                        <input type="text" id="city" value="monmouth" />
-                        <input type="text" id="state" value="oregon" />
+                        <input class="mx-1" type="text" id="city" value="monmouth" />
+                        <input class="mx-1" type="text" id="state" value="oregon" />
                         @Html.Label(".")
-                        <button type="button" id="myButton" onclick="establishments()">Search</button>
+                        <button type="button" id="myButton" class="btn btn-primary" onclick="establishments()">Search</button>
+                        <button type="button" id="saveButton" style="display: none; margin-left:5px;" onclick="saveRoute()">Save my route!</button>
                     }
                 </div>
             </form>
+
         </div>
+
         <div class="row">
+
             <div class="col-lg-6">
                 <div id="searchmap" style="height:300px;"></div>
             </div>
+
             <div class="col-lg-6">
                 <div id="routemap" style="height:300px;"></div>
             </div>
         </div>
+
         <div class="row">
-            <div class="col-lg-4" id="establishments" style="height:300px;overflow:scroll;">Locations:</div>
-            <div class="col-lg-4" id="details" style="height:300px;overflow:scroll;">Details:</div>
-            <div class="col-lg-4" id="addLocation" style="height:300px;overflow:scroll;">Route:</div>
+
+            <div class="col-lg-4" id="establishments" style="height:300px;overflow-y:scroll;">Locations:</div>
+            <div class="col-lg-3" id="details" style="height:300px;overflow-y:scroll;">Details:</div>
+
+            <ul class="col-lg-3" id="sortable" style="height:300px; overflow:scroll" onchange="reOrder()"></ul>
+            <div class="col-lg-2" id="shortroute" style="height:300px;overflow-y:scroll;">
+                Shortest Route:
+                <button type="button" id="myrButton" onclick="ACS()">generate</button>
+                <div class="col-lg-2" id="short"></div>
+            </div>
+
+
+
+            <!--<ul class="col-lg-4" id="sortable" style="height:300px; overflow:scroll">Route: <input type="button" value="Re-Order" onclick="reOrder()"></ul>-->
+
+
+
+            @Html.Label("Name Your Route! ")
+            <input class="mx-1" type="text" id="routeName" style="height:50px" />
+            @Html.Label("Add a Tag: ")
+            <select id="Tag" class="form-control">
+                <option value="food">Food</option>
+                <option value="family">Family</option>
+                <option value="Fun">Fun</option>
+                <option value="21plus">21plus</option>
+                <option value="Bars">Bars</option>
+                <option value="Shopping">Shopping</option>
+
+
+            </select>
+            <select id="Tag2" class="form-control">
+                <option value="food">Food</option>
+                <option value="family">Family</option>
+                <option value="Fun">Fun</option>
+                <option value="21plus">21plus</option>
+                <option value="Bars">Bars</option>
+                <option value="Shopping">Shopping</option>
+
+
+            </select>
+
+            <!--<ul class="col-lg-4" id="sortable" style="height:300px; overflow:scroll">Route: <input type="button" value="Re-Order" onclick="reOrder()"></ul>-->
+
+
+           
+            
+
+
+
         </div>
     </div>
+
+    <div class="modalWrapper">
+        <div id="myModal" class="modal">
+
+            <!-- Modal content -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close">&times;</span>
+                </div>
+                <div class="modal-body" id="modalBody">
+
+                </div>
+                <a href="Create/Comments/1" id="createComment" target="_blank, width = '400px', height = '400px'">Add Comment</a>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="alertboard" style="display: none;"></div>
+
+
 
     @Styles.Render("https://unpkg.com/leaflet@1.6.0/dist/leaflet.css")
     @Scripts.Render("https://unpkg.com/leaflet@1.6.0/dist/leaflet.js")
@@ -69,4 +177,13 @@
     @Scripts.Render("~/Scripts/mapScripts.js")
     @Scripts.Render("~/Scripts/main.js")
     @Scripts.Render("~/Scripts/PlacesAPI.js")
+
 </body>
+
+
+
+
+
+
+
+   

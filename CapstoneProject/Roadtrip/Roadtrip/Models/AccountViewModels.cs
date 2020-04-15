@@ -65,6 +65,10 @@ namespace Roadtrip.Models
     public class RegisterViewModel
     {
         [Required]
+        [Display(Name ="UserName")]
+        public string UserName { get; set; }
+
+        [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
@@ -109,4 +113,14 @@ namespace Roadtrip.Models
         [Display(Name = "Email")]
         public string Email { get; set; }
     }
+
+    public class ChangeEmailViewModel
+    {
+        [Required]
+        [EmailAddress]
+        [Display(Name = "Input your new Email")]
+        public string Email { get; set; }
+    }
+
+    
 }
