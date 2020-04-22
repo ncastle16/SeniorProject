@@ -162,12 +162,7 @@ public struct RLocation
             return rls;
         }
 
-
         public Route ParseRoute(string s, DateTime ts, string routeName, int srid, string uName, string tag1, string tag2)
-
-//        public Route ParseRoute(string s, DateTime ts, int SRID, string Username)
-
-
         {
             Route r = new Route();
             r.Locations = new List<RLocation>();

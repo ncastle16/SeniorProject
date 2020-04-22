@@ -17,14 +17,20 @@ namespace Roadtrip.Models
         public string UserName { get; set; }
 
         [Required]
-        public string Friends { get; set; }
-
-        [Required]
         [StringLength(501)]
         public string AboutMe { get; set; }
 
         [Required]
         [StringLength(20)]
         public string PrivacyFlag { get; set; }
+
+        [Required]
+        public string Follower { get; set; }
+
+        [Required]
+        public string Following { get; set; }
+
+        public List<string> FollowerList { get; set; }
+        public List<string> FollowingList { get; set; }
     }
 }

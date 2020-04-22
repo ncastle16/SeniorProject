@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using Roadtrip.Models;
@@ -29,10 +30,73 @@ namespace Roadtrip.Controllers
             Profile temp = db.Profiles.FirstOrDefault(s => s.UserName.Equals(name));
             string st = profile.AboutMe;
             temp.AboutMe = st;
+            
             db.SaveChanges();
 
             return View(temp);
         }
+
+        public ActionResult Follow(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Profile profile = db.Profiles.First(s => s.UserName.Contains(User.Identity.Name));
+            if (profile == null)
+            {
+                return HttpNotFound();
+            }
+
+            int result = ParseFList(profile.Following, "[F]").IndexOf(id);
+            if (result == -1)
+            {
+                
+                StringBuilder sb = new StringBuilder();
+                sb.Append(profile.Following);
+                sb.AppendFormat("[F]"+ id + "[F] \n");
+                profile.Following = sb.ToString();
+                db.SaveChanges();
+            }
+
+            Profile profileToFollow = db.Profiles.First(s => s.UserName.Contains(id));
+            result = ParseFList(profileToFollow.Follower, "[F]").IndexOf(User.Identity.Name);
+            if (result == -1)
+            {
+
+                StringBuilder sb = new StringBuilder();
+                sb.Append(profileToFollow.Follower);
+                sb.AppendFormat("[F]" + User.Identity.Name + "[F]\n");
+                profileToFollow.Follower = sb.ToString();
+                db.SaveChanges();
+            }
+
+            return Details(profile);
+        }
+
+
+        public List<string> ParseFList(string s, string delimiter)
+        {
+            List<string> strings = new List<string>();
+            int start, end;
+            //Split the stored string into an array
+            string[] words = s.Split('\n');
+
+            //Foreach location-
+            for (int i = 0; i < words.Length - 1; i++)
+            {
+                if (words[i].Contains(delimiter))
+                {
+                    start = words[i].IndexOf(delimiter);
+                    end = words[i].LastIndexOf(delimiter);
+                    strings.Add(words[i].Substring(start + 3, end - start - 3));
+                }
+            }
+
+            return strings;
+        }
+
+
 
         [HttpGet]
         // GET: Profiles/Details/5
@@ -44,8 +108,11 @@ namespace Roadtrip.Controllers
             }
             Profile profile = db.Profiles.FirstOrDefault(s => s.UserName.Equals(id));
 
-            //Check if user exists
+            if (profile.Following != null)
+                profile.FollowingList = ParseFList(profile.Following, "[F]");
 
+            if (profile.Follower != null)
+                profile.FollowerList = ParseFList(profile.Follower, "[F]");
 
 
             if (profile == null)

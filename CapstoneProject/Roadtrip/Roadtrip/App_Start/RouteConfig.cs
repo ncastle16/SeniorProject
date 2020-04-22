@@ -39,6 +39,12 @@ namespace Roadtrip
             );
 
             routes.MapRoute(
+                name: "Follow",
+                url: "Profiles/Follow",
+                defaults: new { controller = "Profiles", action = "Follow" }
+            );
+
+            routes.MapRoute(
                 name: "GetEstablishment",
                 url: "Routes/GetEstablishment",
                 defaults: new { controller = "Routes", action = "GetEstablishment" }
