@@ -1,6 +1,7 @@
 README
 
 This is the repository for team Dijital Hijinks, a group of seniors working on a capstone project at Western Oregon University.
+Link to project: https://dhcapstone.azurewebsites.net/
 
 **What is in this Repository?**
 
@@ -71,4 +72,5 @@ As for the actual development process, we want to create a fully consumable prod
 *   WebGrease 
 *   **Azure Web Services**
 *   **Github**
+
 
