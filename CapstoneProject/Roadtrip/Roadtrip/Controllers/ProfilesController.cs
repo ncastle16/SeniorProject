@@ -26,52 +26,202 @@ namespace Roadtrip.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Details(Profile profile)
         {
-            string name = User.Identity.Name;
-            Profile temp = db.Profiles.FirstOrDefault(s => s.UserName.Equals(name));
-            string st = profile.AboutMe;
-            temp.AboutMe = st;
-            
-            db.SaveChanges();
-
-            return View(temp);
+            ViewBag.AccessOK = CheckPrivacy(profile, User.Identity.Name);
+            return View(profile);
         }
 
-        public ActionResult Follow(string id)
+        [HttpGet]
+        // GET: Profiles/Details/5
+        public ActionResult Details(string id)
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return Content("oops, user profile not specified");
             }
-            Profile profile = db.Profiles.First(s => s.UserName.Contains(User.Identity.Name));
+            Profile profile = db.Profiles.FirstOrDefault(s => s.UserName.Equals(id));
+
+            if (profile.Following != null)
+                profile.FollowingList = ParseFList(profile.Following, "[F]");
+
+            if (profile.Follower != null)
+                profile.FollowerList = ParseFList(profile.Follower, "[F]");
+
+            if (profile.PendingRequests != null)
+                profile.PendingRequestsList = ParseFList(profile.PendingRequests, "[P]");
+
+            if (profile.RequestsPending != null)
+                profile.RequestsPendingList = ParseFList(profile.RequestsPending, "[P]");
+
+
             if (profile == null)
             {
-                return HttpNotFound();
+                return Content("oops, looks like this users profile page isn't set up yet.");
             }
 
-            int result = ParseFList(profile.Following, "[F]").IndexOf(id);
+
+            ViewBag.AccessOK = CheckPrivacy(profile, User.Identity.Name);
+
+
+            return Details(profile);
+        }
+
+        public bool CheckPrivacy(Profile profile, string username)
+        {
+            bool flag = false;
+
+
+            int result = ParseFList(profile.Follower, "[F]").IndexOf(username);
+
+            if (profile.PrivacyFlag == "Public" || result > -1 || username == profile.UserName)
+                flag = true;
+
+
+            return flag;
+        }
+
+        public void UpdateAboutMe(string text)
+        {
+            Profile temp = db.Profiles.FirstOrDefault(s => s.UserName.Equals(User.Identity.Name));
+            temp.AboutMe = text;
+            db.SaveChanges();
+        }
+
+        public ActionResult TogglePrivacy(string id)
+        {
+            Profile profile = db.Profiles.First(s => s.UserName.Contains(id));
+
+            if (profile.PrivacyFlag == "Public")
+                profile.PrivacyFlag = "Private";
+            else
+                profile.PrivacyFlag = "Public";
+
+            db.SaveChanges();
+
+            return Details(profile);
+        }
+
+        public void RequestFollow(string id)
+        {
+            //Get the profile of the user in question
+            Profile profile = db.Profiles.First(s => s.UserName.Contains(id));
+
+            //Check that users' pending followers to see if request is already pending
+            int alreadyPending = ParseFList(profile.PendingRequests, "[P]").IndexOf(User.Identity.Name);
+
+            if (alreadyPending == -1)
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.Append(profile.PendingRequests);
+                sb.AppendFormat("[P]" + User.Identity.Name + "[P]\n");
+                profile.PendingRequests = sb.ToString();
+                db.SaveChanges();
+            }
+
+            //Get the profile of the user in question
+            Profile myProfile = db.Profiles.First(s => s.UserName.Contains(User.Identity.Name));
+
+            //Check that users' pending followers to see if request is already pending
+            alreadyPending = ParseFList(myProfile.RequestsPending, "[P]").IndexOf(id);
+
+            if (alreadyPending == -1)
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.Append(myProfile.RequestsPending);
+                sb.AppendFormat("[P]" + id + "[P]\n");
+                myProfile.RequestsPending = sb.ToString();
+                db.SaveChanges();
+            }
+        }
+
+        public string RemoveEntry(string input, string entryToRemove, string delimiter)
+        {
+            int location = input.IndexOf(delimiter + entryToRemove + delimiter);
+
+            return input.Remove(location, entryToRemove.Length + delimiter.Length * 2);
+        }
+
+        public ActionResult ConfirmFollow(string id)
+        {
+            //Find the requesters profile
+            Profile profile = db.Profiles.First(s => s.UserName.Contains(id));
+
+            //Check if that user is already following me
+            int result = ParseFList(profile.Following, "[F]").IndexOf(User.Identity.Name);
+
+            //If they are not following me...
             if (result == -1)
             {
-                
+                //...add myself to their following list and save it
                 StringBuilder sb = new StringBuilder();
                 sb.Append(profile.Following);
-                sb.AppendFormat("[F]"+ id + "[F] \n");
+                sb.AppendFormat("[F]" + User.Identity.Name + "[F]\n");
                 profile.Following = sb.ToString();
                 db.SaveChanges();
             }
 
-            Profile profileToFollow = db.Profiles.First(s => s.UserName.Contains(id));
-            result = ParseFList(profileToFollow.Follower, "[F]").IndexOf(User.Identity.Name);
+            //Get my profile
+            Profile profileToFollow = db.Profiles.First(s => s.UserName.Contains(User.Identity.Name));
+
+            //Check if the requester is on my follower list
+            result = ParseFList(profileToFollow.Follower, "[F]").IndexOf(id);
+
+
+            //If they are not on my follower list...
             if (result == -1)
             {
-
+                //...add them to my follower list and save the changes
                 StringBuilder sb = new StringBuilder();
                 sb.Append(profileToFollow.Follower);
-                sb.AppendFormat("[F]" + User.Identity.Name + "[F]\n");
+                sb.AppendFormat("[F]" + id + "[F]\n");
                 profileToFollow.Follower = sb.ToString();
                 db.SaveChanges();
             }
 
-            return Details(profile);
+            //Then remove their request from my pending request list and save changes
+            profileToFollow.PendingRequests = RemoveEntry(profileToFollow.PendingRequests, id, "[P]");
+            profile.RequestsPending = RemoveEntry(profile.RequestsPending, User.Identity.Name, "[P]");
+            
+            
+            db.SaveChanges();
+
+            return Details(profileToFollow);
+        }
+
+        public ActionResult DenyFollow(string id)
+        {
+            //Find the requesters profile
+            Profile profile = db.Profiles.First(s => s.UserName.Contains(id));
+
+
+            //Get my profile
+            Profile profileToFollow = db.Profiles.First(s => s.UserName.Contains(User.Identity.Name));
+
+            //Then remove their request from my pending request list and save changes
+            profileToFollow.PendingRequests = RemoveEntry(profileToFollow.PendingRequests, id, "[P]");
+
+            profile.RequestsPending = RemoveEntry(profile.RequestsPending, User.Identity.Name, "[P]");
+            
+            
+            db.SaveChanges();
+
+            return Details(profileToFollow);
+        }
+
+        public ActionResult Unfollow(string id)
+        {
+            //Find the requesters profile
+            Profile profileToUnfollow = db.Profiles.First(s => s.UserName.Contains(id));
+
+            //Get my profile
+            Profile myProfile = db.Profiles.First(s => s.UserName.Contains(User.Identity.Name));
+
+            //Remove me from their follower list
+            profileToUnfollow.Follower = RemoveEntry(profileToUnfollow.Follower, User.Identity.Name, "[F]");
+            //Remove them from my following list
+            myProfile.Following = RemoveEntry(myProfile.Following, id, "[F]");
+            db.SaveChanges();
+
+            return Details(myProfile);
         }
 
 
@@ -96,31 +246,6 @@ namespace Roadtrip.Controllers
             return strings;
         }
 
-
-
-        [HttpGet]
-        // GET: Profiles/Details/5
-        public ActionResult Details(string id)
-        {
-            if (id == null)
-            {
-                return Content("oops, user profile not specified");
-            }
-            Profile profile = db.Profiles.FirstOrDefault(s => s.UserName.Equals(id));
-
-            if (profile.Following != null)
-                profile.FollowingList = ParseFList(profile.Following, "[F]");
-
-            if (profile.Follower != null)
-                profile.FollowerList = ParseFList(profile.Follower, "[F]");
-
-
-            if (profile == null)
-            {
-                return Content("oops, looks like this users profile page isn't set up yet.");
-            }
-            return View(profile);
-        }
 
         // GET: Profiles/Create
         public ActionResult Create()

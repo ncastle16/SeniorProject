@@ -30,7 +30,15 @@ namespace Roadtrip.Models
         [Required]
         public string Following { get; set; }
 
+        [Required]
+        public string PendingRequests { get; set; }
+
+        [Required]
+        public string RequestsPending { get; set; }
+
         public List<string> FollowerList { get; set; }
         public List<string> FollowingList { get; set; }
+        public List<string> PendingRequestsList { get; set; }
+        public List<string> RequestsPendingList { get; set; }
     }
 }

@@ -1,3 +1,7 @@
+$(document).ready(function () {
+    toggleOff("saveButton");
+    toggleOff("alertboard");
+});
 
 function toggle(e) {
     var x = document.getElementById(e);
@@ -7,20 +11,17 @@ function toggle(e) {
         x.style.display = "none";
     }
 }
+
 function toggleOn(e) {
     var x = document.getElementById(e);
     x.style.display = "block";
 }
-$(document).ready(function () {
-    toggleOff("saveButton");
-    toggleOff("alertboard");
-});
-
 
 function toggleOff(e) {
     var x = document.getElementById(e);
     x.style.display = "none";
 }
+
 
 function saveRoute() {
     if (confirm("Are you sure you want to save this route?")) {

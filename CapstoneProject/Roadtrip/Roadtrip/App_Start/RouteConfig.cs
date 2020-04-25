@@ -39,10 +39,41 @@ namespace Roadtrip
             );
 
             routes.MapRoute(
-                name: "Follow",
-                url: "Profiles/Follow",
-                defaults: new { controller = "Profiles", action = "Follow" }
+                name: "RequestFollow",
+                url: "Profiles/RequestFollow",
+                defaults: new { controller = "Profiles", action = "RequestFollow" }
             );
+
+            routes.MapRoute(
+                name: "ConfirmFollow",
+                url: "Profiles/ConfirmFollow",
+                defaults: new { controller = "Profiles", action = "ConfirmFollow" }
+            );
+
+            routes.MapRoute(
+                name: "DenyFollow",
+                url: "Profiles/DenyFollow",
+                defaults: new { controller = "Profiles", action = "DenyFollow" }
+            );
+
+            routes.MapRoute(
+                name: "Unfollow",
+                url: "Profiles/Unfollow",
+                defaults: new { controller = "Profiles", action = "Unfollow" }
+            );
+
+            routes.MapRoute(
+                name: "UpdateAboutMe",
+                url: "Profiles/UpdateAboutMe",
+                defaults: new { controller = "Profiles", action = "UpdateAboutMe" }
+            );
+
+            routes.MapRoute(
+                name: "TogglePrivacy",
+                url: "Profiles/TogglePrivacy",
+                defaults: new { controller = "Profiles", action = "TogglePrivacy" }
+            );
+
 
             routes.MapRoute(
                 name: "GetEstablishment",
