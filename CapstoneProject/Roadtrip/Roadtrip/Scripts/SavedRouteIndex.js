@@ -8,7 +8,11 @@ $(document).ready(function () {
 });
 
 function addToIndexList() {
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> dev
     if (RouteList.length < loadItems)
         loadItems = RouteList.length
    
