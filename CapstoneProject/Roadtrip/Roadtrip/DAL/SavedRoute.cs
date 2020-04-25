@@ -21,5 +21,9 @@ namespace Roadtrip.DAL
         [Required]
         [StringLength(256)]
         public string Username { get; set; }
+
+        public string Tag1 { get; set;  }
+
+        public string Tag2 { get; set; }
     }
 }

@@ -27,6 +27,27 @@ namespace Roadtrip.Tests.Controllers
             Assert.IsNotNull(result);
 
         }
+        [TestMethod]
+        public void Contact()
+        {
+            HomeController controller = new HomeController();
+
+            ViewResult result = controller.Contact() as ViewResult;
+
+            Assert.IsNotNull(result); 
+        }
+    }
+
+    [TestClass]
+    public class RoutesControllerTest
+    {
+        [TestMethod]
+        public void HowTo()
+        {
+            RoutesController controller = new RoutesController();
+            ViewResult result = controller.HowTo() as ViewResult;
+            Assert.IsNotNull(result);
+        }
     }
 
 }
