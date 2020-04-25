@@ -465,6 +465,8 @@
     <Content Include="Views\Routes\HowTo.cshtml" />
     <Content Include="Views\Manage\ChangeUserName.cshtml" />
     <Content Include="Views\Manage\ChangeEmail.cshtml" />
+    <Content Include="Views\Account\EmailNotVerified.cshtml" />
+    <Content Include="Views\Account\ConfirmSent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\SavedRoutes\Create.cshtml" />
