@@ -15,14 +15,9 @@ namespace Roadtrip.Controllers
 
     public struct Route
     {
-
-
         public int SRID { get; set; }
         public string routeName { get; set; } 
-
         public string Username { get; set; }
-
-
         public DateTime Timestamp { get; set; }
         public List<RLocation> Locations { get; set; }
         public string Tag1 { get; set; }

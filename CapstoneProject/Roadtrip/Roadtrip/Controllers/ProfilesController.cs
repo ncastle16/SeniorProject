@@ -8,6 +8,8 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using Roadtrip.Models;
+using Roadtrip.Controllers;
+using Roadtrip.DAL;
 
 namespace Roadtrip.Controllers
 {
@@ -52,6 +54,26 @@ namespace Roadtrip.Controllers
             if (profile.RequestsPending != null)
                 profile.RequestsPendingList = ParseFList(profile.RequestsPending, "[P]");
 
+            profile.RecentActivityList = new List<string>();
+            List<SavedRoute> recentRoutes = new List<SavedRoute>();
+            foreach (string user in profile.FollowingList)
+            {
+                recentRoutes.AddRange(db.SavedRoutes.Where(s => s.Username.Contains(user)).ToList());
+            }
+            recentRoutes.OrderByDescending(s => s.Timestamp);
+
+            foreach(SavedRoute sr in recentRoutes)
+            {
+                string s = sr.Username + " created a new route titled <a href='Profile/Details/"+ sr.Username +"'>" + sr.RouteName + "</a>! : " + sr.Timestamp.ToLocalTime() + ".\n";
+                profile.RecentActivityList.Add(s);
+            }
+
+            /*
+            List<SavedRoute> sr = db.SavedRoutes
+                .Where(s => s.Username.Contains(User.Identity.Name))
+                .OrderByDescending(s => s.Timestamp)
+                .ToList();
+                */
 
             if (profile == null)
             {
