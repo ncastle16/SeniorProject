@@ -172,7 +172,9 @@ function modalComments(data) {
         console.log(link);
         modal.style.display = "block";
         var length = data.length;
+        console.log($('#comments'));
         $('#comments').empty();
+
         for (var i = 0; i < length; i++) {
             $('#comments').append(`<div class="commentBox"> 
                 <a href="/Profiles/details/${data[i].UserName}">${data[i].UserName} ${data[i].DateS}<a/>
@@ -180,7 +182,7 @@ function modalComments(data) {
                 <div>${data[i].Comment1}<div/> 
                 <div/> <br />`)
         }
-            $('#createComment').attr("href", link)
+           // $('#createComment').attr("href", link)
     }
 }
 
@@ -214,7 +216,7 @@ window.onclick = function (event) {
     */
 
 function moreDetails(id) {
-    var source = '/Routes/GetMoreDetails/' + id;
+    var source = '/Routes/GetMoreDetails?id=' + id;
 
     $.ajax({
         type: 'GET',
@@ -223,12 +225,13 @@ function moreDetails(id) {
         success: showMoreDetails,
         error: errorOnAjax
     });
-
+}
 
 function showMoreDetails(data) {
     console.log(data);
+    $('#comments').empty();
     for (var i = 0; i < 3; i++) {
-        $('#comments').empty();
+        
         $('#comments').append(`<div style="margin-top:50px;margin-bottom:50px;"><img src="${data.image[i]}" style="width:200px;height:150px;"><br><b>${data.name[i]}</b><br>${data.text[i]}<br><b>This user has a rating of</b> ${data.rating[i]}<br></div>`);
     }
 }
@@ -245,9 +248,6 @@ function addName(id) {
        
     }
     console.log(bool); 
-
-
-    
     
 
 

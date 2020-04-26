@@ -8,7 +8,7 @@
     public partial class CommentsModel : DbContext
     {
         public CommentsModel()
-            : base("name=dhcDB")
+            : base("name=SavedContext")
         {
         }
 

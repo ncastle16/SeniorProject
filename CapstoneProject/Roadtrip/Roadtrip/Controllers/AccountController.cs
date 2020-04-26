@@ -167,6 +167,7 @@ namespace Roadtrip.Controllers
                 profile.Follower = "[Follower]\n";
                 profile.Following = "[Following]\n";
                 profile.PendingRequests = "[PendingRequests]\n";
+                profile.RequestsPending = "[RequestsPending]\n";
                 profileDB.Profiles.Add(profile);
 
                 try
