@@ -71,6 +71,13 @@
     margin: auto;
 }
 
+.socialsidebar {
+    border-style: solid;
+    border-color: darkslateblue;
+    background-color: aquamarine;
+    text-align: center;
+}
+
 .profilepic {
     border: 1px solid #474747;
     max-height: 100px;
@@ -87,7 +94,7 @@
 
 .profileBackground {
     text-align: center;
-    width: 60%;
+    width: 90%;
     height: 650px;
     margin-bottom: 35px;
     padding: 10px;

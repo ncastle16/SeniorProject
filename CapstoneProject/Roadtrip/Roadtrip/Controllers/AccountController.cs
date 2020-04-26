@@ -172,10 +172,12 @@ namespace Roadtrip.Controllers
             {
                 profile = new Profile();
                 profile.UserName = name;// name.Substring(0, name.IndexOf("@"));
-                profile.Friends = name + " has no friends yet!";
                 profile.AboutMe = "This is " + name + "'s about me section.";
-                profile.PrivacyFlag = "public";
-
+                profile.PrivacyFlag = "Public";
+                profile.Follower = "[Follower]\n";
+                profile.Following = "[Following]\n";
+                profile.PendingRequests = "[PendingRequests]\n";
+                profile.RequestsPending = "[RequestsPending]\n";
                 profileDB.Profiles.Add(profile);
 
                 try
