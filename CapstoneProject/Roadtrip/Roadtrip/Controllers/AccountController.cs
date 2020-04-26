@@ -273,10 +273,10 @@ namespace Roadtrip.Controllers
 
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
-                    //string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     //var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     //await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                    SendEmail(user);
+                    SendEmail(user, code);
                     return View("ConfirmSent");                  
                 }
                 AddErrors(result);
@@ -300,14 +300,14 @@ namespace Roadtrip.Controllers
             return View();
         }
 
-        public void SendEmail(ApplicationUser user)
+        public void SendEmail(ApplicationUser user, string code)
         {
-            string code = UserManager.GenerateEmailConfirmationToken(user.Id);
+            //string code = UserManager.GenerateEmailConfirmationToken(user.Id);
             string codeHtmlVersion = HttpUtility.UrlEncode(code);
             MailMessage mailMessage = new MailMessage("roadtripwo@gmail.com", user.Email);
             mailMessage.Subject = "Email confirmation";
             mailMessage.Body = string.Format("<p> Dear {0} <br/> Thank you for your registration, please click on the link to complete your registration: <a href =\"{1}\" title =\"User Email Confirm\">Click Here</a> </p>",
-            user.UserName, Url.Action("Index", "Home",
+            user.UserName, Url.Action("ConfirmEmail", "Account",
             new { userId = user.Id, Code = codeHtmlVersion }, protocol: Request.Url.Scheme));
 
             SmtpClient smtpClient = new SmtpClient();
@@ -368,14 +368,18 @@ namespace Roadtrip.Controllers
         public void Forgotmailsend(ApplicationUser user, string code)
         {
             //string code = UserManager.GeneratePasswordResetTokenAsync(user.Id);
-            MailMessage mailMessage = new MailMessage("roadtripwo@gmail.com", user.Email);
-            mailMessage.Subject = "reset your password";
-            mailMessage.Body = string.Format("<p> Dear {0} <br/> If you want to reset password, please click on the link to reset: <a href =\"{1}\" title =\"User Email Confirm\">Click Here</a> </p>",
+            string codeHtmlVersion = HttpUtility.UrlEncode(code);
+            MailMessage mailMessages = new MailMessage("roadtripwo@gmail.com", user.Email);
+            mailMessages.Subject = "reset your password";
+            mailMessages.Body = string.Format("<p> Dear {0} <br/> If you want to reset password, please click on the link to reset: <a href =\"{1}\" title =\"User Email Confirm\">Click Here</a> </p>",
             user.UserName, Url.Action("ResetPassword", "Account",
-            new { userId = user.Id, Code = code }, protocol: Request.Url.Scheme));
+            new { userId = user.Id, Code = codeHtmlVersion }, protocol: Request.Url.Scheme));
 
             SmtpClient smtpClient = new SmtpClient();
-            smtpClient.Send(mailMessage);
+            smtpClient.Send(mailMessages);
+
+
+           
         }
 
         //
