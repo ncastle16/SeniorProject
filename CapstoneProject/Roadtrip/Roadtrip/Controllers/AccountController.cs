@@ -14,6 +14,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using Roadtrip.DAL;
 using System.Collections.Generic;
+using System.Net.Mail;
 
 namespace Roadtrip.Controllers
 {
@@ -140,7 +141,16 @@ namespace Roadtrip.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    var userid = UserManager.FindByEmail(model.Email).Id;
+                    if (!UserManager.IsEmailConfirmed(userid))
+                    {
+                        var autheticationManager = HttpContext.GetOwinContext().Authentication;
+                        autheticationManager.SignOut();
+
+                        return View("EmailNotVerified");
+                    }
+                    else
+                        return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -263,18 +273,11 @@ namespace Roadtrip.Controllers
 
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
-
                     string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
-
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                    CheckProfilePage(user.UserName);
-
-                    return RedirectToAction("Index", "Home");
+                    //var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    //await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    SendEmail(user, code);
+                    return View("ConfirmSent");                  
                 }
                 AddErrors(result);
             }
@@ -283,7 +286,33 @@ namespace Roadtrip.Controllers
             return View(model);
         }
 
-        
+        [AllowAnonymous]
+        public ActionResult EmailNotVerified(string Email)
+        {
+            ViewBag.EmailN = Email;
+            return View();
+        }
+
+        [AllowAnonymous]
+        public ActionResult ConfirmSent(string Email)
+        {
+            ViewBag.EmailC = Email;
+            return View();
+        }
+
+        public void SendEmail(ApplicationUser user, string code)
+        {
+            //string code = UserManager.GenerateEmailConfirmationToken(user.Id);
+            string codeHtmlVersion = HttpUtility.UrlEncode(code);
+            MailMessage mailMessage = new MailMessage("roadtripwo@gmail.com", user.Email);
+            mailMessage.Subject = "Email confirmation";
+            mailMessage.Body = string.Format("<p> Dear {0} <br/> Thank you for your registration, please click on the link to complete your registration: <a href =\"{1}\" title =\"User Email Confirm\">Click Here</a> </p>",
+            user.UserName, Url.Action("ConfirmEmail", "Account",
+            new { userId = user.Id, Code = codeHtmlVersion }, protocol: Request.Url.Scheme));
+
+            SmtpClient smtpClient = new SmtpClient();
+            smtpClient.Send(mailMessage);
+        }
         //
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]
@@ -293,7 +322,8 @@ namespace Roadtrip.Controllers
             {
                 return View("Error");
             }
-            var result = await UserManager.ConfirmEmailAsync(userId, code);
+            var newcode = Server.UrlDecode(code);
+            var result = await UserManager.ConfirmEmailAsync(userId, newcode);
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
         }
 
@@ -323,16 +353,33 @@ namespace Roadtrip.Controllers
 
                 // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                 // Send an email with this link
-                 string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-               
-                 var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                 await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                
+                string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+
+                //var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                //await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                 Forgotmailsend(user, code);
                  return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
 
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+
+        public void Forgotmailsend(ApplicationUser user, string code)
+        {
+            //string code = UserManager.GeneratePasswordResetTokenAsync(user.Id);
+            string codeHtmlVersion = HttpUtility.UrlEncode(code);
+            MailMessage mailMessages = new MailMessage("roadtripwo@gmail.com", user.Email);
+            mailMessages.Subject = "reset your password";
+            mailMessages.Body = string.Format("<p> Dear {0} <br/> If you want to reset password, please click on the link to reset: <a href =\"{1}\" title =\"User Email Confirm\">Click Here</a> </p>",
+            user.UserName, Url.Action("ResetPassword", "Account",
+            new { userId = user.Id, Code = codeHtmlVersion }, protocol: Request.Url.Scheme));
+
+            SmtpClient smtpClient = new SmtpClient();
+            smtpClient.Send(mailMessages);
+
+
+           
         }
 
         //
