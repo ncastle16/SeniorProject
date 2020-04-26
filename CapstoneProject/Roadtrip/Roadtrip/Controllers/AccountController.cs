@@ -134,6 +134,7 @@ namespace Roadtrip.Controllers
             else
                 user = UserManager.FindByName(model.Email);
 
+            CheckProfilePage(user.UserName);
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
