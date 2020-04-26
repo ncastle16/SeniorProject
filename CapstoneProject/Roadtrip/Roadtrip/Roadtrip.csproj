@@ -282,7 +282,7 @@
   </ItemGroup>
   <ItemGroup>
 
-
+    <Content Include="App_Data\Down.sql" />
     <Content Include="App_Data\Up.sql" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
