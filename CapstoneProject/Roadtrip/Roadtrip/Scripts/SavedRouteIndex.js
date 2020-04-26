@@ -1,4 +1,6 @@
-﻿$(document).ready(function () {
+﻿
+
+$(document).ready(function () {
     if (RouteList.length > 0) {
         $('#indexList').empty();
         addToIndexList();
@@ -6,10 +8,9 @@
 });
 
 function addToIndexList() {
-
     if (RouteList.length < loadItems)
         loadItems = RouteList.length
-
+   
     for (var i = paginationPosition; i < paginationPosition + loadItems; i++) {
         $('#indexList').append(`
             <div id="${RouteList[i].SRID}" class= "row" style="border-style: solid; border-color: darkslategrey;"> <div style='width: 5%; height: 30vh;'>${i + 1}.</div>
@@ -18,10 +19,25 @@ function addToIndexList() {
                 Route Name: ${RouteList[i].routeName}</i>
                 <br> 
                 Tags: ${RouteList[i].Tag1}, ${RouteList[i].Tag2}</div>
+                <div id="thisID"></div> 
+                
+               
+            
+           
             </div>
             `);
+         mainLike(RouteList[i].SRID, RouteList[i].Username);
+      
+        
+
+
+
+
+
+
         showRoute(i, 'rmap' + i);
     }
+    console.log(RouteList); 
     paginationPosition += loadItems;
 
     if (paginationPosition + loadItems > RouteList.length)
@@ -65,6 +81,40 @@ function toggleOn(e) {
 function toggleOff(e) {
     var x = document.getElementById(e);
     x.style.display = "none";
+}
+
+function mainLike(id, name) {
+    var source = '/SavedRoutes/CheckLike?ID=' + id;
+    var my; 
+    $.ajax({
+        type: 'POST',
+        datatype: 'json',
+        url: source,
+        success: function (response) {
+            if (response) {
+
+                returnTrue();
+                console.log("Returned True");
+                $(`#${id}`).append(`<input id="${id}" name = "${name}" type = "button" class="btn btn-primary" value = "Like" onclick = "checkLike(this.id, this.name)" />`)
+            }
+            else {
+
+                returnFalse();
+                console.log("returned false");
+                $(`#${id}`).append(`<input name="${id}" type="button" class="btn btn-primary" value="Unlike" onclick="Unlike(this.name)">`) 
+            }
+        },
+        async: false
+
+    });
+    
+    console.log("returned nothing"); 
+}
+function returnTrue() {
+    return 1; 
+}
+function returnFalse() {
+    return 0; 
 }
 
 function showRoute(id, divid) {
@@ -140,4 +190,147 @@ function highlight(name, color) {
     var a = document.getElementById(name);
     console.log(a);
     a.style.backgroundColor = color;
+}
+function checkLike(ID, Username) {
+
+    var source = '/SavedRoutes/CheckLike?ID=' + ID;
+    $.ajax({
+        type: 'POST',
+        datatype: 'json',
+        url: source,
+        success: function (response) {
+            if (response) {
+                like(ID, Username)
+            }
+            else {
+                errorOnAjax
+            }
+        },
+        error: errorOnAjax
+
+    });
+
+}
+function like(SRID, userName) {
+
+    console.log(SRID);
+    console.log(userName);
+    var URL = '/SavedRoutes/SaveLike?userName=' + userName + '&SRID=' + SRID;
+    $.ajax({
+        type: "POST",
+        url: URL,
+
+        success: function (response) {
+            location.reload();
+            console.log("Data saved successfully");
+
+        },
+        error: errorOnAjax1,
+        dataType: "json",
+        contentType: 'application/json',
+        traditional: true
+    });
+   // location.reload();
+
+}
+function errorOnAjax() {
+    console.log("Error"); 
+}
+function errorOnAjax1() {
+    console.log("Error number 1");
+}
+function Unlike(data) {
+    console.log(data);
+    var source = '/SavedRoutes/Unlike?ID=' + data;
+    $.ajax({
+        type: 'POST',
+        datatype: 'json',
+        url: source,
+        success: function (response) {
+            tell();
+            setTimeout(function () { alert("Unliked Succeeded"); }, 4000);
+           
+
+        },
+        error: errorOnAjax
+
+    });
+   
+}
+function tell() {
+    location.reload();
+
+    console.log("Unliked Worked");
+    
+}
+function sortTag() {
+    var ta = document.getElementById('sortTag');
+    var tag = ta.value;
+    console.log(tag); 
+   
+    $('#indexList').empty();
+    if (tag == "null") {
+        location.reload(); 
+    }
+    else {
+        toggleOff("loadMore");
+        printSortedList(tag); 
+    }
+}
+function printEntireList() {
+
+    if (RouteList.length < loadItems)
+        loadItems = RouteList.length
+
+    for (var i = paginationPosition; i < paginationPosition + loadItems; i++) {
+        $('#indexList').append(`
+            <div id="${RouteList[i].SRID}" class= "row" style="border-style: solid; border-color: darkslategrey;"> <div style='width: 5%; height: 30vh;'>${i + 1}.</div>
+                <div id='rmap${i}' style='width: 60%; height:30vh; border-style: solid; border-color: darkseagreen;'></div>
+                <div style='width: 35%; height:30vh; text-align: center; padding-top: 13vh;'><i>By ${RouteList[i].Username} <br> 
+                Route Name: ${RouteList[i].routeName}</i>
+                <br> 
+                Tags: ${RouteList[i].Tag1}, ${RouteList[i].Tag2}</div>
+                <div id="thisID"></div> 
+                
+               
+            
+           
+            </div>
+            `);
+        mainLike(RouteList[i].SRID, RouteList[i].Username);
+        showRoute(i, 'rmap' + i);
+    }
+    console.log(RouteList);
+    paginationPosition += loadItems;
+
+    if (paginationPosition + loadItems > RouteList.length)
+        loadItems = RouteList.length - paginationPosition;
+
+    document.querySelector('#loadMore').value = "Load next " + loadItems + " routes [" + (RouteList.length - paginationPosition) + " left]";
+
+    if (loadItems == 0)
+        toggleOff("loadMore");
+
+}
+function printSortedList(tag) {
+    for (var i = 0; i < RouteList.length; i++) {
+        if (tag == RouteList[i].Tag1 || tag == RouteList[i].Tag2) {
+            $(`#indexList`).append(`
+            <div id="${RouteList[i].SRID}" class= "row" style="border-style: solid; border-color: darkslategrey;"> <div style='width: 5%; height: 30vh;'>${i + 1}.</div>
+                <div id='rmap${i}' style='width: 60%; height:30vh; border-style: solid; border-color: darkseagreen;'></div>
+                <div style='width: 35%; height:30vh; text-align: center; padding-top: 13vh;'><i>By ${RouteList[i].Username} <br> 
+                Route Name: ${RouteList[i].routeName}</i>
+                <br> 
+                Tags: ${RouteList[i].Tag1}, ${RouteList[i].Tag2}</div>
+                <div id="thisID"></div> 
+                
+               
+            
+           
+            </div>
+            `);
+            mainLike(RouteList[i].SRID, RouteList[i].Username);
+            showRoute(i, 'rmap' + i);
+        }
+    }
 }

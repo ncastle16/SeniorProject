@@ -4,7 +4,7 @@
  });
 
 
-function checkLike(ID, Username) {
+/*function checkLike(ID, Username) {
 
     var source = '/SavedRoutes/CheckLike?ID=' + ID;
     $.ajax({
@@ -22,7 +22,7 @@ function checkLike(ID, Username) {
        
     });
 
-}
+}*/
 
 function populateRouteList() {
     if (RouteList.length > 0)
