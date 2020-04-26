@@ -116,8 +116,8 @@ function test(data) {
         searchedLocations = data;
         $('#estList').append(`
         <li class="list-group-item list-group-item-dark" id="${data.latitude[i]}">${data.name[i]} <br>
-        <input id="${data.id[i]}" type="button" value="Get Details" onclick="details(this.id)">
-                <input id="${data.id[i]}" type="button" value="Add Location" onclick="addName(this.id)">
+        <input id="${data.id[i]}" type="button" value="Get Details" onclick="modalComments1(this.id); details(this.id);">
+        <input id="${data.id[i]}" type="button" value="Add Location" onclick="addName(this.id)">
 
         </li>
 
@@ -141,6 +141,7 @@ function details(id) {
 function showDetails(data) {
     console.log(data);
     $('#details').empty();
+    modal.style.display = "block";
     $('#details').append(`<div style="margin-top:50px;margin-bottom:50px;"><img src="${data.image[0]}" style="width:200px;height:150px;"><br> <b>${data.names[0]}</b><br>This business has a rating of ${data.ratings[0]}
     <br> Located at: ${data.addresss[0]}  ${data.citys[0]}, ${data.states[0]} ${data.zipcodes[0]}<br>The phone number for this business is: ${data.phones[0]}
     <input id="${data.id}" type="button" value="MoreDetails" onclick="moreDetails(this.id)">
@@ -159,9 +160,9 @@ var span = document.getElementsByClassName("close")[0];
 
 // When the user clicks the button, open the modal 
 function modalComments(data) {
-    console.log(data.EstablishmentID);
+    console.log(data);
     if (data[0] == null) {
-        $('#modalBody').empty();
+        $('#comments').empty();
         var link = '/Comments/Create/' + data.EstablishmentID;
         modal.style.display = "block";
         $('#createComment').attr("href", link)
@@ -171,9 +172,13 @@ function modalComments(data) {
         console.log(link);
         modal.style.display = "block";
         var length = data.length;
-        $('#modalBody').empty();
+        $('#comments').empty();
         for (var i = 0; i < length; i++) {
-            $('#modalBody').append(`<div class="commentBox">${data[i].Comment1} <div/> <br />`)
+            $('#comments').append(`<div class="commentBox"> 
+                <a href="/Profiles/details/${data[i].UserName}">${data[i].UserName} ${data[i].DateS}<a/>
+                <br/>
+                <div>${data[i].Comment1}<div/> 
+                <div/> <br />`)
         }
             $('#createComment').attr("href", link)
     }
@@ -206,6 +211,7 @@ window.onclick = function (event) {
 /*function addName(id) {
     
     var bool = true; 
+    */
 
 function moreDetails(id) {
     var source = '/Routes/GetMoreDetails/' + id;
@@ -217,13 +223,13 @@ function moreDetails(id) {
         success: showMoreDetails,
         error: errorOnAjax
     });
-}*/
+
 
 function showMoreDetails(data) {
     console.log(data);
     for (var i = 0; i < 3; i++) {
-
-        $('#details').append(`<div style="margin-top:50px;margin-bottom:50px;"><img src="${data.image[i]}" style="width:200px;height:150px;"><br><b>${data.name[i]}</b><br>${data.text[i]}<br><b>This user has a rating of</b> ${data.rating[i]}<br></div>`);
+        $('#comments').empty();
+        $('#comments').append(`<div style="margin-top:50px;margin-bottom:50px;"><img src="${data.image[i]}" style="width:200px;height:150px;"><br><b>${data.name[i]}</b><br>${data.text[i]}<br><b>This user has a rating of</b> ${data.rating[i]}<br></div>`);
     }
 }
 
