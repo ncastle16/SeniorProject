@@ -38,5 +38,12 @@ namespace Roadtrip.Controllers
 
             return View();
         }
+
+        public ActionResult Establishment(string id)
+        {
+            ViewBag.Message = id;
+
+            return View((object)id);
+        }
     }
 }

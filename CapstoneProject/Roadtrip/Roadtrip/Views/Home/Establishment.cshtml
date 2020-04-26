@@ -1,0 +1,15 @@
+﻿@model string
+
+@{
+    ViewBag.Title = "Establishment";
+}
+<script type="text/javascript">
+    var estID = @Html.Raw(Json.Encode(Model));
+</script>
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Message</h3>
+@Scripts.Render("~/Scripts/EstablishmentDetails.js")
+
+<p>Use this area to provide additional information.</p>
+<div class="col-lg-8" id="details" style="height:300px;overflow-y:scroll;">Details:</div>
+

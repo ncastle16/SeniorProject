@@ -22,6 +22,7 @@ namespace Roadtrip.Controllers
     public class AccountController : Controller
     {
         private SavedRoutesModel db = new SavedRoutesModel();
+        
 
 
         [HttpGet]
@@ -111,6 +112,7 @@ namespace Roadtrip.Controllers
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
+            
             return View();
         }
 
@@ -158,6 +160,48 @@ namespace Roadtrip.Controllers
                     ModelState.AddModelError("", "Invalid login attempt.");
                     return View(model);
             }
+        }
+
+        [Authorize]
+        public void CheckProfilePage(string name)
+        {
+            ProfileContext profileDB = new ProfileContext();
+            Profile profile = profileDB.Profiles.FirstOrDefault(s => s.UserName.Equals(name));
+
+            if (profile == null)
+            {
+                profile = new Profile();
+                profile.UserName = name;// name.Substring(0, name.IndexOf("@"));
+                profile.Friends = name + " has no friends yet!";
+                profile.AboutMe = "This is " + name + "'s about me section.";
+                profile.PrivacyFlag = "public";
+
+                profileDB.Profiles.Add(profile);
+
+                try
+                {
+                    profileDB.SaveChanges();
+                }
+                catch (System.Data.Entity.Validation.DbEntityValidationException dbEx)
+                {
+                    Exception raise = dbEx;
+                    foreach (var validationErrors in dbEx.EntityValidationErrors)
+                    {
+                        foreach (var validationError in validationErrors.ValidationErrors)
+                        {
+                            string message = string.Format("{0}:{1}",
+                                validationErrors.Entry.Entity.ToString(),
+                                validationError.ErrorMessage);
+                            // raise a new exception nesting
+                            // the current instance as InnerException
+                            raise = new InvalidOperationException(message, raise);
+                        }
+                    }
+                    throw raise;
+                }
+                
+            }
+
         }
 
         //
@@ -213,6 +257,7 @@ namespace Roadtrip.Controllers
 
         //
         // POST: /Account/Register
+        [Authorize]
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -228,11 +273,26 @@ namespace Roadtrip.Controllers
 
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
+<<<<<<< HEAD
                     //string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     //var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     //await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
                     SendEmail(user);
                     return View("ConfirmSent");
+=======
+
+                    string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+
+                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    CheckProfilePage(user.UserName);
+
+                    return RedirectToAction("Index", "Home");
+>>>>>>> dev
                 }
                 AddErrors(result);
             }

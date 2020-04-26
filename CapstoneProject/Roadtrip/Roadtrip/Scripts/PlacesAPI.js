@@ -31,6 +31,11 @@ function saveRoute() {
         var routeName = RName.value;
 
         console.log(routeName);
+        var ta = document.getElementById('Tag');
+        var tag1 = ta.value;
+        var ta2 = document.getElementById('Tag2'); 
+        var tag2 = ta2.value; 
+        console.log(tag2); 
         
 
         for (var i = 0; i < selectedLocations.name.length; i++) {
@@ -43,14 +48,14 @@ function saveRoute() {
             });
         }
         console.log(savedList);
-       
 
+        var source = '/SavedRoutes/SaveRoute?routeName=' + routeName + '&tag1=' + tag1 + '&tag2=' + tag2; 
         document.getElementById('alertboard').innerHTML = "<div id='panelinner'>SAVING...</div>";
         toggleOff("panel");
         toggleOn("alertboard");
         $.ajax({
             type: "POST",
-            url: "/SavedRoutes/SaveRoute?routeName=" + routeName,
+            url: source,
             data:  JSON.stringify(savedList),   
             success: function (response) {
                 console.log("Data saved successfully");
@@ -135,7 +140,65 @@ function details(id) {
 function showDetails(data) {
     console.log(data);
     $('#details').empty();
-    $('#details').append(`<div style="margin-top:50px;margin-bottom:50px;"><img src="${data.image[0]}" style="width:200px;height:150px;"><br> <b>${data.names[0]}</b><br>This business has a rating of ${data.ratings[0]}<br> Located at: ${data.addresss[0]}  ${data.citys[0]}, ${data.states[0]} ${data.zipcodes[0]}<br>The phone number for this business is: ${data.phones[0]}<input id="${data.id}" type="button" value="MoreDetails" onclick="moreDetails(this.id)"></div>`);
+    $('#details').append(`<div style="margin-top:50px;margin-bottom:50px;"><img src="${data.image[0]}" style="width:200px;height:150px;"><br> <b>${data.names[0]}</b><br>This business has a rating of ${data.ratings[0]}
+    <br> Located at: ${data.addresss[0]}  ${data.citys[0]}, ${data.states[0]} ${data.zipcodes[0]}<br>The phone number for this business is: ${data.phones[0]}
+    <input id="${data.id}" type="button" value="MoreDetails" onclick="moreDetails(this.id)">
+    <input id="modalButton" name="${data.id}" type="button" value="User Comments" onclick="modalComments1(this.name)"</div>`);
+}
+
+
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("modalButton");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+
+// When the user clicks the button, open the modal 
+function modalComments(data) {
+    console.log(data.EstablishmentID);
+    if (data[0] == null) {
+        $('#modalBody').empty();
+        var link = '/Comments/Create/' + data.EstablishmentID;
+        modal.style.display = "block";
+        $('#createComment').attr("href", link)
+    }
+    else {
+        var link = '/Comments/Create/' + data[0].EstablishmentID;
+        console.log(link);
+        modal.style.display = "block";
+        var length = data.length;
+        $('#modalBody').empty();
+        for (var i = 0; i < length; i++) {
+            $('#modalBody').append(`<div class="commentBox">${data[i].Comment1} <div/> <br />`)
+        }
+            $('#createComment').attr("href", link)
+    }
+}
+
+function modalComments1(id) {
+    var source = '/Routes/LoadComments?id=' + id;
+    $.ajax({
+        type: 'GET',
+        dataType: 'json',
+        url: source,
+        success: modalComments,
+        error: errorOnAjax
+    });
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function () {
+    modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function (event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
 }
 
 
@@ -144,7 +207,7 @@ function showDetails(data) {
     var bool = true; 
 
 function moreDetails(id) {
-    var source = '/Routes/GetMoreDetails?id=' + id;
+    var source = '/Routes/GetMoreDetails/' + id;
 
     $.ajax({
         type: 'GET',
@@ -701,5 +764,4 @@ function getDistanceb(rwp1, rwp2) {
         async: false
     }).responseText).routes[0].distance;
 }
-
 

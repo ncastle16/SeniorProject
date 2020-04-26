@@ -27,7 +27,7 @@ function direct(data) {
 
 
 
-    document.location.assign("/SavedRoutes/Saved?ID=" + data);
+    document.location.assign("/SavedRoutes/Index?ID=" + data);
 
 
 
