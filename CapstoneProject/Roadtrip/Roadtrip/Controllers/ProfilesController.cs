@@ -64,7 +64,7 @@ namespace Roadtrip.Controllers
 
             foreach(SavedRoute sr in recentRoutes)
             {
-                string s = sr.Username + " created a new route titled <a href='Profile/Details/"+ sr.Username +"'>" + sr.RouteName + "</a>! : " + sr.Timestamp.ToLocalTime() + ".\n";
+                string s = "<a href='/Profiles/Details/" + sr.Username + "'>" + sr.Username + "</a> created a new route titled " + sr.RouteName + "! : " + sr.Timestamp.ToLocalTime() + ".";
                 profile.RecentActivityList.Add(s);
             }
 

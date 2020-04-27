@@ -1,4 +1,16 @@
-﻿#alertboard {
+﻿.marqueeContainer {
+    margin-top: 10px;
+    background: white;
+    width: 60%;
+    margin-left: 20%;
+}
+
+.marqueeClass {
+    margin: 0 auto;
+    display: block;
+}
+
+#alertboard {
     text-align: center;
     font-size: 100px;
     height: 700px;

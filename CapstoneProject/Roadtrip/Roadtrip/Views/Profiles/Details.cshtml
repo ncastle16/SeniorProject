@@ -11,16 +11,20 @@
 @Scripts.Render("~/Scripts/ProfileJS.js")
 
 <body style="background-color: #F5CB5C;">
-    <marquee behavior="scroll" scrollamount="3" direction="left"
-             onmouseover="this.stop();" onmouseout="this.start();">
-        <ul id="ticker">
-            @foreach (string s in Model.RecentActivityList)
-            {
-                @Html.Raw(s);
-            }
-        </ul>
-
-    </marquee>
+    @if (Model.UserName == User.Identity.Name)
+    {
+        <div class="marqueeContainer">
+            <marquee class="marqueeClass" behavior="scroll" scrollamount="3" direction="left"
+                     onmouseover="this.stop();" onmouseout="this.start();">
+                <ul id="ticker">
+                    @foreach (string s in Model.RecentActivityList)
+                    {
+                        @Html.Raw(s);
+                    }
+                </ul>
+            </marquee>
+        </div>
+    }
     @if (ViewBag.AccessOK == true)
     {
         <div class="container profileBackground">
@@ -186,13 +190,13 @@
                 </div>
             </div>
         </div>
-                        }
-                        else if (Model.PendingRequestsList.Contains(User.Identity.Name))
-                        {
+    }
+    else if (Model.PendingRequestsList.Contains(User.Identity.Name))
+    {
         <p>Your follow request is currently pending. Please check back later.</p>
-                        }
-                        else
-                        {
+    }
+    else
+    {
         <p>Sorry, you don't have permission to view @{@Model.UserName}'s profile as it is @Model.PrivacyFlag. Please request access using the 'Request Follow' button.</p>
         <input name="@Model.UserName" type="button" value="Request Follow" onclick="requestFollow(this.name)">
     }
