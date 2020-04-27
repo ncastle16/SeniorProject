@@ -148,10 +148,14 @@ namespace Roadtrip.Controllers
                     var userid = UserManager.FindByEmail(model.Email).Id;
                     if (!UserManager.IsEmailConfirmed(userid))
                     {
-                        var autheticationManager = HttpContext.GetOwinContext().Authentication;
-                        autheticationManager.SignOut();
+                        //var autheticationManager = HttpContext.GetOwinContext().Authentication;
+                        //autheticationManager.SignOut();
+
+                        AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+
 
                         return View("EmailNotVerified");
+                        //return RedirectToLocal(returnUrl);
                     }
                     else
                         return RedirectToLocal(returnUrl);
@@ -284,6 +288,9 @@ namespace Roadtrip.Controllers
                     //var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     //await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
                     SendEmail(user, code);
+                    AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+
+
                     return View("ConfirmSent");                  
                 }
                 AddErrors(result);
