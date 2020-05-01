@@ -18,12 +18,12 @@ function addToIndexList() {
                 <div style='width: 35%; height:30vh; text-align: center; padding-top: 13vh;'><i>By ${RouteList[i].Username} <br> 
                 Route Name: ${RouteList[i].routeName}</i>
                 <br> 
-                Tags: ${RouteList[i].Tag1}, ${RouteList[i].Tag2}</div>
-                <div id="thisID"></div> 
+                Tags: ${RouteList[i].Tag1}, ${RouteList[i].Tag2}
+                <br><button type="button" id="Etgm${i}" class="btn btn-primary" onclick="gMapsExport(${i})">Export to Google Maps</button>
+                </div>
                 
-               
-            
-           
+                <div id="thisID"></div> 
+
             </div>
             `);
          mainLike(RouteList[i].SRID, RouteList[i].Username);

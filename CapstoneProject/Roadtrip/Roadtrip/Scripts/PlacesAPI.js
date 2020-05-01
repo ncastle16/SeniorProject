@@ -272,6 +272,7 @@ function addName(id) {
         }
         if (selectedLocations.name.length > 1) {
             toggleOn("saveButton");
+            toggleOn("exportButton");
         }
 
 
@@ -362,6 +363,7 @@ function removeElement(elementId) {
             //delete selectedLocations.longitude[i]; 
             if (selectedLocations.name.length < 2) {
                 toggleOff("saveButton");
+                toggleOff("exportButton");
             }
             console.log(selectedLocations);
             plotMap();

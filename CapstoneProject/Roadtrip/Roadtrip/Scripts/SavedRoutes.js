@@ -51,6 +51,8 @@ function populateRouteList() {
                  <input id="${RouteList[i].SRID}" name="${RouteList[i].Username}" type="button" value="Like" onclick="checkLike(this.id, this.name)">
 
                 <input name="${i}" type="button" value="Show Route" onclick="showRoute(this.name)">
+                <button type="button" id="Etgm${i}" class="btn btn-primary" onclick="gMapsExport(${i})">Export to Google Maps</button>
+                
 
                 <input id="${RouteList[i].SRID}" type="button" value="Delete Route" onclick="deleteRoute(this.id)">
 

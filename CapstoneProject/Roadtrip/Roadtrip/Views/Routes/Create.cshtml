@@ -80,7 +80,9 @@
                         @Html.Label(" .")
                         @Html.Label(" .")
                         <button type="button" id="myButton" class="btn btn-primary" onclick="establishments()">Search</button>
-                        <button type="button" id="saveButton" class="btn btn-outline-secondary" style="display: none; margin-left:5px;" onclick="saveRoute()">Save my route!</button>
+                        <button type="button" id="saveButton" class="btn btn-primary" style="display: none; margin-left:5px;" onclick="saveRoute()">Save my route!</button>
+                        <button type="button" id="exportButton" class="btn btn-primary" style="display: none; margin-left:5px;" onclick="gMapsExportCreate()">Export to Google Maps</button>
+
                     }
                 </div>
             </form>
@@ -137,7 +139,7 @@
                     <div class="col-lg-2" id="short"></div>
                 </div>
             </div>
-            
+
         </div>
     </div>
 
@@ -169,6 +171,7 @@
     @Scripts.Render("~/Scripts/mapScripts.js")
     @Scripts.Render("~/Scripts/main.js")
     @Scripts.Render("~/Scripts/PlacesAPI.js")
+    @Scripts.Render("~/Scripts/GMaps.js")
 
 </body>
 
