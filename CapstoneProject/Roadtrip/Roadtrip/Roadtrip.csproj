@@ -281,6 +281,10 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="404.aspx" />
+    <Content Include="404.html" />
+    <Content Include="500.aspx" />
+    <Content Include="500.html" />
     <Content Include="App_Data\Down.sql" />
     <Content Include="App_Data\Up.sql" />
     <Content Include="Content\bootstrap-grid.css" />
