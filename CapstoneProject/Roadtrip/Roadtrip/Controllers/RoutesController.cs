@@ -329,6 +329,11 @@ namespace Roadtrip.Controllers
             return jsonString;
         }
 
+        public ActionResult Destinations()
+        {
+            return View();
+        }
+
     }
 
 }

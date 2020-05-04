@@ -212,7 +212,7 @@ window.onclick = function (event) {
     var bool = true; 
     */
 
-function moreDetails(id) {
+/*function moreDetails(id) {
     var source = '/Routes/GetMoreDetails/' + id;
 
     $.ajax({
@@ -222,6 +222,7 @@ function moreDetails(id) {
         success: showMoreDetails,
         error: errorOnAjax
     });
+}*/
 
 
 function showMoreDetails(data) {

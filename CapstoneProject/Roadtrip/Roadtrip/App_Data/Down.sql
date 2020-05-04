@@ -7,3 +7,4 @@ DROP TABLE [dbo].[AspNetUserRoles];
 DROP TABLE [dbo].[SavedRoutes];
 DROP TABLE [dbo].[AspNetUsers];
 DROP TABLE [dbo].[AspNetRoles];
+DROP TABLE [dbo].[Events];

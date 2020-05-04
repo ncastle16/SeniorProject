@@ -253,3 +253,43 @@ textarea {
 .twitterHelper {
     padding-top: 4px;
 }
+
+/*
+<---------------------------------------Modal css--------------------------------------->
+*/
+
+.Crater-Lake {
+    background-image: url('/Content/CraterLake.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 250px;
+    width: 100%;
+}
+
+.Mount-Hood {
+    background-image: url(MountHood.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 250px;
+    width: 100%;
+}
+
+.Deschutes {
+    background-image: url(Deschutes.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 250px;
+    width: 100%;
+}
+
+.Hells-Canyon {
+    background-image: url(HellsCanyon.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 250px;
+    width: 100%;
+}
