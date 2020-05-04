@@ -15,14 +15,9 @@ namespace Roadtrip.Controllers
 
     public struct Route
     {
-
-
         public int SRID { get; set; }
         public string routeName { get; set; } 
-
         public string Username { get; set; }
-
-
         public DateTime Timestamp { get; set; }
         public List<RLocation> Locations { get; set; }
         public string Tag1 { get; set; }
@@ -104,17 +99,27 @@ public struct RLocation
         }
 
         // GET: SavedRoutes
+       
         public ActionResult Index()
         {
             //List<SavedRoute> sr = db.SavedRoutes.OrderByDescending(s => s.Timestamp).ToList();
 
-            List<SavedRoute> sr = db.SavedRoutes
-                .OrderByDescending(s => s.Timestamp)
-                .ToList();
+          
+                List<SavedRoute> sr = db.SavedRoutes
+                    .OrderByDescending(s => s.Timestamp)
+                    .ToList();
 
-            return View(LoadRoute(sr));
+
+                List<LikedRoute> lr = db.LikedRoute
+              .Where(s => s.UserName.Contains(User.Identity.Name))
+              .ToList();
+
+                ViewBag.LikedList = lr;
+
+                return View(LoadRoute(sr));
+          
         }
-
+        
         public ActionResult Saved()
         {
             List<SavedRoute> sr = db.SavedRoutes
@@ -162,12 +167,7 @@ public struct RLocation
             return rls;
         }
 
-
         public Route ParseRoute(string s, DateTime ts, string routeName, int srid, string uName, string tag1, string tag2)
-
-//        public Route ParseRoute(string s, DateTime ts, int SRID, string Username)
-
-
         {
             Route r = new Route();
             r.Locations = new List<RLocation>();
@@ -327,6 +327,34 @@ public struct RLocation
             base.Dispose(disposing);
         }
 
+        public ActionResult Unlike()
+        {
+            string ID1 = Request.QueryString["ID"];
+            int ID = Int32.Parse(ID1);
+            /* List<LikedRoute> sr = db.LikedRoute
+                .Where(s => s.LRID.Equals(ID))
+                .ToList();*/
+            List<LikedRoute> sr = db.LikedRoute
+           .Where(s => s.UserName.Contains(User.Identity.Name))
+
+           .ToList();
+
+           /* foreach (LikedRoute s in sr)
+            {
+                db.LikedRoute.Remove(s);
+                db.SaveChanges();
+            }*/
+            for (int i = 0; i < sr.Count; i++)
+            {
+                if (ID == sr[i].RouteID)
+                {
+                    db.LikedRoute.Remove(sr[i]);
+                    db.SaveChanges(); 
+                }
+            }
+            return Json(true); 
+        }
+
         public ActionResult SaveLike()
         {
             string userName = Request.QueryString["userName"];
@@ -334,13 +362,13 @@ public struct RLocation
             int realSRID = Int32.Parse(SRID);
             LikedRoute likeRoute = new LikedRoute();
             likeRoute.RouteID = realSRID;
-            likeRoute.UserName = userName;
+            likeRoute.UserName = User.Identity.Name;
 
             db.LikedRoute.Add(likeRoute);
             
             db.SaveChanges();
 
-            return RedirectToAction("Saved");
+            return Json(true);
         }
 
         public ActionResult CheckLike()
@@ -362,5 +390,6 @@ public struct RLocation
             }
             return Json(true); 
         }
+        
     }
 }

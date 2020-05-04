@@ -110,10 +110,12 @@ CREATE TABLE [dbo].[Profile]
 (
 [PPID]			INT IDENTITY (1,1) NOT NULL,
 [UserName]		NVARCHAR (256) NOT NULL,
-[Friends]		NVARCHAR (MAX) NOT NULL,
 [AboutMe]		NVARCHAR (501) NOT NULL,
 [PrivacyFlag]   NVARCHAR (20) NOT NULL,
-[Email]         NVARCHAR(128) NOT NULL
+[Follower] varchar(MAX) NOT NULL,
+[Following] varchar(MAX) NOT NULL,
+[PendingRequests] varchar(MAX) NOT NULL,
+[RequestsPending] varchar(MAX) NOT NULL,
 CONSTRAINT [PK_dbo.Profile] PRIMARY KEY CLUSTERED ([PPID] ASC)
 );
 
@@ -122,12 +124,21 @@ CREATE TABLE [dbo].[Events]
 [EID] INT IDENTITY (1,1) NOT NULL,
 [EventName] NVARCHAR (MAX) NOT NULL,
 [Route] NVARCHAR (MAX) NOT NULL,
-[Host] NVARCHAR (MAX) NOT NULL,
 [Start] DATETIME NOT NULL,
 [Finish] DATETIME NOT NULL,
-[Attending] NVARCHAR (MAX) NOT NULL,
-[Privacy] NVARCHAR(10) NOT NULL,
 CONSTRAINT [PK_dbo.Events] PRIMARY KEY CLUSTERED ([EID] ASC)
+);
+
+GO
+
+CREATE TABLE [dbo].[Attendants]
+(
+[AID] INT IDENTITY (1,1) NOT NULL,
+[UserID] NVARCHAR (128) NOT NULL,
+[EventID] INT NOT NULL,
+CONSTRAINT [PK_dbo.Attendants] PRIMARY KEY CLUSTERED ([AID] ASC),
+CONSTRAINT [FK_dbo.Attendants_dbo.AspNetRoles_Id] FOREIGN KEY ([UserID]) REFERENCES [dbo].[AspNetRoles] ([Id]) ON DELETE CASCADE,
+CONSTRAINT [FK_dbo.Attendants_dbo.Events_EID] FOREIGN KEY ([EventID]) REFERENCES [dbo].[Events] ([EID]) ON DELETE CASCADE
 );
 
 GO

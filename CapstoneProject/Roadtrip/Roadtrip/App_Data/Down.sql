@@ -1,6 +1,7 @@
 ﻿DROP TABLE [dbo].[Comments];
 DROP TABLE [dbo].[LikedRoutes];
 DROP TABLE [dbo].[Profile];
+DROP TABLE [dbo].[Attendants];
 DROP TABLE [dbo].[AspNetUserClaims];
 DROP TABLE [dbo].[AspNetUserLogins];
 DROP TABLE [dbo].[AspNetUserRoles];
