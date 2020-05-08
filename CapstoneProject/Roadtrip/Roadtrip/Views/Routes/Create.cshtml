@@ -51,9 +51,10 @@
         <div class="row" style="text-align:center">
             <form class="form-inline">
                 <div class="form-group">
+                    <br />
                     @using (Html.BeginForm())
                     {
-                        @Html.Label("Show me ")
+                        @Html.Label("Show me  ")
                         <select id="name" class="form-control">
                             <option value="food">Food</option>
                             <option value="hotels">Hotels</option>
@@ -63,7 +64,7 @@
                             <option value="Arts&Entertainment">Arts & Entertainment</option>
                             <option value="nightlife">Nightlife</option>
                         </select>
-                        @Html.Label(" within ")
+                        @Html.Label("  within  ")
                         @Html.TextBox("numbers", 5, new
                         {
                             @class = "form-control mx-1",
@@ -73,18 +74,19 @@
                             @max = 25,
                             @style = "width: 60px;"
                         })
-                        @Html.Label(" miles of ")
+                        @Html.Label("  miles of  ")
                         <input class="mx-1" type="text" id="city" value="monmouth" />
                         <input class="mx-1" type="text" id="state" value="oregon" />
-                        @Html.Label(".")
+                        @Html.Label(" .")
+                        @Html.Label(" .")
                         <button type="button" id="myButton" class="btn btn-primary" onclick="establishments()">Search</button>
-                        <button type="button" id="saveButton" style="display: none; margin-left:5px;" onclick="saveRoute()">Save my route!</button>
+                        <button type="button" id="saveButton" class="btn btn-outline-secondary" style="display: none; margin-left:5px;" onclick="saveRoute()">Save my route!</button>
                     }
                 </div>
             </form>
 
         </div>
-
+        <br />
         <div class="row">
 
             <div class="col-lg-6">
@@ -99,45 +101,10 @@
         <div class="row">
 
             <div class="col-lg-4" id="establishments" style="height:300px;overflow-y:scroll;">Locations:</div>
-            <div class="col-lg-3" id="details" style="height:300px;overflow-y:scroll;">Details:</div>
 
             <ul class="col-lg-3" id="sortable" style="height:300px; overflow:scroll" onchange="reOrder()"></ul>
-            <div class="col-lg-2" id="shortroute" style="height:300px;overflow-y:scroll;">
-                Shortest Route:
-                <button type="button" id="myrButton" onclick="ACS()">generate</button>
-                <div class="col-lg-2" id="short"></div>
-            </div>
 
-
-
-            <!--<ul class="col-lg-4" id="sortable" style="height:300px; overflow:scroll">Route: <input type="button" value="Re-Order" onclick="reOrder()"></ul>-->
-
-
-
-            @Html.Label("Name Your Route! ")
-            <input class="mx-1" type="text" id="routeName" style="height:50px" />
-            @Html.Label("Add a Tag: ")
-            <select id="Tag" class="form-control">
-                <option value="food">Food</option>
-                <option value="family">Family</option>
-                <option value="Fun">Fun</option>
-                <option value="21plus">21plus</option>
-                <option value="Bars">Bars</option>
-                <option value="Shopping">Shopping</option>
-
-
-            </select>
-            <select id="Tag2" class="form-control">
-                <option value="food">Food</option>
-                <option value="family">Family</option>
-                <option value="Fun">Fun</option>
-                <option value="21plus">21plus</option>
-                <option value="Bars">Bars</option>
-                <option value="Shopping">Shopping</option>
-
-
-            </select>
-
+<<<<<<< HEAD
             <!--<ul class="col-lg-4" id="sortable" style="height:300px; overflow:scroll">Route: <input type="button" value="Re-Order" onclick="reOrder()"></ul>-->
             <!-- Large modal -->
             <button type="button" class="btn btn-primary" data-toggle="modal" style="width:140px;" data-target=".bd-example-modal-lg" onclick="appendLiked()">Liked Establishments</button>
@@ -153,6 +120,42 @@
 
 
 
+=======
+            <div class="col-lg-4">
+                <div>
+                    @Html.Label("Name Your Route! ")
+                    <input class="mx-1" type="text" id="routeName" style="height:50px" />
+                </div>
+                <br />
+                <div>
+                    @Html.Label("Add a Tag: ")
+                    <select id="Tag" class="form-control">
+                        <option value="food">Food</option>
+                        <option value="family">Family</option>
+                        <option value="Fun">Fun</option>
+                        <option value="21plus">21plus</option>
+                        <option value="Bars">Bars</option>
+                        <option value="Shopping">Shopping</option>
+                    </select>
+
+                    <select id="Tag2" class="form-control">
+                        <option value="food">Food</option>
+                        <option value="family">Family</option>
+                        <option value="Fun">Fun</option>
+                        <option value="21plus">21plus</option>
+                        <option value="Bars">Bars</option>
+                        <option value="Shopping">Shopping</option>
+                    </select>
+                </div>
+                <br />
+                <div id="shortroute">
+                    Shortest Route:
+                    <button type="button" id="myrButton" onclick="ACS()">generate</button>
+                    <div class="col-lg-2" id="short"></div>
+                </div>
+            </div>
+            
+>>>>>>> dev
         </div>
     </div>
 
@@ -164,9 +167,9 @@
                 <div class="modal-header">
                     <span class="close">&times;</span>
                 </div>
-                <div class="modal-body" id="modalBody">
-
-                </div>
+                <div class="col-lg-12" id="details" style="height:500px;">Details:</div>
+                <div class="modal-body" id="modalBody"></div>
+                <div class="comments" id="comments"></div>
                 <a href="Create/Comments/1" id="createComment" target="_blank, width = '400px', height = '400px'">Add Comment</a>
             </div>
 
