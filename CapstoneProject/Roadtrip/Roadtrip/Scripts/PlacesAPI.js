@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 function showLikeModal(data) {
     console.log(data); 
     $('#modaly').empty();
@@ -74,12 +74,12 @@ function unlikeEst(id) {
     });
 }
 
-=======
+
 $(document).ready(function () {
     toggleOff("saveButton");
     toggleOff("alertboard");
 });
->>>>>>> dev
+
 
 function toggle(e) {
     var x = document.getElementById(e);
@@ -193,17 +193,14 @@ function test(data) {
     for (var i = 0; i < data.total; i++) {
         searchedLocations = data;
         $('#estList').append(`
-<<<<<<< HEAD
-=======
-        <li class="list-group-item list-group-item-dark" id="${data.latitude[i]}">${data.name[i]} <br>
-        <input id="${data.id[i]}" type="button" value="Get Details" onclick="modalComments1(this.id); details(this.id);">
-        <input id="${data.id[i]}" type="button" value="Add Location" onclick="addName(this.id)">
->>>>>>> dev
 
+       
         <li class="list-group-item list-group-item-dark" id="${data.latitude[i]}">${data.name[i]} </br>
 <div id = "${data.id[i]}"> </div> 
         <input id="${data.id[i]}" type="button" value="Get Details" onclick="details(this.id)"> </br>
                 <input id="${data.id[i]}" type="button" value="Add Location" onclick="addName(this.id)"> </br>
+ 
+
        
 
         </li>
