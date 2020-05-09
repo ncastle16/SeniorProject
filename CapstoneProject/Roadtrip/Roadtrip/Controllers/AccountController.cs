@@ -15,6 +15,7 @@ using System.Drawing.Drawing2D;
 using Roadtrip.DAL;
 using System.Collections.Generic;
 using System.Net.Mail;
+using reCAPTCHA.MVC;
 
 namespace Roadtrip.Controllers
 {
@@ -135,6 +136,11 @@ namespace Roadtrip.Controllers
                 user = UserManager.FindByName(model.Email);
 
 
+            /*var userid = UserManager.FindByEmail(model.Email).Id;
+            if (!UserManager.IsEmailConfirmed(userid))
+            {
+                return View("EmailNotVerified");
+            }*/
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe, shouldLockout: false);
@@ -145,9 +151,10 @@ namespace Roadtrip.Controllers
                     if (!UserManager.IsEmailConfirmed(userid))
                     {
                         var autheticationManager = HttpContext.GetOwinContext().Authentication;
-                        autheticationManager.SignOut();
+                        //autheticationManager.SignOut();
+                        AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
 
-                        return View("EmailNotVerified");
+                        return RedirectToAction("EmailNotVerified", "Account");
                     }
                     else
                         return RedirectToLocal(returnUrl);
@@ -261,10 +268,17 @@ namespace Roadtrip.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
+        [CaptchaValidator(
+        ErrorMessage = "Invalid input captcha.",
+        RequiredMessage = "The captcha field is required.")]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
+                /*if (!model.captchaValid)
+                {
+                    ModelState.AddModelError("_FORM", "You did not type the verification word correctly. Please try again.");
+                }*/
                 var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
@@ -277,7 +291,10 @@ namespace Roadtrip.Controllers
                     //var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     //await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
                     SendEmail(user, code);
-                    return View("ConfirmSent");                  
+                    AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+                   
+                    return View("ConfirmSent");
+                    
                 }
                 AddErrors(result);
             }
@@ -368,12 +385,12 @@ namespace Roadtrip.Controllers
         public void Forgotmailsend(ApplicationUser user, string code)
         {
             //string code = UserManager.GeneratePasswordResetTokenAsync(user.Id);
-            string codeHtmlVersion = HttpUtility.UrlEncode(code);
+            //string codeHtmlVersion = HttpUtility.UrlEncode(code);
             MailMessage mailMessages = new MailMessage("roadtripwo@gmail.com", user.Email);
             mailMessages.Subject = "reset your password";
             mailMessages.Body = string.Format("<p> Dear {0} <br/> If you want to reset password, please click on the link to reset: <a href =\"{1}\" title =\"User Email Confirm\">Click Here</a> </p>",
             user.UserName, Url.Action("ResetPassword", "Account",
-            new { userId = user.Id, Code = codeHtmlVersion }, protocol: Request.Url.Scheme));
+            new { userId = user.Id, Code = code }, protocol: Request.Url.Scheme));
 
             SmtpClient smtpClient = new SmtpClient();
             smtpClient.Send(mailMessages);
@@ -552,7 +569,11 @@ namespace Roadtrip.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
+            
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
+         
+            //return Redirect("https://www.facebook.com/logout.php?next=https://localhost:44393&access_token=289867945346706|iB_AflzOE4HE8J1zIwOm7rv61C4");
             return RedirectToAction("Index", "Home");
         }
 
