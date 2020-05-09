@@ -136,15 +136,6 @@ namespace Roadtrip.Controllers
                 user = UserManager.FindByName(model.Email);
 
 
-
-            /*var userid = UserManager.FindByEmail(model.Email).Id;
-            if (!UserManager.IsEmailConfirmed(userid))
-            {
-                return View("EmailNotVerified");
-            }*/
-
-
-
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe, shouldLockout: false);
@@ -158,20 +149,14 @@ namespace Roadtrip.Controllers
                     if (!UserManager.IsEmailConfirmed(userid))
                     {
 
-
-                        //autheticationManager.SignOut();
-                        AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-
-
-
                         //var autheticationManager = HttpContext.GetOwinContext().Authentication;
                         //autheticationManager.SignOut();
 
                         AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
 
 
-                        return View("EmailNotVerified");
-                        //return RedirectToLocal(returnUrl);
+                        return RedirectToAction("EmailNotVerified", "Account");
+                        
 
                     }
                     else
@@ -313,12 +298,6 @@ namespace Roadtrip.Controllers
                     //await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
                     SendEmail(user, code);
                     AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-
-                   
-
-                    
-
-
 
                     return View("ConfirmSent");                  
 
