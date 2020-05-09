@@ -15,14 +15,9 @@ namespace Roadtrip.Controllers
 
     public struct Route
     {
-
-
         public int SRID { get; set; }
         public string routeName { get; set; } 
-
         public string Username { get; set; }
-
-
         public DateTime Timestamp { get; set; }
         public List<RLocation> Locations { get; set; }
         public string Tag1 { get; set; }
@@ -172,12 +167,7 @@ public struct RLocation
             return rls;
         }
 
-
         public Route ParseRoute(string s, DateTime ts, string routeName, int srid, string uName, string tag1, string tag2)
-
-//        public Route ParseRoute(string s, DateTime ts, int SRID, string Username)
-
-
         {
             Route r = new Route();
             r.Locations = new List<RLocation>();

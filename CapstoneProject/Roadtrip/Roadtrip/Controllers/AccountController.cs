@@ -136,25 +136,43 @@ namespace Roadtrip.Controllers
                 user = UserManager.FindByName(model.Email);
 
 
+
             /*var userid = UserManager.FindByEmail(model.Email).Id;
             if (!UserManager.IsEmailConfirmed(userid))
             {
                 return View("EmailNotVerified");
             }*/
+
+
+
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe, shouldLockout: false);
+
+            CheckProfilePage(user.UserName);
+
             switch (result)
             {
                 case SignInStatus.Success:
                     var userid = UserManager.FindByEmail(model.Email).Id;
                     if (!UserManager.IsEmailConfirmed(userid))
                     {
-                        var autheticationManager = HttpContext.GetOwinContext().Authentication;
+
+
                         //autheticationManager.SignOut();
                         AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
 
-                        return RedirectToAction("EmailNotVerified", "Account");
+
+
+                        //var autheticationManager = HttpContext.GetOwinContext().Authentication;
+                        //autheticationManager.SignOut();
+
+                        AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+
+
+                        return View("EmailNotVerified");
+                        //return RedirectToLocal(returnUrl);
+
                     }
                     else
                         return RedirectToLocal(returnUrl);
@@ -179,10 +197,12 @@ namespace Roadtrip.Controllers
             {
                 profile = new Profile();
                 profile.UserName = name;// name.Substring(0, name.IndexOf("@"));
-                profile.Friends = name + " has no friends yet!";
                 profile.AboutMe = "This is " + name + "'s about me section.";
-                profile.PrivacyFlag = "public";
-
+                profile.PrivacyFlag = "Public";
+                profile.Follower = "[Follower]\n";
+                profile.Following = "[Following]\n";
+                profile.PendingRequests = "[PendingRequests]\n";
+                profile.RequestsPending = "[RequestsPending]\n";
                 profileDB.Profiles.Add(profile);
 
                 try
@@ -283,6 +303,7 @@ namespace Roadtrip.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    CheckProfilePage(model.UserName);
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
 
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
@@ -292,9 +313,15 @@ namespace Roadtrip.Controllers
                     //await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
                     SendEmail(user, code);
                     AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+
                    
-                    return View("ConfirmSent");
+
                     
+
+
+
+                    return View("ConfirmSent");                  
+
                 }
                 AddErrors(result);
             }

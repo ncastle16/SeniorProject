@@ -110,10 +110,12 @@ CREATE TABLE [dbo].[Profile]
 (
 [PPID]			INT IDENTITY (1,1) NOT NULL,
 [UserName]		NVARCHAR (256) NOT NULL,
-[Friends]		NVARCHAR (MAX) NOT NULL,
 [AboutMe]		NVARCHAR (501) NOT NULL,
 [PrivacyFlag]   NVARCHAR (20) NOT NULL,
-[Email]         NVARCHAR(128) NOT NULL
+[Follower] varchar(MAX) NOT NULL,
+[Following] varchar(MAX) NOT NULL,
+[PendingRequests] varchar(MAX) NOT NULL,
+[RequestsPending] varchar(MAX) NOT NULL,
 CONSTRAINT [PK_dbo.Profile] PRIMARY KEY CLUSTERED ([PPID] ASC)
 );
 GO
