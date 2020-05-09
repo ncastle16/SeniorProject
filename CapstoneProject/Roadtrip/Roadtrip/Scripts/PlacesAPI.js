@@ -230,10 +230,9 @@ function moreDetails(id) {
         error: errorOnAjax
     });
 <<<<<<< HEAD
-}*/
-
 }
-
+}
+*/
 function showMoreDetails(data) {
     console.log(data);
     $('#comments').empty();

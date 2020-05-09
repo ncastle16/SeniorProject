@@ -8,6 +8,13 @@ namespace Roadtrip.Models
 
     public partial class Event
     {
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Event()
+        {
+            Attendants = new HashSet<Attendant>();
+        }
+
         [Key]
         public int EID { get; set; }
 
@@ -17,18 +24,12 @@ namespace Roadtrip.Models
         [Required]
         public string Route { get; set; }
 
-        [Required]
-        public string Host { get; set; }
-
         public DateTime Start { get; set; }
 
         public DateTime Finish { get; set; }
 
-        [Required]
-        public string Attending { get; set; }
-
-        [Required]
-        [StringLength(10)]
-        public string Privacy { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Attendant> Attendants { get; set; }
     }
+
 }

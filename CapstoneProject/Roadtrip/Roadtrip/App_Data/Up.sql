@@ -134,10 +134,10 @@ GO
 CREATE TABLE [dbo].[Attendants]
 (
 [AID] INT IDENTITY (1,1) NOT NULL,
-[UserID] NVARCHAR (128) NOT NULL,
+[UserID] INT NOT NULL,
 [EventID] INT NOT NULL,
 CONSTRAINT [PK_dbo.Attendants] PRIMARY KEY CLUSTERED ([AID] ASC),
-CONSTRAINT [FK_dbo.Attendants_dbo.AspNetRoles_Id] FOREIGN KEY ([UserID]) REFERENCES [dbo].[AspNetRoles] ([Id]) ON DELETE CASCADE,
+CONSTRAINT [FK_dbo.Attendants_dbo.Profile_PPID] FOREIGN KEY ([UserID]) REFERENCES [dbo].[Profile] ([PPID]) ON DELETE CASCADE,
 CONSTRAINT [FK_dbo.Attendants_dbo.Events_EID] FOREIGN KEY ([EventID]) REFERENCES [dbo].[Events] ([EID]) ON DELETE CASCADE
 );
 
