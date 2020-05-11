@@ -32,6 +32,127 @@
 
 });
 
+
+
+
+function showLikeModal(data) {
+    console.log(data);
+    $('#modaly').empty();
+    $('#modaly').append('<ul style="margin-left: -20px; margin-right: 20px; margin-top: 15px;" id="likedEstList"></ul>');
+    for (var i = 0; i < data.length; i++) {
+        $('#likedEstList').append(`
+        <li  class="list-group-item list-group-item-dark" class="list-group-item list-group-item-dark" >Name: ${data[i].EstablishmentName} <br /> 
+            User Name: ${data[i].UserName} <br /> 
+           <input id="${data[i].EstablishmentID}" type="button" value="Get Details" onclick="details(this.id)"> 
+
+        <input id="${data[i].EstablishmentID}" type="button" value="Unlike" onclick="unlikeEst(this.id)">
+<br /> </li>
+            
+            
+`);
+    }
+}
+
+function appendLiked() {
+    var source = '/Routes/getLikeEstablishments';
+    $.ajax({
+        type: 'GET',
+        datatype: 'json',
+        url: source,
+        success: showLikeModal,
+        error: errorOnAjax
+    });
+}
+function mainLikeEST(id, name, lat) {
+    var source = '/SavedRoutes/CheckLikeEstablishment?ID=' + id;
+    var my;
+    $.ajax({
+        type: 'POST',
+        datatype: 'json',
+        url: source,
+        success: function (response) {
+            if (response) {
+
+
+                console.log("Returned True");
+                $(`#${id}`).append(` <input id="${id}" name="${name}" type="button" value="Like" onclick="checkLikeEstablishment(this.id, this.name)">`)
+            }
+            else {
+
+
+                console.log("returned false");
+                $(`#${id}`).append(`<input name="${id}" type="button"  value="Unlike" onclick="unlikeEst(this.name)">`)
+            }
+        },
+        async: false
+
+    });
+
+
+}
+
+function unlikeEst(id) {
+    console.log(id);
+    var source = '/SavedRoutes/UnlikeEst?ID=' + id;
+    $.ajax({
+        type: 'POST',
+        datatype: 'json',
+        url: source,
+        success: function (response) {
+
+            setTimeout(function () { alert("Unliked Succeeded"); }, 500);
+            appendLiked();
+            test(searchedLocations);
+
+        },
+        error: errorOnAjax
+
+    });
+}
+
+
+function checkLikeEstablishment(ID, Name) {
+
+    var source = '/SavedRoutes/CheckLikeEstablishment?ID=' + ID;
+    $.ajax({
+        type: 'POST',
+        datatype: 'json',
+        url: source,
+        success: function (response) {
+            if (response) {
+                LikeEstablishment(ID, Name);
+                test(searchedLocations);
+            }
+            else {
+                setTimeout(function () { alert("Already Liked"); }, 400);
+                console.log("ALREADY LIKED");
+            }
+        },
+        error: errorOnAjax
+
+    });
+
+}
+
+function LikeEstablishment(data1, data2) {
+    console.log(data1);
+    console.log(data2);
+    var source = '/SavedRoutes/SaveLikeEstablishment?ID=' + data1 + "&ID2=" + data2;
+    $.ajax({
+        type: 'GET',
+        dataType: 'json',
+        url: source,
+        success: showSucc,
+        error: errorOnAjax
+    });
+
+
+
+}
+function showSucc() {
+    console.log("DATA SAVED");
+}
+
 function toggle(e) {
     var x = document.getElementById(e);
     if (x.style.display === "none") {
@@ -145,6 +266,7 @@ function test(data) {
         searchedLocations = data;
         $('#estList').append(`
         <li class="list-group-item list-group-item-dark" id="${data.latitude[i]}">${data.name[i]} <br>
+<div id = "${data.id[i]}"> </div> 
         <input id="${data.id[i]}" type="button" value="Get Details" onclick="modalComments1(this.id); details(this.id);">
         <input id="${data.id[i]}" type="button" value="Add Location" onclick="addName(this.id)">
 
@@ -152,6 +274,7 @@ function test(data) {
 
 
 `);
+        mainLikeEST(data.id[i], data.name[i], data.latitude[i]);
     }
 }
 

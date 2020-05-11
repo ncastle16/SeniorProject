@@ -29,9 +29,9 @@
 
 .mapoverlay3 {
     width: 20vw;
-    height: 35vh;
+    height: 40vh;
     position: absolute;
-    top: 65vh;
+    top: 60vh;
     left: 78vw;
     bottom: 0;
     background-color: rgba(71,71,71, 0.4);
