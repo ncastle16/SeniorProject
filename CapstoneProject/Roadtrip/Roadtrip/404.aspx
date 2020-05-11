@@ -56,10 +56,11 @@
     }
   </style>
 </head>
+    <body>
 <div class="error-container">
-<img src="https://i.imgur.com/fRwHBlp.png" style="width: 50%; height: 50%;"/>
-  <h1>Uh oh- you look like you need rescued.</h1>
-  <p class="return">Let's get you out of <a href="/">uncharted waters</a></p>
+<img src="/Content/404.png" style="max-width: 50%; max-height: 10%;" />
+  <h1>Uh oh- that page was either moved or didn't exist.</h1>
+  <p class="return">Let's get you back <a href="/">on the road</a></p>
 </div>
 
 </body>

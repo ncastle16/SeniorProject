@@ -1,6 +1,35 @@
-$(document).ready(function () {
+﻿$(document).ready(function () {
     toggleOff("saveButton");
     toggleOff("alertboard");
+    //document.getElementById('searchmap').innerHTML = "<div id='smap' style='height: 100%; background-color: black;'></div>";
+
+    map = L.map('smap', {
+        minZoom: 1,
+        maxZoom: 19
+    });
+
+
+    map.setView([0, 0], 0);
+
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+            map.setView([position.coords.latitude, position.coords.longitude], 13)
+        });
+    }
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+        maxZoom: 19,
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+            '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+            'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        id: 'mapbox/dark-v10',
+        tileSize: 512,
+        zoomOffset: -1
+    }).addTo(map);
+
+    searchGroup = L.layerGroup().addTo(map);
+    routeGroup = L.layerGroup().addTo(map);
+
 });
 
 function toggle(e) {
@@ -34,10 +63,10 @@ function saveRoute() {
         console.log(routeName);
         var ta = document.getElementById('Tag');
         var tag1 = ta.value;
-        var ta2 = document.getElementById('Tag2'); 
-        var tag2 = ta2.value; 
-        console.log(tag2); 
-        
+        var ta2 = document.getElementById('Tag2');
+        var tag2 = ta2.value;
+        console.log(tag2);
+
 
         for (var i = 0; i < selectedLocations.name.length; i++) {
             savedList.push({
@@ -45,19 +74,19 @@ function saveRoute() {
                 Latitude: selectedLocations.latitude[i],
                 Longitude: selectedLocations.longitude[i],
                 Id: selectedLocations.id[i]
-               
+
             });
         }
         console.log(savedList);
 
-        var source = '/SavedRoutes/SaveRoute?routeName=' + routeName + '&tag1=' + tag1 + '&tag2=' + tag2; 
+        var source = '/SavedRoutes/SaveRoute?routeName=' + routeName + '&tag1=' + tag1 + '&tag2=' + tag2;
         document.getElementById('alertboard').innerHTML = "<div id='panelinner'>SAVING...</div>";
         toggleOff("panel");
         toggleOn("alertboard");
         $.ajax({
             type: "POST",
             url: source,
-            data:  JSON.stringify(savedList),   
+            data: JSON.stringify(savedList),
             success: function (response) {
                 console.log("Data saved successfully");
                 alert("Route saved successfully!");
@@ -111,7 +140,7 @@ function test(data) {
     showMap(data);
 
     $('#establishments').empty();
-    $('#establishments').append('<ul id="estList"></ul>');
+    $('#establishments').append('<ul id="estList" style="padding: 0;"></ul>');
     for (var i = 0; i < data.total; i++) {
         searchedLocations = data;
         $('#estList').append(`
@@ -182,7 +211,7 @@ function modalComments(data) {
                 <div>${data[i].Comment1}<div/> 
                 <div/> <br />`)
         }
-           // $('#createComment').attr("href", link)
+        // $('#createComment').attr("href", link)
     }
 }
 
@@ -231,7 +260,7 @@ function showMoreDetails(data) {
     console.log(data);
     $('#comments').empty();
     for (var i = 0; i < 3; i++) {
-        
+
         $('#comments').append(`<div style="margin-top:50px;margin-bottom:50px;"><img src="${data.image[i]}" style="width:200px;height:150px;"><br><b>${data.name[i]}</b><br>${data.text[i]}<br><b>This user has a rating of</b> ${data.rating[i]}<br></div>`);
     }
 }
@@ -245,10 +274,10 @@ function addName(id) {
             bool = false;
         }
 
-       
+
     }
-    console.log(bool); 
-    
+    console.log(bool);
+
 
 
     if (bool == true) {
@@ -276,13 +305,10 @@ function addName(id) {
         }
 
 
-        plotMap();
+        showMap(searchedLocations);
     }
 
-   }
-
-
-
+}
 
 function reOrder() {
     //var elements = document.getElementsByClassName("test");
@@ -324,24 +350,15 @@ function reOrder() {
     console.log(names);
     console.log(selectedLocations);
 
-    plotMap();
+    establishments();
 
 }
 
-
-
-
 function showName(data) {
 
-    
-
-    $('#sortable').append(`<li class="list-group-item list-group-item-dark test" id="${data.names[0]}"">${data.names[0]} <br><input id="${data.names[0]}" type="button" value="Delete" onclick="removeElement(this.id)"</li>`);
-
-   
 
 
-   
-
+    $('#sortable').append(`<li class="list-group-item list-group-item-dark" id="${data.names[0]}">${data.names[0]}<div data-toggle="tooltip" data-placement="top" title="Delete"><input id="${data.names[0]}" type="button" value="❌" onclick="removeElement(this.id)"></div></li>`);
 
 }
 
@@ -366,7 +383,7 @@ function removeElement(elementId) {
                 toggleOff("exportButton");
             }
             console.log(selectedLocations);
-            plotMap();
+            showMap(searchedLocations);
         }
     }
 
@@ -426,76 +443,74 @@ Math.easeInOutQuad = function (t, b, c, d) {
     return -c / 2 * (t * (t - 2) - 1) + b;
 };
 
-
-
-
-
-
+function checkSelected(id) {
+    for (var i = 0; i < selectedLocations.name.length; i++) {
+        if (id == selectedLocations.id[i])
+            return true;
+    }
+    return false;
+}
 
 function showMap(data) {
-    document.getElementById('searchmap').innerHTML = "<div id='smap' style='height: 100%; background-color: black;'></div>";
-    var mymap = L.map('smap').setView([data.latitude[0], data.longitude[0]], 13);
 
-
-    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
-        maxZoom: 18,
-        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
-            '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-            'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-        id: 'mapbox/dark-v10',
-        tileSize: 512,
-        zoomOffset: -1
-    }).addTo(mymap);
+    //map.setView([data.latitude[0], data.longitude[0]], 13);
+    searchGroup.clearLayers();
+    routeGroup.clearLayers();
 
     var array = [];
 
     for (var i = 0; i < data.total; i++) {
+        if (!checkSelected(data.id[i])) {
+            array.push(L.marker([data.latitude[i], data.longitude[i]], { icon: locIcon }).bindPopup(`<b>${data.name[i]}</b>
+        </br><input id="${data.id[i]}" type="button" value="Add" onclick="addName(this.id)"><input id="${data.name[i]}" type="button" value="Show" onclick="jumpTo(${data.latitude[i]})">`).addTo(searchGroup));
 
-        array.push(L.marker([data.latitude[i], data.longitude[i]]).bindPopup(`<b>${data.name[i]}</b>
-        </br><input id="${data.id[i]}" type="button" value="Add" onclick="addName(this.id)"><input id="${data.name[i]}" type="button" value="Show" onclick="jumpTo(${data.latitude[i]})">`).addTo(mymap));
-
-
+        }
     }
-
     var group = new L.featureGroup(array);
-    mymap.fitBounds(group.getBounds().pad(0.5));
+    map.fitBounds(group.getBounds().pad(0.5));
+
+    if (selectedLocations.name.length > 0) {
+        array = [];
+        routewps = [];
+
+        for (var i = 0; i < selectedLocations.name.length; i++) {
+            //L.marker([selectedLocations.latitude[i], selectedLocations.longitude[i]]).bindPopup("<b>" + selectedLocations.name[i] + "</b>").addTo(routeGroup);
+            routewps.push(L.latLng([selectedLocations.latitude[i], selectedLocations.longitude[i]]));
+        }
 
 
-}
+        //group = new L.featureGroup(array);
 
-function plotMap(data) {
-    document.getElementById('routemap').innerHTML = "<div id='rmap' style='width: 100%; height: 100%;'></div>";
-    var mymap = L.map('rmap').setView([selectedLocations.latitude[0], selectedLocations.longitude[0]], 13);
+        if (control != null) {
+            map.removeControl(control);
+            control = null;
+        }
 
-
-    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
-        maxZoom: 18,
-        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
-            '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-            'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-        id: 'mapbox/streets-v11',
-        tileSize: 512,
-        zoomOffset: -1
-    }).addTo(mymap);
-
-    var array = [];
-    routewps = [];
-
-    for (var i = 0; i < selectedLocations.name.length; i++) {
-        array.push(L.marker([selectedLocations.latitude[i], selectedLocations.longitude[i]]).bindPopup("<b>" + selectedLocations.name[i] + "</b>").addTo(mymap));
-        routewps.push(L.latLng([selectedLocations.latitude[i], selectedLocations.longitude[i]]));
+        
+        control = L.Routing.control({
+            waypoints: routewps,
+            lineOptions: {
+                styles: [{ color: 'white', opacity: 1, weight: 5 }, { color: 'blue', opacity: 1, weight: 3 }]
+            },
+            createMarker: function (i, wp, nWps) {
+                if (i === 0) {
+                    return L.marker(wp.latLng, { icon: startIcon });
+                } else if (i === nWps - 1) {
+                    return L.marker(wp.latLng, { icon: finishIcon });
+                }
+                    else {
+                    return L.marker(wp.latLng, { icon: markerIcon });
+                }
+            },
+            addWaypoints: false,
+            units: 'imperial',
+            fitSelectedRoutes: false,
+            //createMarker: function () { return null; },
+            router: L.Routing.mapbox('pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw')
+        }).addTo(map);
+        control.hide();
+        //map.fitBounds(group.getBounds().pad(0.5));
     }
-
-    var group = new L.featureGroup(array);
-
-    var control = L.Routing.control({
-        waypoints: routewps,
-        units: 'imperial',
-        createMarker: function () { return null; },
-        router: L.Routing.mapbox('pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw')
-    }).addTo(mymap);
-    control.hide();
-    mymap.fitBounds(group.getBounds().pad(0.5));
 }
 
 function getDistance(rwp1, rwp2) {
@@ -599,9 +614,9 @@ function ACS() {
         }
         console.log(road);
         for (var h = 0; h < an; h++) {
-            for (var h1 = 0; h1 < cn-1; h1++) {
+            for (var h1 = 0; h1 < cn - 1; h1++) {
                 road[h].shift();
-                
+
             }
         }
 
@@ -715,8 +730,8 @@ function ACS() {
 
     var text = "";
     var kk = 2;
-    for (var i = 0; i < cn-1; i++) {
-        
+    for (var i = 0; i < cn - 1; i++) {
+
         text += "#distance:" + dis[shortestR[i][0]][shortestR[i][1]] + "<br>" + "(" + kk + ")" + selectedLocations.name[shortestR[i][1]] + "<br>"
         kk++;
     }

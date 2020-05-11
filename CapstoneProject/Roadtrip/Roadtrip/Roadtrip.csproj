@@ -287,6 +287,8 @@
     <Content Include="500.html" />
     <Content Include="App_Data\Down.sql" />
     <Content Include="App_Data\Up.sql" />
+    <Content Include="Content\404.png" />
+    <Content Include="Content\500.png" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />
@@ -294,18 +296,22 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\croppedVid.mp4" />
+    <Content Include="Content\finish.png" />
     <Content Include="Content\homepage.css" />
     <Content Include="Content\img1.jpg" />
     <Content Include="Content\img2.jpg" />
     <Content Include="Content\img3.jpg" />
     <Content Include="Content\leaflet-routing-machine.css" />
     <Content Include="Content\leaflet.routing.icons.png" />
+    <Content Include="Content\marker.png" />
+    <Content Include="Content\marker2.png" />
     <Content Include="Content\navbar.png" />
     <Content Include="Content\route.jpg" />
     <Content Include="Content\routeCreation.png" />
     <Content Include="Content\routing-icon.png" />
     <Content Include="Content\Search.png" />
     <Content Include="Content\rt.gif" />
+    <Content Include="Content\start.png" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -349,11 +355,13 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\leaflet-routing-machine.js" />
+    <Content Include="Scripts\LeafletExtension.js" />
     <Content Include="Scripts\LikedRoutes.js" />
     <Content Include="Scripts\link.js" />
     <Content Include="Scripts\main.js" />
     <Content Include="Scripts\mapScripts.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\PlacesAPIv2.js" />
     <Content Include="Scripts\PlacesAPI.js" />
     <Content Include="Scripts\popper-utils.js" />
     <Content Include="Scripts\popper-utils.min.js" />
@@ -491,6 +499,7 @@
     <Content Include="Views\Profiles\Edit.cshtml" />
     <Content Include="Views\Profiles\Index.cshtml" />
     <Content Include="Views\Home\Establishment.cshtml" />
+    <Content Include="Views\Shared\CreateRouteLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\SavedRoutes\Create.cshtml" />
