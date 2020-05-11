@@ -118,5 +118,14 @@ CREATE TABLE [dbo].[Profile]
 [RequestsPending] varchar(MAX) NOT NULL,
 CONSTRAINT [PK_dbo.Profile] PRIMARY KEY CLUSTERED ([PPID] ASC)
 );
+
+CREATE TABLE [dbo].[LikedEstablishments]
+(
+[LEID]			INT IDENTity (1,1) NOT NULL, 
+[EstablishmentID] NVARCHAR (MAX) NOT NULL, 
+[UserName]		NVARCHAR (256), 
+[EstablishmentName] NVARCHAR (MAX)
+CONSTRAINT [PK_dbo.LikedEstablishments] PRIMARY KEY CLUSTERED ([LEID] ASC)
+);
 GO
 

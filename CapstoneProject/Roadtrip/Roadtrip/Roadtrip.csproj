@@ -266,6 +266,7 @@
     <Compile Include="Controllers\ProfilesController.cs" />
     <Compile Include="Controllers\RoutesController.cs" />
     <Compile Include="Controllers\SavedRoutesController.cs" />
+    <Compile Include="DAL\LikedEstablishments.cs" />
     <Compile Include="DAL\SavedRoute.cs" />
     <Compile Include="DAL\SavedRoutesModel.cs" />
     <Compile Include="Global.asax.cs">
@@ -285,6 +286,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\Down.sql" />
+    <Content Include="App_Data\Tester27DB.mdf" />
+    <Content Include="App_Data\Tester27DB_log.ldf">
+      <DependentUpon>Tester27DB.mdf</DependentUpon>
+    </Content>
     <Content Include="App_Data\Up.sql" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
