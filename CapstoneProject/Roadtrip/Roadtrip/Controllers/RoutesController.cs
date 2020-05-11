@@ -21,9 +21,13 @@ namespace Roadtrip.Controllers
     [Authorize]
     public class RoutesController : Controller
     {
-        ApplicationDbContext db = new ApplicationDbContext();
+       // ApplicationDbContext db = new ApplicationDbContext();
         CommentsModel db1 = new CommentsModel();
+
         ProfileContext db2 = new ProfileContext();
+
+
+        private SavedRoutesModel db = new SavedRoutesModel();
 
 
         // GET: Routes
@@ -45,6 +49,21 @@ namespace Roadtrip.Controllers
             return View();
         }
 
+        public ActionResult getLikeEstablishments()
+        {
+            List<LikedEstablishments> le = db.LikedEstablishments
+             .Where(s => s.UserName.Contains(User.Identity.Name)).ToList();
+
+            return new ContentResult
+            {
+                // serialize C# object "commits" to JSON using Newtonsoft.Json.JsonConvert
+                Content = JsonConvert.SerializeObject(le),
+                ContentType = "application/json",
+                ContentEncoding = System.Text.Encoding.UTF8
+            };
+
+        }
+
         public ActionResult Create()
         {
 
@@ -54,7 +73,17 @@ namespace Roadtrip.Controllers
                 ViewBag.loggedIn = true;
             }
             else
+            {
                 ViewBag.loggedIn = false;
+            }
+
+            List<LikedEstablishments> le = db.LikedEstablishments
+             .Where(s => s.UserName.Contains(User.Identity.Name))
+             .ToList();
+
+            ViewBag.LikedList = le;
+
+
             return View();
         }
 

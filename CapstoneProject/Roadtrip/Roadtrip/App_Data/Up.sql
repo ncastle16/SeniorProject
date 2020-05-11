@@ -119,6 +119,7 @@ CREATE TABLE [dbo].[Profile]
 CONSTRAINT [PK_dbo.Profile] PRIMARY KEY CLUSTERED ([PPID] ASC)
 );
 
+
 CREATE TABLE [dbo].[Events]
 (
 [EID] INT IDENTITY (1,1) NOT NULL,
@@ -141,5 +142,14 @@ CONSTRAINT [FK_dbo.Attendants_dbo.Profile_PPID] FOREIGN KEY ([UserID]) REFERENCE
 CONSTRAINT [FK_dbo.Attendants_dbo.Events_EID] FOREIGN KEY ([EventID]) REFERENCES [dbo].[Events] ([EID]) ON DELETE CASCADE
 );
 
+
+CREATE TABLE [dbo].[LikedEstablishments]
+(
+[LEID]			INT IDENTity (1,1) NOT NULL, 
+[EstablishmentID] NVARCHAR (MAX) NOT NULL, 
+[UserName]		NVARCHAR (256), 
+[EstablishmentName] NVARCHAR (MAX)
+CONSTRAINT [PK_dbo.LikedEstablishments] PRIMARY KEY CLUSTERED ([LEID] ASC)
+);
 GO
 
