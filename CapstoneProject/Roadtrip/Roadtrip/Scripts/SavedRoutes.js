@@ -30,7 +30,6 @@ function populateRouteList() {
 
     for (var i = 0; i < RouteList.length; i++) {
 
-
         $('#routeCol').append(`
 <div style="display:table; width:100%">
         <div style="display: table-row">
@@ -53,6 +52,8 @@ function populateRouteList() {
                 <input name="${i}" type="button" value="Show Route" onclick="showRoute(this.name)">
 
                 <input id="${RouteList[i].SRID}" type="button" value="Delete Route" onclick="deleteRoute(this.id)">
+                 
+                <input id="createEvent" name="${RouteList[i].SRID}" type="button" value="Create Event" onclick="location.href = '/Events/Create?id=${RouteList[i].SRID}';">
 
             </div>
         </div>
@@ -85,8 +86,6 @@ function populateRouteList() {
         
     }
 }
-
-
 
 function removeItem(srid) {
     var pos = 0;
