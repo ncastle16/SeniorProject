@@ -299,10 +299,7 @@
 
 
     <Content Include="App_Data\Down.sql" />
-    <Content Include="App_Data\Tester27DB.mdf" />
-    <Content Include="App_Data\Tester27DB_log.ldf">
-      <DependentUpon>Tester27DB.mdf</DependentUpon>
-    </Content>
+
     <Content Include="App_Data\Up.sql" />
     <Content Include="Content\404.png" />
     <Content Include="Content\500.png" />
@@ -314,24 +311,24 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\CraterLake.jpg" />
     <Content Include="Content\croppedVid.mp4" />
-<<<<<<< HEAD
+
     <Content Include="Content\finish.png" />
-=======
+
     <Content Include="Content\Deschutes.jpg" />
     <Content Include="Content\HellsCanyon.jpg" />
->>>>>>> dev
+
     <Content Include="Content\homepage.css" />
     <Content Include="Content\img1.jpg" />
     <Content Include="Content\img2.jpg" />
     <Content Include="Content\img3.jpg" />
     <Content Include="Content\leaflet-routing-machine.css" />
     <Content Include="Content\leaflet.routing.icons.png" />
-<<<<<<< HEAD
+
     <Content Include="Content\marker.png" />
     <Content Include="Content\marker2.png" />
-=======
+
     <Content Include="Content\MountHood.jpg" />
->>>>>>> dev
+
     <Content Include="Content\navbar.png" />
     <Content Include="Content\route.jpg" />
     <Content Include="Content\routeCreation.png" />
