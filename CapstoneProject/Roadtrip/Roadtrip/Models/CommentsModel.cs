@@ -7,7 +7,7 @@
 
     public partial class CommentsModel : DbContext
     {
-        public CommentsModel() : base("name=SavedContextLocal")
+        public CommentsModel() : base("name=SavedContext")
         {
         }
 
