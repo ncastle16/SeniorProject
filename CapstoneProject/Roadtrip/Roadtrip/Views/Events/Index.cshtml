@@ -7,7 +7,7 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create", "Saved", "SavedRoutes")
+    @Html.ActionLink("Create Event", "Saved", "SavedRoutes")
 </p>
 <table class="table">
     <tr>
@@ -46,10 +46,11 @@
         @using (Html.BeginForm("Index", "Events"))
         {
             @Html.AntiForgeryToken()
+
             <input type="hidden" name="EventID" value="@item.EID" />
             <input type="submit" value="Attend" />
         }
-        |
+
         @Html.ActionLink("Details", "Details", new { id = item.EID })
     </td>
 </tr>

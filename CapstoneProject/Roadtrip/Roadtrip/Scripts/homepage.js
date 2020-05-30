@@ -8,7 +8,7 @@ function plusSlides(n) {
 function currentSlide(n) {
     showSlides(slideIndex = n);
 }
-
+//Homepage slideshow
 function showSlides() {
     var i;
     var slides = document.getElementsByClassName("mySlides");
@@ -27,7 +27,7 @@ function showSlides() {
 }
 
 
-// When the user clicks the button, open the modal 
+//appends 3 of the users soonest events to the homepage
 function events(data) {
     console.log(data);
     $('#upcomingEvents').empty();
@@ -43,6 +43,7 @@ function events(data) {
     }
 }
 
+//retrieves events to post to homepage
 function getEvents(id) {
     var source = '/Home/LoadEvents?id=' + id;
     $.ajax({
@@ -59,7 +60,7 @@ function errorOnAjax(data) {
     console.log(data);
 }
 
-//for parsing json date format 
+//for parsing json date format and return normal date format
 function parseMSDate(s) {
     var dregex = /\/Date\((\d*)\)\//;
     return dregex.test(s) ? new Date(parseInt(dregex.exec(s)[1])) : s;

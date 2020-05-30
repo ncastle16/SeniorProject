@@ -1,4 +1,5 @@
-﻿function eventComments(data) {
+﻿//Adds comments under Event/Details/ 
+function eventComments(data) {
     $('#comments').empty();
     console.log(data);
     if (data == null) {
@@ -19,7 +20,7 @@
                 <div>${data[i].Comment1}<div/> 
                 <div/> <br />`)
         }
-        $('#createComment').attr("href", link)
+        $('#createComment').attr("href", link) //create link for adding comment to this event
     }
 }
 

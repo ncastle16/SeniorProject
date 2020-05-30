@@ -26,6 +26,7 @@ namespace Roadtrip.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Index(int? EventID)
         {
+            //Gets the user's id
             var userName = User.Identity.Name;
             List<Profile> test = db2.Profiles.Where(Profiles => Profiles.UserName == userName).ToList();
             int ChristAlmightyThatTookWayTooLong = test[0].PPID;
@@ -33,7 +34,7 @@ namespace Roadtrip.Controllers
             Attendant attendant = new Attendant();
             attendant.EventID = EventID.Value;
             attendant.UserID = ChristAlmightyThatTookWayTooLong;
-            db2.Attendant.Add(attendant);
+            db2.Attendant.Add(attendant); //add user as attendant of event
             db2.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -56,8 +57,8 @@ namespace Roadtrip.Controllers
 
         public JsonResult LoadCommentsEvents(string id)
         {
-            int x = Int32.Parse(id);
-            var comments = db2.Comments.Where(s => s.EstablishmentID == id).ToList();
+            int x = Int32.Parse(id); //Convert from string to int
+            var comments = db2.Comments.Where(s => s.EstablishmentID == id).ToList(); //Grabs all comments for an event
             if (comments.Count() == 0)
             {
                 var model = new
@@ -71,6 +72,7 @@ namespace Roadtrip.Controllers
             return Json(comments, JsonRequestBehavior.AllowGet);
         }
 
+        //parses out name from string of name, latitude, longitude and creates string of only names of establishments on the route
         public void ParseRoute(Event model)
         {
             System.Text.StringBuilder routeString = new System.Text.StringBuilder();
