@@ -46,11 +46,52 @@ namespace Roadtrip.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Event @event = db2.Events.Find(id);
+            ViewBag.eid = @event.EID; 
             if (@event == null)
             {
                 return HttpNotFound();
             }
             return View(@event);
+        }
+
+        public JsonResult LoadCommentsEvents(string id)
+        {
+            int x = Int32.Parse(id);
+            var comments = db2.Comments.Where(s => s.EstablishmentID == id).ToList();
+            if (comments.Count() == 0)
+            {
+                var model = new
+                {
+                    EstablishmentID = id
+                };
+
+                return Json(model, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(comments, JsonRequestBehavior.AllowGet);
+        }
+
+        public void ParseRoute(Event model)
+        {
+            System.Text.StringBuilder routeString = new System.Text.StringBuilder();
+            int start, end;
+
+            //Split the stored string into an array of locations
+            string[] words = model.Route.Split('\n');
+
+            //Foreach location-
+            for (int i = 0; i < words.Length - 1; i++)
+            {
+                start = words[i].IndexOf("[Na]");
+                end = words[i].LastIndexOf("[Na]");
+                routeString.Append(words[i].Substring(start + 4, end - start - 4));
+                if(words.Length - 2 > i)
+                {
+                    routeString.Append("-");
+                }
+            }
+
+            model.Route = routeString.ToString();
         }
 
         // GET: Events/Create
@@ -60,6 +101,7 @@ namespace Roadtrip.Controllers
             int id = Convert.ToInt32(Request.QueryString["id"]);
             var test = db2.SavedRoutes.Where(e => e.SRID == id).ToList();
             model.Route = test[0].Route;
+            ParseRoute(model);
             return View(model);
         }
 

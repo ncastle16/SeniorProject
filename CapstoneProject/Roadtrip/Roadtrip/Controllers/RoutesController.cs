@@ -34,6 +34,7 @@ namespace Roadtrip.Controllers
         [HttpGet]
         public ActionResult Index()
         {
+            
             string path = Server.MapPath("~/Uploads/");
             if (System.IO.File.Exists(path + User.Identity.Name + ".jpeg"))
             {
@@ -103,6 +104,19 @@ namespace Roadtrip.Controllers
 
             return Json(comments, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult LoadEvents(int id)
+        {
+            var events = from a in db2.Attendant
+                         join e in db2.Events on a.EventID equals e.EID
+                         where a.UserID == id
+                         select new { a.Event.EventName,  a.Event.Start };
+
+            Trace.WriteLine(events);
+
+            return Json(events, JsonRequestBehavior.AllowGet);
+        }
+
 
 
         public JsonResult GetEstablishment()
